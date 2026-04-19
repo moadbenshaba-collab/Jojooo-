@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سجو 🤍</title>
+
+<style>
+body {
+    margin:0;
+    background: linear-gradient(180deg,#fff,#ffd6e7);
+    font-family:'Cairo', sans-serif;
+    overflow:hidden;
+    color:#c2185b;
+}
+
+.screen {
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:25px;
+}
+
+.text {
+    font-size:20px;
+    line-height:1.8;
+    max-width:320px;
+}
+
+button {
+    margin-top:25px;
+    padding:12px 25px;
+    background:#ff4d88;
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+}
+
+.heart {
+    position:absolute;
+    color:#ff4d88;
+    pointer-events:none;
+    animation: float 7s linear infinite;
+}
+@keyframes float {
+    0% {transform: translateY(100vh);}
+    100% {transform: translateY(-10vh); opacity:0;}
+}
+
+.avatar {
+    width:110px;
+    border-radius:50%;
+    margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="♥";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),7000);
+},500);
+</script>
+
+<div class="screen">
+<div>
+<div class="text" id="text"></div>
+
+<img id="img" class="avatar" style="display:none"
+src="https://upload.wikimedia.org/wikipedia/en/3/3a/Buttercup_Powerpuff_Girls.png">
+
+<button onclick="next()">كملي</button>
+</div>
+</div>
+
+<script>
+
+let start = new Date("2025-12-03");
+let end = new Date("2026-05-10");
+let days = Math.floor((end - start) / (1000*60*60*24));
+
+let texts = [
+"10 مايو 🎂\nمش يوم عادي… هذا يومك انتي",
+
+"في الجامعة… في مادة برمجة مرئية 1\nصارت صدفة غيرت كل شي",
+
+"لين سألتي على المادة…\nطيبتك وحنّيتك شدوني",
+
+"ومن وقتها…\nلقيت روحي نشوف فيك أكثر من مجرد زميلة",
+
+"مهندستي 🤍\nنشوف فيك أحلى مهندسة في الدنيا",
+
+"أنتِ مش بس شخص…\nأنتِ فكرة جميلة صارت حقيقة",
+
+"من يوم 3 / 12 / 2025\nلليوم 10 / 5 / 2026",
+
+"لينا مع بعض ❣️ لمدة " + days + " يوم",
+
+"نحبك يا عيونيي ❣️"
+];
+
+let i = 0;
+
+function type(text){
+    let el = document.getElementById("text");
+    el.innerHTML="";
+    let j=0;
+    let inter=setInterval(()=>{
+        el.innerHTML += text[j] === "\n" ? "<br>" : text[j];
+        j++;
+        if(j>=text.length) clearInterval(inter);
+    },35);
+
+    if(i === 4){
+        document.getElementById("img").style.display="block";
+    } else {
+        document.getElementById("img").style.display="none";
+    }
+}
+
+function next(){
+    i++;
+    if(i < texts.length){
+        type(texts[i]);
+    }
+}
+
+type(texts[0]);
+
+</script>
+
+</body>
+</html>
