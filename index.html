@@ -6,7 +6,6 @@
 <title>سجو 🤍</title>
 
 <style>
-/* 📱 تثبيت حجم الشاشة */
 html,body{
 margin:0;
 padding:0;
@@ -17,11 +16,11 @@ font-family:sans-serif;
 background:linear-gradient(180deg,#fff,#ffd6e7);
 }
 
-/* 🔐 شاشة الدخول */
+/* 🔐 القفل */
 #lockScreen{
 position:fixed;
 inset:0;
-background:linear-gradient(180deg,#fff,#ffe4f1);
+background:#fff;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -36,8 +35,6 @@ border-radius:10px;
 border:1px solid #ddd;
 margin-top:10px;
 text-align:center;
-width:60%;
-max-width:250px;
 }
 
 button{
@@ -72,46 +69,37 @@ margin-top:20px;
 display:none;
 border-radius:20px;
 box-shadow:0 10px 25px rgba(255,77,136,0.3);
-animation:pop 1s ease;
-}
-@keyframes pop{
-from{transform:scale(0);}
-to{transform:scale(1);}
 }
 
-/* 💗 القلوب */
+/* 💗 قلوب واضحة (أكبر + أجمل) */
 .heart{
 position:absolute;
 color:#ff4d88;
-font-size:18px;
-animation:rise 6s linear forwards;
-opacity:0.8;
+font-size:28px;
+opacity:0.9;
+animation:rise 5s linear forwards;
+text-shadow:0 0 10px rgba(255,77,136,0.5);
 }
 
 @keyframes rise{
-0%{
-transform:translate(0,100vh) scale(1);
-opacity:1;
-}
-100%{
-transform:translate(0,-20vh) scale(1.5);
-opacity:0;
-}
+0%{transform:translateY(100vh) scale(0.8);}
+100%{transform:translateY(-20vh) scale(1.4);opacity:0;}
 }
 
-/* 📩 إشعار */
+/* 📩 إشعار فوق الزر */
 #notif{
 position:fixed;
-top:-100px;
 left:50%;
-transform:translateX(-50%);
+top:70%;
+transform:translate(-50%,-50%);
 background:#fff;
 color:#c2185b;
 padding:12px 20px;
 border-radius:12px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
 transition:0.6s;
 z-index:9999;
-box-shadow:0 10px 20px rgba(0,0,0,0.1);
+display:none;
 }
 
 /* 💌 رسالة */
@@ -130,7 +118,7 @@ z-index:9999;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* 🎧 زر */
+/* 🎧 زر النهاية */
 #musicBtn{
 display:none;
 margin-top:20px;
@@ -162,12 +150,12 @@ let h=document.createElement("div");
 h.className="heart";
 h.innerHTML="♥";
 
-/* 🎯 توجيه القلوب نحو الأعلى (يمين الشاشة كإحساس إشعار) */
-h.style.left=(70 + Math.random()*25)+"vw";
+/* توزيع أفضل */
+h.style.left=Math.random()*100+"vw";
 
 document.body.appendChild(h);
-setTimeout(()=>h.remove(),6000);
-},400);
+setTimeout(()=>h.remove(),5000);
+},350);
 </script>
 
 <!-- المحتوى -->
@@ -180,17 +168,15 @@ setTimeout(()=>h.remove(),6000);
 
 <button onclick="next()">كملي</button>
 
-<button id="musicBtn" onclick="openMusic()">
-🎧 اسمعي النهاية
-</button>
+<button id="musicBtn" onclick="openMusic()"></button>
 
 </div>
 </div>
 
-<!-- إشعار -->
-<div id="notif">📩 عندك رسالة جديدة 💌</div>
+<!-- 📩 إشعار -->
+<div id="notif">📩 اضغطي هنا قبل ما تكلمي</div>
 
-<!-- رسالة -->
+<!-- 💌 رسالة -->
 <div id="secret">
 💌  
 يمكن ما قلتهاش قبل…  
@@ -200,75 +186,52 @@ setTimeout(()=>h.remove(),6000);
 
 <script>
 
-// 📅 الأيام
-let startDate=new Date("2025-12-03");
-let endDate=new Date("2026-05-10");
-let days=Math.floor((endDate-startDate)/(1000*60*60*24));
+let i=0;
 
-// النصوص
 let texts=[
 "10 مايو 🎂\nهذا يومك انتي",
 "في الجامعة… بداية كل شي",
 "طيبتك وحنّيتك شدوني",
-"مهندستي 🤍\nأحلى مهندسة في الدنيا",
-"لينا مع بعض ❣️ لمدة "+days+" يوم",
-"نحبك يا عيونيي ❣️"
+"مهندستي 🤍",
+"لينا مع بعض ❣️"
 ];
 
-let i=0;
-
-// 📳 اهتزاز آمن
-function vib(p){
-if(navigator.vibrate){
-navigator.vibrate(p);
-}else{
-document.body.style.transform="translateX(5px)";
-setTimeout(()=>document.body.style.transform="translateX(-5px)",100);
-setTimeout(()=>document.body.style.transform="translateX(0)",200);
-}
-}
-
-// 🔐 الدخول
+// 🔐 دخول
 document.getElementById("loginBtn").addEventListener("click",function(){
 
 let val=document.getElementById("pass").value.trim();
 
 if(val!=="سجوو"){
-vib([300,100,300]);
 alert("الرمز غلط 🤍");
 return;
 }
 
-vib([200,100,200]);
-
 document.getElementById("lockScreen").style.display="none";
-
 type(texts[0]);
 });
 
-// ✍️ عرض النص
+// ✍️ النص
 function type(text){
 let el=document.getElementById("text");
 el.innerHTML=text.replace(/\n/g,"<br>");
 el.classList.remove("show");
-
 setTimeout(()=>el.classList.add("show"),100);
 
-// 🖼️ الصورة
-if(i===3){
+// 🖼️ صورة
+if(i===2){
 document.getElementById("img").style.display="block";
 }
 
 // 🔥 النهاية
 if(i===texts.length-1){
 
-vib([300,100,300,100,500]);
+// 📩 الإشعار ينزل فوق زر كملي
+document.getElementById("notif").style.display="block";
 
-setTimeout(()=>{
-document.getElementById("notif").style.top="20px";
-},1500);
-
-document.getElementById("musicBtn").style.display="block";
+// 🎧 تغيير الزر
+let btn=document.getElementById("musicBtn");
+btn.style.display="block";
+btn.innerHTML="هذا ليك يا جوجو 🤍";
 }
 }
 
@@ -285,11 +248,10 @@ function openMusic(){
 window.open("https://youtube.com/watch?v=1t9sfYqZ2iY","_blank");
 }
 
-// 📩 إشعار
+// 📩 عند الضغط على الإشعار
 document.getElementById("notif").onclick=function(){
 this.style.display="none";
 document.getElementById("secret").style.display="block";
-vib([200,100,200,100,500]);
 }
 
 </script>
