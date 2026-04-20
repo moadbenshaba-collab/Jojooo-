@@ -8,7 +8,7 @@
 <style>
 body{
 margin:0;
-font-family:'Cairo',sans-serif;
+font-family:sans-serif;
 background:linear-gradient(180deg,#fff,#ffd6e7);
 overflow:hidden;
 color:#c2185b;
@@ -21,18 +21,18 @@ width:100%;
 height:100%;
 background:linear-gradient(180deg,#fff,#ffd6e7);
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
 z-index:9999;
-flex-direction:column;
 text-align:center;
 }
 
 input{
-padding:10px;
+padding:12px;
 border-radius:10px;
 border:1px solid #ccc;
-margin-top:15px;
+margin-top:10px;
 text-align:center;
 }
 
@@ -46,7 +46,7 @@ border-radius:12px;
 font-size:16px;
 }
 
-/* المحتوى */
+/* النص */
 .screen{
 position:absolute;
 width:100%;
@@ -56,11 +56,7 @@ justify-content:center;
 align-items:center;
 text-align:center;
 padding:25px;
-opacity:0;
-transition:1s;
 }
-
-.active{opacity:1;}
 
 .text{
 font-size:20px;
@@ -72,7 +68,7 @@ max-width:320px;
 .heart{
 position:absolute;
 color:#ff4d88;
-animation:float 7s linear infinite;
+animation:float 6s linear infinite;
 }
 @keyframes float{
 0%{transform:translateY(100vh);}
@@ -90,14 +86,13 @@ margin-top:15px;
 
 <body>
 
-<!-- 🔐 شاشة القفل -->
+<!-- 🔐 القفل -->
 <div id="lockScreen">
-<h2>في حاجة مخبيها لك 🤍</h2>
-<p>اكتبي الرمز باش نكملوا…</p>
-<p><b>الرمز: 1052005</b></p>
+<h2>في حاجةليك 🤍</h2>
+<p>اكتبي الرمز:</p>
+<b>سجوو</b>
 
-<input id="pass" placeholder="اكتبي هنا">
-<br>
+<input id="pass" type="text" placeholder="اكتبي هنا">
 <button onclick="checkPass()">دخول</button>
 </div>
 
@@ -109,12 +104,12 @@ h.className="heart";
 h.innerHTML="♥";
 h.style.left=Math.random()*100+"vw";
 document.body.appendChild(h);
-setTimeout(()=>h.remove(),7000);
+setTimeout(()=>h.remove(),6000);
 },500);
 </script>
 
-<!-- المحتوى -->
-<div class="screen active" id="main">
+<!-- 📜 المحتوى -->
+<div class="screen">
 <div>
 <div class="text" id="text"></div>
 
@@ -127,97 +122,60 @@ src="https://i.imgur.com/4AiXzf8.png">
 
 <script>
 
+let i = 0;
+
 let texts = [
-"10 مايو 🎂\nمش يوم عادي… هذا يومك انتي",
-"في الجامعة… في مادة برمجة مرئية 1\nصارت صدفة غيرت كل شي",
-"لين سألتي على المادة…\nطيبتك وحنّيتك شدوني",
-"ومن وقتها…\nلقيت روحي نشوف فيك أكثر من مجرد زميلة",
+"10 مايو 🎂\nهذا يومك انتي",
+"في الجامعة… في مادة برمجة مرئية 1\nبداية كل شي",
+"طيبتك وحنّيتك شدوني من أول لحظة",
+"لقيت روحي نشوفك أكثر من مجرد زميلة",
 "مهندستي 🤍\nنشوف فيك أحلى مهندسة في الدنيا",
-"من يوم 3 / 12 / 2025\nلليوم 10 / 5 / 2026",
+"من يوم 3 / 12 / 2025",
 "لينا مع بعض ❣️",
 "نحبك يا عيونيي ❣️"
 ];
 
-let i=-1;
-let started=false;
-
-function checkPass(){
-    let val = document.getElementById("pass").value.trim();
-
-    if(val === "1052005"){
-        
-        // اهتزاز
-        if(navigator.vibrate){
-            navigator.vibrate([200,100,200,100,500]);
-        }
-
-        // تشغيل الأغنية
-        window.open("https://youtube.com/watch?v=1t9sfYqZ2iY", "_blank");
-
-        // إخفاء شاشة القفل
-        document.getElementById("lockScreen").style.display = "none";
-
-        // بدء الموقع
-        i = 0;
-        type(texts[i]);
-
-    } else {
-        if(navigator.vibrate){
-            navigator.vibrate([300,100,300]);
-        }
-        alert("الرمز غير صحيح 🤍");
-    }
-}
-  
-// 🔐 التحقق من كلمة السر
-function checkPass(){
-let val=document.getElementById("pass").value;
-
-if(val === "1052005"){
-navigator.vibrate([200,100,200]);
-
-// 🎵 فتح الأغنية
-window.open("https://youtube.com/watch?v=1t9sfYqZ2iY","_blank");
-
-// 🌙 تأثير دخول
-document.getElementById("lockScreen").style.opacity="0";
-setTimeout(()=>{
-document.getElementById("lockScreen").style.display="none";
-},800);
-
-type(texts[0]);
-
-}else{
-navigator.vibrate([300,100,300]); // غلط
-}
-}
-
-// ✍️ كتابة
 function type(text){
 let el=document.getElementById("text");
 el.innerHTML="";
 let j=0;
 
 let inter=setInterval(()=>{
-el.innerHTML += text[j] === "\n" ? "<br>" : text[j];
+el.innerHTML += text[j]==="\n"?"<br>":text[j];
 j++;
 if(j>=text.length) clearInterval(inter);
-},35);
+},30);
 
-// صورة
 if(i===4){
 document.getElementById("img").style.display="block";
 }else{
 document.getElementById("img").style.display="none";
 }
-
-// اهتزاز قوي في النهاية
-if(i===texts.length-1){
-navigator.vibrate([300,100,300,100,500]);
-}
 }
 
-// التالي
+function checkPass(){
+
+let val=document.getElementById("pass").value.trim();
+
+if(val !== "سجوو"){
+if(navigator.vibrate) navigator.vibrate([300,100,300]);
+alert("الرمز غلط 🤍");
+return;
+}
+
+if(navigator.vibrate) navigator.vibrate([200,100,200,100,500]);
+
+// 🎵 الأغنية
+window.open("https://youtube.com/watch?v=1t9sfYqZ2iY","_blank");
+
+// 🔓 إغلاق القفل
+document.getElementById("lockScreen").style.display="none";
+
+// بدء القصة
+i=0;
+type(texts[i]);
+}
+
 function next(){
 i++;
 if(i<texts.length){
