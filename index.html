@@ -6,79 +6,120 @@
 <title>سجو 🤍</title>
 
 <style>
-body {
-    margin:0;
-    background: linear-gradient(180deg,#fff,#ffd6e7);
-    font-family:'Cairo', sans-serif;
-    overflow:hidden;
-    color:#c2185b;
+body{
+margin:0;
+font-family:'Cairo',sans-serif;
+background:linear-gradient(180deg,#fff,#ffd6e7);
+overflow:hidden;
+color:#c2185b;
 }
 
-.screen {
-    position:absolute;
-    width:100%;
-    height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:25px;
+/* 🔐 شاشة القفل */
+#lockScreen{
+position:fixed;
+width:100%;
+height:100%;
+background:linear-gradient(180deg,#fff,#ffd6e7);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+flex-direction:column;
+text-align:center;
 }
 
-.text {
-    font-size:20px;
-    line-height:1.8;
-    max-width:320px;
+input{
+padding:10px;
+border-radius:10px;
+border:1px solid #ccc;
+margin-top:15px;
+text-align:center;
 }
 
-button {
-    margin-top:25px;
-    padding:12px 25px;
-    background:#ff4d88;
-    color:white;
-    border:none;
-    border-radius:12px;
-    font-size:16px;
+button{
+margin-top:15px;
+padding:12px 25px;
+background:#ff4d88;
+color:white;
+border:none;
+border-radius:12px;
+font-size:16px;
 }
 
-.heart {
-    position:absolute;
-    color:#ff4d88;
-    pointer-events:none;
-    animation: float 7s linear infinite;
-}
-@keyframes float {
-    0% {transform: translateY(100vh);}
-    100% {transform: translateY(-10vh); opacity:0;}
+/* المحتوى */
+.screen{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:25px;
+opacity:0;
+transition:1s;
 }
 
-.avatar {
-    width:110px;
-    border-radius:50%;
-    margin-top:15px;
+.active{opacity:1;}
+
+.text{
+font-size:20px;
+line-height:1.8;
+max-width:320px;
+}
+
+/* قلوب */
+.heart{
+position:absolute;
+color:#ff4d88;
+animation:float 7s linear infinite;
+}
+@keyframes float{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* صورة */
+.avatar{
+width:110px;
+border-radius:50%;
+margin-top:15px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- 🔐 شاشة القفل -->
+<div id="lockScreen">
+<h2>في حاجة مخبيها لك 🤍</h2>
+<p>اكتبي الرمز باش نكملوا…</p>
+<p><b>الرمز: سجوو</b></p>
+
+<input id="pass" placeholder="اكتبي هنا">
+<br>
+<button onclick="checkPass()">دخول</button>
+</div>
+
+<!-- 💗 قلوب -->
 <script>
 setInterval(()=>{
-    let h=document.createElement("div");
-    h.className="heart";
-    h.innerHTML="♥";
-    h.style.left=Math.random()*100+"vw";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),7000);
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="♥";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),7000);
 },500);
 </script>
 
-<div class="screen">
+<!-- المحتوى -->
+<div class="screen active" id="main">
 <div>
 <div class="text" id="text"></div>
 
 <img id="img" class="avatar" style="display:none"
-src=>
+src="https://i.imgur.com/4AiXzf8.png">
 
 <button onclick="next()">كملي</button>
 </div>
@@ -86,60 +127,77 @@ src=>
 
 <script>
 
-let start = new Date("2025-12-03");
-let end = new Date("2026-05-10");
-let days = Math.floor((end - start) / (1000*60*60*24));
-
 let texts = [
 "10 مايو 🎂\nمش يوم عادي… هذا يومك انتي",
-
 "في الجامعة… في مادة برمجة مرئية 1\nصارت صدفة غيرت كل شي",
-
 "لين سألتي على المادة…\nطيبتك وحنّيتك شدوني",
-
 "ومن وقتها…\nلقيت روحي نشوف فيك أكثر من مجرد زميلة",
-
 "مهندستي 🤍\nنشوف فيك أحلى مهندسة في الدنيا",
-
-"أنتِ مش بس شخص…\nأنتِ فكرة جميلة صارت حقيقة",
-
 "من يوم 3 / 12 / 2025\nلليوم 10 / 5 / 2026",
-
-"لينا مع بعض ❣️ لمدة " + days + " يوم",
-
+"لينا مع بعض ❣️",
 "نحبك يا عيونيي ❣️"
 ];
 
-let i = 0;
+let i=0;
+let started=false;
 
-function type(text){
-    let el = document.getElementById("text");
-    el.innerHTML="";
-    let j=0;
-    let inter=setInterval(()=>{
-        el.innerHTML += text[j] === "\n" ? "<br>" : text[j];
-        j++;
-        if(j>=text.length) clearInterval(inter);
-    },35);
+// 🔐 التحقق من كلمة السر
+function checkPass(){
+let val=document.getElementById("pass").value;
 
-    if(i === 4){
-        document.getElementById("img").style.display="block";
-    } else {
-        document.getElementById("img").style.display="none";
-    }
-}
+if(val === "سجوو"){
+navigator.vibrate([200,100,200]);
 
-function next(){
-    i++;
-    if(i < texts.length){
-        type(texts[i]);
-    }
-}
+// 🎵 فتح الأغنية
+window.open("https://youtube.com/watch?v=1t9sfYqZ2iY","_blank");
+
+// 🌙 تأثير دخول
+document.getElementById("lockScreen").style.opacity="0";
+setTimeout(()=>{
+document.getElementById("lockScreen").style.display="none";
+},800);
 
 type(texts[0]);
 
-</script>
+}else{
+navigator.vibrate([300,100,300]); // غلط
+}
+}
 
+// ✍️ كتابة
+function type(text){
+let el=document.getElementById("text");
+el.innerHTML="";
+let j=0;
+
+let inter=setInterval(()=>{
+el.innerHTML += text[j] === "\n" ? "<br>" : text[j];
+j++;
+if(j>=text.length) clearInterval(inter);
+},35);
+
+// صورة
+if(i===4){
+document.getElementById("img").style.display="block";
+}else{
+document.getElementById("img").style.display="none";
+}
+
+// اهتزاز قوي في النهاية
+if(i===texts.length-1){
+navigator.vibrate([300,100,300,100,500]);
+}
+}
+
+// التالي
+function next(){
+i++;
+if(i<texts.length){
+type(texts[i]);
+}
+}
+
+</script>
 
 </body>
 </html>
