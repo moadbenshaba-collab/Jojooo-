@@ -9,12 +9,12 @@
 body{
 margin:0;
 font-family:sans-serif;
-background:#000;
+background:#0d0d0d;
 overflow:hidden;
 color:#fff;
 }
 
-/* 🔐 القفل */
+/* 🔐 شاشة الدخول */
 #lockScreen{
 position:fixed;
 width:100%;
@@ -44,23 +44,24 @@ color:white;
 border:none;
 border-radius:12px;
 font-size:16px;
+cursor:pointer;
 }
 
-/* ✨ النص */
+/* النص */
 .text{
 font-size:22px;
 line-height:1.8;
 max-width:320px;
 opacity:0;
-transform:scale(0.9);
+transform:translateY(20px);
 transition:0.6s;
 }
 .show{
 opacity:1;
-transform:scale(1);
+transform:translateY(0);
 }
 
-/* 💗 قلوب */
+/* القلوب */
 .heart{
 position:absolute;
 color:#ff4d88;
@@ -71,28 +72,21 @@ animation:float 6s linear infinite;
 100%{transform:translateY(-10vh);opacity:0;}
 }
 
-/* 🖼️ صورة القنينة */
+/* الصورة */
 .avatar{
 width:140px;
 margin-top:20px;
 display:none;
+border-radius:20px;
+box-shadow:0 0 20px pink;
 animation:pop 1s ease;
 }
 @keyframes pop{
-0%{transform:scale(0);}
-100%{transform:scale(1);}
+from{transform:scale(0);}
+to{transform:scale(1);}
 }
 
-/* ✨ لمعان */
-.glow{
-animation:glow 1s infinite alternate;
-}
-@keyframes glow{
-from{filter:drop-shadow(0 0 5px pink);}
-to{filter:drop-shadow(0 0 20px pink);}
-}
-
-/* 📩 إشعار */
+/* إشعار */
 #notif{
 position:fixed;
 top:-100px;
@@ -107,7 +101,7 @@ z-index:9999;
 cursor:pointer;
 }
 
-/* 💌 رسالة */
+/* رسالة */
 #secret{
 display:none;
 position:fixed;
@@ -131,9 +125,22 @@ z-index:9999;
 <h2>في حاجة مخبيها لك 🤍</h2>
 <p>اكتبي الرمز:</p>
 <b>سجوو</b>
-<input id="pass">
-<button onclick="start()">دخول</button>
+
+<input id="pass" placeholder="اكتبي هنا">
+<button id="loginBtn">دخول</button>
 </div>
+
+<!-- 💗 قلوب -->
+<script>
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="♥";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},500);
+</script>
 
 <!-- المحتوى -->
 <div style="display:flex;justify-content:center;align-items:center;height:100vh;text-align:center;">
@@ -145,34 +152,24 @@ z-index:9999;
 <button onclick="next()">كملي</button>
 
 <button id="musicBtn" onclick="openMusic()" style="display:none;background:#000;">
-🎧 في حاجة أخيرة ليك…
+🎧 اسمعي النهاية
 </button>
 
 </div>
 </div>
 
 <!-- إشعار -->
-<div id="notif">📩 Sajo ❤️: عندك رسالة جديدة</div>
+<div id="notif">📩 عندك رسالة جديدة 💌</div>
 
 <!-- رسالة سرية -->
 <div id="secret">
 💌  
 يمكن ما قلتهاش قبل…  
 بس كل مرة نشوفك فيها  
-نحس إني نبيك أكثر من أي شي 🤍
+نحس إني نبيك أكثر 🤍
 </div>
 
 <script>
-
-// 💗 قلوب
-setInterval(()=>{
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="♥";
-h.style.left=Math.random()*100+"vw";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),6000);
-},500);
 
 // 📅 الأيام
 let startDate=new Date("2025-12-03");
@@ -191,24 +188,29 @@ let texts=[
 
 let i=0;
 
-// 🔐 دخول
-function start(){
+// 🔐 الدخول (مضمون)
+document.getElementById("loginBtn").addEventListener("click", function(){
+
 let val=document.getElementById("pass").value.trim();
 
 if(val!=="سجوو"){
-navigator.vibrate([300,100,300]);
+navigator.vibrate?.([300,100,300]);
 alert("الرمز غلط 🤍");
 return;
 }
 
-navigator.vibrate([200,100,200]);
+// 📳 اهتزاز
+navigator.vibrate?.([200,100,200,100,400]);
 
+// 🔓 إخفاء القفل
 document.getElementById("lockScreen").style.display="none";
 
+// ▶️ بداية
 type(texts[0]);
-}
 
-// ✍️ عرض النص
+});
+
+// ✍️ كتابة النص
 function type(text){
 let el=document.getElementById("text");
 el.innerHTML=text.replace(/\n/g,"<br>");
@@ -216,28 +218,20 @@ el.classList.remove("show");
 
 setTimeout(()=>el.classList.add("show"),100);
 
-// 🖼️ القنينة
+// 🖼️ الصورة
 if(i===3){
-let img=document.getElementById("img");
-img.style.display="block";
-
-// ✨ لمعان بعد ثانيتين
-setTimeout(()=>{
-img.classList.add("glow");
-},2000);
+document.getElementById("img").style.display="block";
 }
 
 // 🔥 النهاية
 if(i===texts.length-1){
 
-navigator.vibrate([300,100,300,100,500]);
+navigator.vibrate?.([300,100,300,100,500]);
 
-// إشعار
 setTimeout(()=>{
 document.getElementById("notif").style.top="20px";
 },2000);
 
-// زر الأغنية
 document.getElementById("musicBtn").style.display="block";
 }
 }
@@ -250,17 +244,17 @@ type(texts[i]);
 }
 }
 
-// 🎧 أغنية
+// 🎧 يوتيوب
 function openMusic(){
 window.open("https://youtube.com/watch?v=1t9sfYqZ2iY","_blank");
 }
 
-// 📩 فتح الرسالة
+// 📩 إشعار
 document.getElementById("notif").onclick=function(){
 this.style.display="none";
 document.getElementById("secret").style.display="block";
 
-navigator.vibrate([200,100,200,100,500]);
+navigator.vibrate?.([200,100,200,100,500]);
 }
 
 </script>
