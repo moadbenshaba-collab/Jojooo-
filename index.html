@@ -2,23 +2,25 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>سجو 🤍</title>
 
 <style>
-body{
+/* 📱 تثبيت حجم الشاشة */
+html,body{
 margin:0;
+padding:0;
+width:100%;
+height:100%;
+overflow:hidden;
 font-family:sans-serif;
 background:linear-gradient(180deg,#fff,#ffd6e7);
-overflow:hidden;
-color:#c2185b;
 }
 
 /* 🔐 شاشة الدخول */
 #lockScreen{
 position:fixed;
-width:100%;
-height:100%;
+inset:0;
 background:linear-gradient(180deg,#fff,#ffe4f1);
 display:flex;
 flex-direction:column;
@@ -34,6 +36,8 @@ border-radius:10px;
 border:1px solid #ddd;
 margin-top:10px;
 text-align:center;
+width:60%;
+max-width:250px;
 }
 
 button{
@@ -44,10 +48,9 @@ color:white;
 border:none;
 border-radius:12px;
 font-size:16px;
-cursor:pointer;
 }
 
-/* النص */
+/* 💬 النص */
 .text{
 font-size:22px;
 line-height:1.8;
@@ -55,26 +58,16 @@ max-width:320px;
 opacity:0;
 transform:translateY(20px);
 transition:0.6s;
+color:#c2185b;
 }
 .show{
 opacity:1;
 transform:translateY(0);
 }
 
-/* القلوب */
-.heart{
-position:absolute;
-color:#ff4d88;
-animation:float 6s linear infinite;
-}
-@keyframes float{
-0%{transform:translateY(100vh);}
-100%{transform:translateY(-10vh);opacity:0;}
-}
-
-/* الصورة */
+/* 🖼️ الصورة */
 .avatar{
-width:150px;
+width:140px;
 margin-top:20px;
 display:none;
 border-radius:20px;
@@ -86,7 +79,27 @@ from{transform:scale(0);}
 to{transform:scale(1);}
 }
 
-/* إشعار */
+/* 💗 القلوب */
+.heart{
+position:absolute;
+color:#ff4d88;
+font-size:18px;
+animation:rise 6s linear forwards;
+opacity:0.8;
+}
+
+@keyframes rise{
+0%{
+transform:translate(0,100vh) scale(1);
+opacity:1;
+}
+100%{
+transform:translate(0,-20vh) scale(1.5);
+opacity:0;
+}
+}
+
+/* 📩 إشعار */
 #notif{
 position:fixed;
 top:-100px;
@@ -98,11 +111,10 @@ padding:12px 20px;
 border-radius:12px;
 transition:0.6s;
 z-index:9999;
-cursor:pointer;
 box-shadow:0 10px 20px rgba(0,0,0,0.1);
 }
 
-/* رسالة */
+/* 💌 رسالة */
 #secret{
 display:none;
 position:fixed;
@@ -116,6 +128,17 @@ border-radius:15px;
 text-align:center;
 z-index:9999;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* 🎧 زر */
+#musicBtn{
+display:none;
+margin-top:20px;
+background:#ff4d88;
+color:#fff;
+border:none;
+padding:12px 20px;
+border-radius:12px;
 }
 </style>
 </head>
@@ -138,10 +161,13 @@ setInterval(()=>{
 let h=document.createElement("div");
 h.className="heart";
 h.innerHTML="♥";
-h.style.left=Math.random()*100+"vw";
+
+/* 🎯 توجيه القلوب نحو الأعلى (يمين الشاشة كإحساس إشعار) */
+h.style.left=(70 + Math.random()*25)+"vw";
+
 document.body.appendChild(h);
 setTimeout(()=>h.remove(),6000);
-},500);
+},400);
 </script>
 
 <!-- المحتوى -->
@@ -150,12 +176,11 @@ setTimeout(()=>h.remove(),6000);
 
 <div class="text" id="text"></div>
 
-<!-- ⚠️ الصورة (اسمها حساس) -->
 <img id="img" class="avatar" src="Saja.png">
 
 <button onclick="next()">كملي</button>
 
-<button id="musicBtn" onclick="openMusic()" style="display:none;background:#ff4d88;">
+<button id="musicBtn" onclick="openMusic()">
 🎧 اسمعي النهاية
 </button>
 
@@ -165,7 +190,7 @@ setTimeout(()=>h.remove(),6000);
 <!-- إشعار -->
 <div id="notif">📩 عندك رسالة جديدة 💌</div>
 
-<!-- رسالة سرية -->
+<!-- رسالة -->
 <div id="secret">
 💌  
 يمكن ما قلتهاش قبل…  
@@ -192,26 +217,36 @@ let texts=[
 
 let i=0;
 
+// 📳 اهتزاز آمن
+function vib(p){
+if(navigator.vibrate){
+navigator.vibrate(p);
+}else{
+document.body.style.transform="translateX(5px)";
+setTimeout(()=>document.body.style.transform="translateX(-5px)",100);
+setTimeout(()=>document.body.style.transform="translateX(0)",200);
+}
+}
+
 // 🔐 الدخول
 document.getElementById("loginBtn").addEventListener("click",function(){
 
 let val=document.getElementById("pass").value.trim();
 
 if(val!=="سجوو"){
-navigator.vibrate?.([300,100,300]);
+vib([300,100,300]);
 alert("الرمز غلط 🤍");
 return;
 }
 
-navigator.vibrate?.([200,100,200]);
+vib([200,100,200]);
 
 document.getElementById("lockScreen").style.display="none";
 
 type(texts[0]);
-
 });
 
-// ✍️ النص
+// ✍️ عرض النص
 function type(text){
 let el=document.getElementById("text");
 el.innerHTML=text.replace(/\n/g,"<br>");
@@ -221,18 +256,17 @@ setTimeout(()=>el.classList.add("show"),100);
 
 // 🖼️ الصورة
 if(i===3){
-let img=document.getElementById("img");
-img.style.display="block";
+document.getElementById("img").style.display="block";
 }
 
 // 🔥 النهاية
 if(i===texts.length-1){
 
-navigator.vibrate?.([300,100,300,100,500]);
+vib([300,100,300,100,500]);
 
 setTimeout(()=>{
 document.getElementById("notif").style.top="20px";
-},2000);
+},1500);
 
 document.getElementById("musicBtn").style.display="block";
 }
@@ -255,8 +289,7 @@ window.open("https://youtube.com/watch?v=1t9sfYqZ2iY","_blank");
 document.getElementById("notif").onclick=function(){
 this.style.display="none";
 document.getElementById("secret").style.display="block";
-
-navigator.vibrate?.([200,100,200,100,500]);
+vib([200,100,200,100,500]);
 }
 
 </script>
