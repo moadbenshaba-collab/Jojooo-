@@ -9,9 +9,9 @@
 body{
 margin:0;
 font-family:sans-serif;
-background:#0d0d0d;
+background:linear-gradient(180deg,#fff,#ffd6e7);
 overflow:hidden;
-color:#fff;
+color:#c2185b;
 }
 
 /* 🔐 شاشة الدخول */
@@ -19,7 +19,7 @@ color:#fff;
 position:fixed;
 width:100%;
 height:100%;
-background:#000;
+background:linear-gradient(180deg,#fff,#ffe4f1);
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -31,7 +31,7 @@ text-align:center;
 input{
 padding:12px;
 border-radius:10px;
-border:none;
+border:1px solid #ddd;
 margin-top:10px;
 text-align:center;
 }
@@ -74,11 +74,11 @@ animation:float 6s linear infinite;
 
 /* الصورة */
 .avatar{
-width:140px;
+width:150px;
 margin-top:20px;
 display:none;
 border-radius:20px;
-box-shadow:0 0 20px pink;
+box-shadow:0 10px 25px rgba(255,77,136,0.3);
 animation:pop 1s ease;
 }
 @keyframes pop{
@@ -93,12 +93,13 @@ top:-100px;
 left:50%;
 transform:translateX(-50%);
 background:#fff;
-color:#000;
+color:#c2185b;
 padding:12px 20px;
 border-radius:12px;
 transition:0.6s;
 z-index:9999;
 cursor:pointer;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
 }
 
 /* رسالة */
@@ -114,6 +115,7 @@ padding:25px;
 border-radius:15px;
 text-align:center;
 z-index:9999;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 </style>
 </head>
@@ -145,13 +147,15 @@ setTimeout(()=>h.remove(),6000);
 <!-- المحتوى -->
 <div style="display:flex;justify-content:center;align-items:center;height:100vh;text-align:center;">
 <div>
+
 <div class="text" id="text"></div>
 
+<!-- ⚠️ الصورة (اسمها حساس) -->
 <img id="img" class="avatar" src="Saja.png">
 
 <button onclick="next()">كملي</button>
 
-<button id="musicBtn" onclick="openMusic()" style="display:none;background:#000;">
+<button id="musicBtn" onclick="openMusic()" style="display:none;background:#ff4d88;">
 🎧 اسمعي النهاية
 </button>
 
@@ -188,8 +192,8 @@ let texts=[
 
 let i=0;
 
-// 🔐 الدخول (مضمون)
-document.getElementById("loginBtn").addEventListener("click", function(){
+// 🔐 الدخول
+document.getElementById("loginBtn").addEventListener("click",function(){
 
 let val=document.getElementById("pass").value.trim();
 
@@ -199,18 +203,15 @@ alert("الرمز غلط 🤍");
 return;
 }
 
-// 📳 اهتزاز
-navigator.vibrate?.([200,100,200,100,400]);
+navigator.vibrate?.([200,100,200]);
 
-// 🔓 إخفاء القفل
 document.getElementById("lockScreen").style.display="none";
 
-// ▶️ بداية
 type(texts[0]);
 
 });
 
-// ✍️ كتابة النص
+// ✍️ النص
 function type(text){
 let el=document.getElementById("text");
 el.innerHTML=text.replace(/\n/g,"<br>");
@@ -220,7 +221,8 @@ setTimeout(()=>el.classList.add("show"),100);
 
 // 🖼️ الصورة
 if(i===3){
-document.getElementById("img").style.display="block";
+let img=document.getElementById("img");
+img.style.display="block";
 }
 
 // 🔥 النهاية
