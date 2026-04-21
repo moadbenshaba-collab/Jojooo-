@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>سجو 🤍</title>
-
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<canvas id="fx"></canvas>
+
 <!-- 🎁 -->
 <section id="gift" class="scene active">
-<div class="gift" onclick="openGift()">🎁</div>
-<p>اضغطي لبدء المفاجأة</p>
+<div class="gift" onclick="goLogin()">🎁</div>
+<p>اضغطي لبدء الرحلة</p>
 </section>
 
 <!-- 🔐 -->
@@ -25,27 +26,36 @@
 
 <!-- 🎂 -->
 <section id="cake" class="scene">
-<div id="cakeBox">
-<div id="cake">🎂</div>
-<div id="candle">🕯️</div>
-<div id="knife">🔪</div>
-</div>
-<p id="hint">اضغطي على الشمعة</p>
+<h1>🎂</h1>
+<button onclick="openStory()">فتح الرسالة</button>
 </section>
 
-<!-- 📰 القصة -->
+<!-- 📖 -->
 <section id="story" class="scene scroll">
 <div id="storyText"></div>
-
-<button id="readBtn" onclick="finishStory()" style="display:none;">
-قرأت 🤍
-</button>
+<button onclick="openCard()">اكتمال القراءة ✔</button>
 </section>
 
-<!-- 💌 -->
-<section id="end" class="scene">
-<h1>🤍 النهاية</h1>
-<p>كل شي كان لك</p>
+<!-- 💌 كرت -->
+<section id="card" class="scene">
+<div class="cardBox">
+<img src="Saja.png">
+<p>جوجو 🤍</p>
+<button onclick="openSurprise()">متابعة</button>
+</div>
+</section>
+
+<!-- 🎁 مفاجآت -->
+<section id="surprise" class="scene">
+<h2>🎁 مفاجآت</h2>
+<button onclick="startDraw()">ابدئي الرسم 💗</button>
+<button onclick="openYT()">🎧 اليوتيوب</button>
+</section>
+
+<!-- 🖌️ رسم -->
+<section id="draw" class="scene">
+<h3>ارسم باللمس 💗</h3>
+<p>المس الشاشة</p>
 </section>
 
 <script src="script.js"></script>
