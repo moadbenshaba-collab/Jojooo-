@@ -6,59 +6,42 @@
 <title>سجو 🤍</title>
 
 <link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 </head>
 
 <body>
 
 <!-- 🎁 -->
-<section id="s1" class="scene active">
-<div class="gift" onclick="start()">🎁</div>
-<p class="hint">اضغطي هنا 🤍</p>
+<section id="gift" class="scene active">
+<div class="box" onclick="goLogin()">🎁</div>
+<p>اضغطي لفتح الهدية</p>
 </section>
 
 <!-- 🔐 -->
-<section id="s2" class="scene">
+<section id="login" class="scene">
 <h2>اكتبي الرمز</h2>
-<p class="hint">💡 التلميح: اسمك بدلع</p>
+<p>تلميح: اسمك بدلع 🤍</p>
 <input id="pass">
-<button onclick="login()">دخول</button>
+<button onclick="check()">دخول</button>
 </section>
 
 <!-- 🎂 -->
-<section id="s3" class="scene">
-<div id="cake">🎂<div id="candle">🕯️</div></div>
-<p id="hintCake" class="hint">اضغطي باش تشعليها 🔥</p>
+<section id="cake" class="scene">
+<h1>🎂</h1>
+<p>اضغطي للمتابعة</p>
+<button onclick="nextCake()">التالي</button>
 </section>
 
 <!-- 📰 -->
-<section id="s4" class="scene scroll">
-<div id="story"></div>
-<button id="next">التالي 💌</button>
-</section>
-
-<!-- ❤️ -->
-<section id="s5" class="scene">
-<div id="heart">❤️</div>
-<p class="hint">اضغطي وارسمي 🤍</p>
+<section id="story" class="scene scroll">
+<div id="text"></div>
+<button onclick="nextStory()">التالي 💌</button>
 </section>
 
 <!-- 💌 -->
-<section id="s6" class="scene">
-<div class="card">
-<img src="Saja.png">
-<div id="cardText"></div>
-<button onclick="love()">نحبك 🤍</button>
-</div>
+<section id="end" class="scene">
+<h2>🤍 النهاية 🤍</h2>
+<p>كل شي كان لك</p>
 </section>
-
-<a id="yt" target="_blank"
-href="https://youtube.com/watch?v=1t9sfYqZ2iY">
-▶️ النهاية
-</a>
-
-<audio id="music"
-src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8f5c7b1d9.mp3"></audio>
 
 <script src="script.js"></script>
 </body>
