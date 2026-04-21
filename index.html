@@ -3,73 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>سجو 🤍</title>
+<title>هدية سجو 🤍</title>
+
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
+
 body{
-margin:0;
 overflow:hidden;
-font-family:sans-serif;
-background:#fff;
+background:linear-gradient(180deg,#fff,#ffd6e7);
+height:100vh;
 }
 
-/* 🎬 انتقال سينمائي */
-#intro{
+/* 🌸 خلفية حية */
+body::before{
+content:"";
 position:fixed;
 inset:0;
-background:#fff;
+background:radial-gradient(circle,#fff,#ffe3ef,#ffd6e7);
+z-index:-2;
+animation:bg 8s infinite alternate;
+}
+
+@keyframes bg{
+0%{filter:hue-rotate(0deg);}
+100%{filter:hue-rotate(12deg);}
+}
+
+/* 💗 عناصر متحركة */
+.float{
+position:absolute;
+font-size:18px;
+opacity:0.7;
+animation:up 8s linear forwards;
+pointer-events:none;
+}
+
+@keyframes up{
+0%{transform:translateY(100vh) scale(1);}
+100%{transform:translateY(-120vh) scale(1.3);opacity:0;}
+}
+
+/* 🎁 البداية */
+.screen{
+position:fixed;
+inset:0;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:24px;
-animation:intro 2s forwards;
-z-index:9999;
-}
-
-@keyframes intro{
-0%{transform:scale(1);opacity:1;}
-100%{transform:scale(1.2);opacity:0;}
-}
-
-/* 🎁 الهدية */
-#gift{
-position:fixed;
-inset:0;
-display:flex;
 flex-direction:column;
-justify-content:center;
-align-items:center;
+text-align:center;
+padding:20px;
+transition:1s;
+}
+
+#gift{
 font-size:80px;
 cursor:pointer;
-transition:1s;
-}
-
-#box{
-transition:1s;
-animation:shake 1s infinite;
-}
-
-@keyframes shake{
-0%{transform:rotate(0);}
-25%{transform:rotate(2deg);}
-50%{transform:rotate(-2deg);}
-75%{transform:rotate(2deg);}
-100%{transform:rotate(0);}
 }
 
 /* 🔐 */
-#login{
-display:none;
-position:fixed;
-inset:0;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-}
-
 input{
 padding:10px;
 border-radius:10px;
 border:1px solid #ddd;
+margin-top:10px;
+text-align:center;
 }
 
 button{
@@ -78,53 +76,53 @@ background:#ff4d88;
 color:#fff;
 border:none;
 border-radius:10px;
+margin-top:10px;
 }
 
 /* 🎂 */
-#birthday{
+#birthday{display:none;font-size:22px;}
+
+/* 📰 */
+#story{
+display:none;
+font-size:18px;
+line-height:2;
+overflow:auto;
+}
+
+/* 💌 كرت */
+#card{
 display:none;
 position:fixed;
 inset:0;
 justify-content:center;
 align-items:center;
-flex-direction:column;
+background:rgba(255,255,255,0.6);
 }
 
-/* 📰 */
-#story{
-display:none;
-position:fixed;
-inset:0;
-padding:20px;
-font-size:18px;
-line-height:1.7;
-overflow:auto;
-}
-
-/* 💌 الكرت */
-#card{
-display:none;
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-width:80%;
+.cardBox{
 background:#fff;
-border-radius:15px;
+width:85%;
 padding:15px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
+border-radius:15px;
 text-align:center;
-z-index:9999;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+animation:pop .6s ease;
 }
 
-#card img{
+@keyframes pop{
+from{transform:scale(0);}
+to{transform:scale(1);}
+}
+
+.cardBox img{
 width:100%;
 border-radius:10px;
 margin-bottom:10px;
 }
 
-/* ❤️ */
-#bigHeart{
+/* ❤️ القلب الكبير */
+#heart{
 display:none;
 position:fixed;
 top:-150px;
@@ -134,75 +132,97 @@ font-size:120px;
 cursor:pointer;
 }
 
-/* 💗 */
-.p{
-position:absolute;
-font-size:20px;
-animation:fly 5s linear forwards;
+/* 💬 العبارة */
+#msg{
+display:none;
+position:fixed;
+inset:0;
+justify-content:center;
+align-items:center;
+text-align:center;
+flex-direction:column;
+padding:20px;
+font-size:18px;
+line-height:1.8;
 }
 
-@keyframes fly{
-to{transform:translateY(-120vh);opacity:0;}
-}
-
-/* 💡 */
-#hint{
+/* 🎧 */
+#music{
+display:none;
 position:fixed;
 bottom:20px;
-width:100%;
-text-align:center;
-color:#ff4d88;
-font-size:16px;
-opacity:0;
-transition:1s;
+left:50%;
+transform:translateX(-50%);
+background:#ff4d88;
+color:#fff;
+border:none;
+padding:12px 18px;
+border-radius:12px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎬 intro -->
-<div id="intro">جاري فتح الهدية… 🤍</div>
-
 <!-- 🎁 -->
-<div id="gift">
-<div id="box">🎁</div>
+<div id="gift" class="screen">
+🎁
 <small>اضغطي لفتح الهدية</small>
 </div>
 
 <!-- 🔐 -->
-<div id="login">
+<div id="login" class="screen" style="display:none;">
 <h3>اكتبي الرمز</h3>
-<small>تلميح: كلمة قريبة لاسمك 🤍</small>
+<small>تلميح: كلمة قريبة لقلبك 🤍</small>
 <input id="pass">
 <button onclick="check()">دخول</button>
 </div>
 
 <!-- 🎂 -->
-<div id="birthday"></div>
+<div id="birthday" class="screen"></div>
 
 <!-- 📰 -->
-<div id="story"></div>
+<div id="story" class="screen">
+<div id="txt"></div>
+</div>
 
-<!-- 💌 كرت الرسالة -->
+<!-- 💌 -->
 <div id="card">
+<div class="cardBox">
 <img src="Saja.png">
-<div id="cardText"></div>
+<div>
+جوجو 🤍<br><br>
+كلمات حب وامتنان لوجودك في حياتي<br>
+وصبرك عليا حتى وقت نكون مزعج<br><br>
+سامحيني لو يوم ضايقتك<br>
+كل شي مني كان من حبي ليك 🤍
+</div>
+</div>
 </div>
 
 <!-- ❤️ -->
-<div id="bigHeart">❤️</div>
+<div id="heart">❤️</div>
 
-<div id="hint"></div>
+<!-- 💬 -->
+<div id="msg"></div>
+
+<!-- 🎧 -->
+<button id="music">🎧 اسمعي النهاية</button>
 
 <script>
 
-/* 🎁 */
-setTimeout(()=>{
-intro.style.display="none";
-},2000);
+/* 🌸 خلفية مستمرة */
+setInterval(()=>{
+let e=document.createElement("div");
+e.className="float";
+e.innerHTML=Math.random()>0.5?"💗":"🌸";
+e.style.left=Math.random()*100+"vw";
+document.body.appendChild(e);
+setTimeout(()=>e.remove(),8000);
+},250);
 
-document.getElementById("gift").onclick=()=>{
+/* 🎁 */
+gift.onclick=()=>{
 gift.style.display="none";
 login.style.display="flex";
 };
@@ -217,6 +237,18 @@ alert("جربي التلميح 🤍");
 }
 }
 
+/* 🎂 انفجار */
+function burst(){
+for(let i=0;i<80;i++){
+let e=document.createElement("div");
+e.className="float";
+e.innerHTML="🎂💗🌸";
+e.style.left=Math.random()*100+"vw";
+document.body.appendChild(e);
+setTimeout(()=>e.remove(),5000);
+}
+}
+
 /* 🎂 */
 function startBirthday(){
 birthday.style.display="flex";
@@ -224,22 +256,20 @@ birthday.style.display="flex";
 birthday.innerHTML=`
 <h2>كل عام وانتي بخير 🎂</h2>
 <p>Happy Birthday 🎉</p>
-<p>21 🎀</p>
+<p>21 🤍</p>
 <small>اضغطي للمتابعة</small>
 `;
 
 birthday.onclick=()=>{
+burst();
 birthday.style.display="none";
 startStory();
 };
 }
 
-/* 📰 */
+/* 📰 قصة + سكرول */
 function startStory(){
-
-story.style.display="block";
-
-
+story.style.display="flex";
 
 let full = `من يوم 3 / 12  
 وانا بديت نحس بشي مختلف...
@@ -389,73 +419,70 @@ let full = `من يوم 3 / 12
 فهي ان ربي يكتبلي النصيب وباقي العمر معاك 🤍`;
 let i=0;
 
-let inter=setInterval(()=>{
-story.innerHTML+=full[i];
+let t=setInterval(()=>{
+txt.innerHTML+=full[i];
+story.scrollTop=story.scrollHeight;
 i++;
 
 if(i>=full.length){
-clearInterval(inter);
-setTimeout(showCard,1000);
+clearInterval(t);
+setTimeout(showCard,1200);
 }
-},35);
+},30);
 }
 
-/* 💌 كرت الرسالة */
+/* 💌 كرت */
 function showCard(){
+card.style.display="flex";
 
-card.style.display="block";
-
-cardText.innerHTML=`
-جوجو 🤍<br><br>
-
-كلمات حب وامتنان لوجودك في حياتي…<br>
-وصبرك عليا حتى وقت نكون مزعج…<br><br>
-
-سامحيني لو يوم ضايقتك…<br>
-كل شي مني كان من حبي ليك 🤍<br><br>
-
-انتي مش شخص عادي في حياتي…<br>
-انتي الراحة متعي والسكينة اللي نلقى فيها نفسي
-`;
-
-setTimeout(()=>{
 card.onclick=()=>{
 card.style.display="none";
 showHeart();
 };
-},1000);
 }
 
-/* ❤️ */
+/* ❤️ قلب كبير */
 function showHeart(){
-bigHeart.style.display="block";
-hint.style.opacity=1;
-hint.innerHTML="اضغطي القلب…";
+heart.style.display="block";
 
-let pos=-150;
+let y=-150;
 let d=setInterval(()=>{
-pos+=6;
-bigHeart.style.top=pos+"px";
-if(pos>200) clearInterval(d);
+y+=6;
+heart.style.top=y+"px";
+if(y>220) clearInterval(d);
 },20);
 }
 
-/* 💥 */
-bigHeart.onclick=()=>{
+/* 💥 انفجار + عبارة */
+heart.onclick=()=>{
 
-bigHeart.style.display="none";
+heart.style.display="none";
 
-for(let i=0;i<150;i++){
+for(let i=0;i<120;i++){
 let e=document.createElement("div");
-e.className="p";
+e.className="float";
 e.innerHTML=Math.random()>0.5?"💗":"🌸";
 e.style.left=Math.random()*100+"vw";
-e.style.top=Math.random()*100+"vh";
 document.body.appendChild(e);
-setTimeout(()=>e.remove(),5000);
+setTimeout(()=>e.remove(),6000);
 }
 
-hint.innerHTML="تقدري يعيوني ترسمي بالحب 🤍";
+/* 💬 العبارة */
+msg.style.display="flex";
+msg.innerHTML=`
+💬<br><br>
+تقدري يعيوني ترسمي بالقلوب في الموقع<br>
+زي ما عبيتي حياتي حنية وحب 🤍
+`;
+
+setTimeout(()=>{
+music.style.display="block";
+},2500);
+};
+
+/* 🎧 */
+music.onclick=()=>{
+window.open("https://youtube.com/watch?v=1t9sfYqZ2iY","_blank");
 };
 
 </script>
