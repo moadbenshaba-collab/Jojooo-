@@ -1,54 +1,34 @@
-const scenes=document.querySelectorAll(".scene");
-const music=document.getElementById("music");
-
-function go(i){
-scenes.forEach(s=>s.classList.remove("active"));
-scenes[i].classList.add("active");
+/* تغيير الشاشات */
+function show(id){
+document.querySelectorAll(".scene").forEach(s=>{
+s.classList.remove("active");
+});
+document.getElementById(id).classList.add("active");
 }
 
-function start(){
-music.play().catch(()=>{});
-go(1);
+/* 🎁 */
+function goLogin(){
+show("login");
 }
 
-function login(){
-if(pass.value==="سجوو"){
-go(2);
-}else alert("قريبة 🤍");
+/* 🔐 */
+function check(){
+let pass=document.getElementById("pass").value;
+
+if(pass==="سجوو"){
+show("cake");
+}else{
+alert("جربي التلميح 🤍");
+}
 }
 
 /* 🎂 */
-let clicks=0,lit=false;
-
-cake.onclick=()=>{
-clicks++;
-
-if(!lit){
-spawn("🔥");
-
-if(clicks>5){
-candle.innerHTML="🕯️🔥";
-hintCake.innerText="توا قصّيها 🍰";
-lit=true;
-}
-}else{
-gsap.to("#cake",{scale:0,duration:.6});
-setTimeout(()=>go(3),600);
-}
-};
-
-function spawn(i){
-let e=document.createElement("div");
-e.innerHTML=i;
-e.style.position="fixed";
-e.style.left=Math.random()*100+"vw";
-e.style.top=Math.random()*100+"vh";
-document.body.appendChild(e);
-gsap.to(e,{opacity:0,y:-50,duration:1,onComplete:()=>e.remove()});
+function nextCake(){
+show("story");
 }
 
-/* 📰 القصة الطويلة الأصلية */
-let storyText = `من يوم 3 / 12  
+/* 📰 القصة الكاملة الأصلية */
+let story = `من يوم 3 / 12  
 وانا بديت نحس بشي مختلف...
 
 مش فاهمه في البداية  
@@ -195,46 +175,14 @@ let storyText = `من يوم 3 / 12
 لو في دعوة مستحيل نملّ منها،  
 فهي ان ربي يكتبلي النصيب وباقي العمر معاك 🤍`;
 
+/* كتابة القصة */
 let i=0;
 
-next.onclick=()=>{
-if(i>=storyText.length){
-go(4);
-return;
-}
-story.innerHTML+=storyText[i];
+function nextStory(){
+document.getElementById("text").innerText += story[i];
 i++;
-};
 
-/* ❤️ */
-let drawing=false,start;
-
-heart.onclick=()=>{
-drawing=true;
-start=Date.now();
-};
-
-document.addEventListener("mousemove",(e)=>{
-if(!drawing)return;
-
-let d=document.createElement("div");
-d.innerHTML=Math.random()>0.5?"💗":"🌸";
-d.style.position="fixed";
-d.style.left=e.clientX+"px";
-d.style.top=e.clientY+"px";
-document.body.appendChild(d);
-
-gsap.to(d,{opacity:0,y:-40,duration:1.2,onComplete:()=>d.remove()});
-
-if(Date.now()-start>20000){
-go(5);
-cardText.innerText="وجودك نعمة 🤍";
-drawing=false;
+if(i>=story.length){
+show("end");
 }
-});
-
-/* 💌 */
-function love(){
-cardText.innerText="نحبك ياعيوني 🤍";
-yt.style.display="block";
 }
