@@ -12,34 +12,39 @@
 
 <!-- 🎁 -->
 <section id="gift" class="scene active">
-<div class="box" onclick="goLogin()">🎁</div>
-<p>اضغطي لفتح الهدية</p>
+<div class="gift" onclick="openGift()">🎁</div>
+<p>اضغطي لبدء المفاجأة</p>
 </section>
 
 <!-- 🔐 -->
 <section id="login" class="scene">
 <h2>اكتبي الرمز</h2>
-<p>تلميح: اسمك بدلع 🤍</p>
 <input id="pass">
 <button onclick="check()">دخول</button>
 </section>
 
 <!-- 🎂 -->
 <section id="cake" class="scene">
-<h1>🎂</h1>
-<p>اضغطي للمتابعة</p>
-<button onclick="nextCake()">التالي</button>
+<div id="cakeBox">
+<div id="cake">🎂</div>
+<div id="candle">🕯️</div>
+<div id="knife">🔪</div>
+</div>
+<p id="hint">اضغطي على الشمعة</p>
 </section>
 
-<!-- 📰 -->
+<!-- 📰 القصة -->
 <section id="story" class="scene scroll">
-<div id="text"></div>
-<button onclick="nextStory()">التالي 💌</button>
+<div id="storyText"></div>
+
+<button id="readBtn" onclick="finishStory()" style="display:none;">
+قرأت 🤍
+</button>
 </section>
 
 <!-- 💌 -->
 <section id="end" class="scene">
-<h2>🤍 النهاية 🤍</h2>
+<h1>🤍 النهاية</h1>
 <p>كل شي كان لك</p>
 </section>
 
