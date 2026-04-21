@@ -1,45 +1,19 @@
-/* 🔁 تغيير المشاهد */
+/* 🎬 مشاهد */
 function show(id){
 document.querySelectorAll(".scene").forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
 }
 
-/* 🎁 */
-function openGift(){
-show("login");
-}
+function goLogin(){show("login");}
 
 /* 🔐 */
 function check(){
-if(pass.value==="سجوو"){
-show("cake");
-}else{
-alert("جربي التلميح 🤍");
-}
+if(pass.value==="سجوو") show("cake");
+else alert("جربي التلميح 🤍");
 }
 
-/* 🎂 شمعة + سكين */
-let clicks=0;
-let lit=false;
-
-candle.onclick=()=>{
-
-if(!lit){
-clicks++;
-if(clicks>=4){
-candle.innerText="🕯️🔥";
-hint.innerText="اضغطي السكين";
-lit=true;
-}
-}else{
-knife.style.display="block";
-cake.style.transform="scale(0)";
-setTimeout(()=>show("story"),1000);
-}
-};
-
-/* 📰 القصة كاملة دفعة واحدة (بدون تقسيم) */
-let story = `من يوم 3 / 12  
+/* 📖 القصة كاملة */
+let text = `من يوم 3 / 12  
 وانا بديت نحس بشي مختلف...
 
 مش فاهمه في البداية  
@@ -71,104 +45,79 @@ let story = `من يوم 3 / 12
 
 معاك نحكي بدون خوف  
 
-حتى لما نقولك مستاحشك  
-مش كلمة وخلاص  
-
-هذي شعور  
-
-لأني نبي نهدرز معاك ديما  
-مش لأن مفيش شي نديره  
-
-لكن لأنك انتي  
-الاستراحة متعي  
-
-من كل دوشة في راسي  
-
-مرات نحاول نهرب  
-نرقد... نطلع... نضيع وقت  
-
-بس في النهاية  
-نرجع نفكر فيك  
-
-ونلقى روحي نبي نهدرز معاك  
-حتى لو دقيقة  
-
-ويمكن مرات نحس روحي ثقيل  
-لكن الحقيقة نبيك انتي 🤍  
-
 جوجو 🤍  
-كل عام وانتي بخير يا قطعة من قلبي…  
-انتي مش يوم… انتي حياة كاملة  
+كل عام وانتي بخير  
 
 سجى❤️‍🩹  
-لو نقعد نحكي من توّا لغدوا  
-ما نوصلش للي في قلبي عليك  
-
 انتي ملاذي الآمن  
-المكان اللي نلقى فيه راحتي بدون تفسير  
+والراحة اللي نلقى فيها نفسي  
 
-انتي الشمعة اللي نورت ظلامي  
-والنور اللي نمشي عليه في طريقي  
+أنا نحبك حب صادق وثابت  
+ونبيك تكوني جزء من حياتي 🤍`;
 
-وجودك جنبي يكفيني  
-وكلامك يبدل يومي  
+function openStory(){
+show("story");
+storyText.innerText="";
+let i=0;
 
-حتى سكوتك مرات  
-فيه راحة ما نلقاهاش في أي حد  
-
-أنا عارفك كويس  
-وعارف إنك مش من النوع اللي يقول كلام حلو  
-
-بس كل تصرف منك  
-يوصلني أكثر من ألف كلمة  
-
-نشوفك في خوفك عليا  
-في سؤالك  
-في التفاصيل الصغيرة  
-
-سجوووو ❣️  
-أنا نحبك حب ثابت وصادق  
-
-حب خلاني نشوف فيك حياة  
-مش مجرد علاقة  
-
-ويمكن توّا مش جاهز لكل شي  
-لكن قاعد نحاول نبني نفسي  
-
-مش بس علشاني  
-لكن علشانك انتي 🤍  
-
-نبي نكون راجل يليق بيك  
-ونعوضك على كل لحظة تعب  
-
-نبيك تكوني حلالي  
-مش مجرد ذكرى وتمشي  
-
-نبيك في كل خطوة  
-في كل بداية ونهاية  
-
-نبي نشاركك حياتي  
-نفرح معاك  
-ونوقف معاك  
-
-ونكون لك الأمان  
-زي ما كنتي ليا أمان  
-
-كل عام وانتي معاي  
-وكل دعوة مني ليك  
-إن ربي يجمعني بيك بالحلال 🤍`;
-
-/* 💌 عرض النص دفعة واحدة */
-let shown=false;
-
-setTimeout(()=>{
-storyText.innerText = story;
-readBtn.style.display="block";
-shown=true;
-},1200);
-
-/* ✔ لما تضغط قرأت */
-function finishStory(){
-if(!shown) return;
-show("end");
+let t=setInterval(()=>{
+storyText.innerText += text[i];
+i++;
+if(i>=text.length) clearInterval(t);
+},18);
 }
+
+function openCard(){show("card");}
+function openSurprise(){show("surprise");}
+function startDraw(){show("draw");}
+
+/* 🎧 يوتيوب */
+function openYT(){
+window.open("https://youtube.com","_blank");
+}
+
+/* 💗 Canvas FX */
+const c=document.getElementById("fx");
+const x=c.getContext("2d");
+c.width=innerWidth;
+c.height=innerHeight;
+
+let p=[];
+
+function spawn(){
+p.push({
+x:Math.random()*c.width,
+y:c.height,
+s:Math.random()*2+1,
+t:Math.random()>0.5?"💗":"🌸"
+});
+}
+
+function draw(){
+x.clearRect(0,0,c.width,c.height);
+
+p.forEach((e,i)=>{
+e.y-=e.s;
+x.font="20px Arial";
+x.fillText(e.t,e.x,e.y);
+if(e.y<0) p.splice(i,1);
+});
+
+requestAnimationFrame(draw);
+}
+
+setInterval(spawn,120);
+draw();
+
+/* 🖌️ رسم */
+document.getElementById("draw").addEventListener("touchmove",(e)=>{
+let h=document.createElement("div");
+h.innerText="💗";
+h.style.position="absolute";
+h.style.left=e.touches[0].clientX+"px";
+h.style.top=e.touches[0].clientY+"px";
+h.style.fontSize="18px";
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),1000);
+});
