@@ -6,74 +6,63 @@
 <title>سجو 🤍</title>
 
 <link rel="stylesheet" href="style.css">
-
-<!-- GSAP -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
 </head>
 
 <body>
 
-<!-- 🌸 خلفية -->
-<div id="bg"></div>
-
-<!-- 🎁 Scene 1 -->
+<!-- 🎁 -->
 <section id="s1" class="scene active">
-  <div class="gift" id="giftBtn">🎁</div>
-  <p class="hint">اضغطي لفتح الهدية 🤍</p>
+<div class="gift" onclick="go(1);playMusic()">🎁</div>
+<p class="hint">👆 اضغطي هنا باش تفتحي الهدية</p>
 </section>
 
-<!-- 🔐 Scene 2 -->
+<!-- 🔐 -->
 <section id="s2" class="scene">
-  <h2>اكتبي الرمز</h2>
-  <p class="hint">تلميح: اسمك بدلع 🤍</p>
-  <input id="pass" placeholder="••••">
-  <button id="loginBtn">دخول</button>
+<h2>اكتبي الرمز 🤍</h2>
+<p class="hint">💡 تلميح: اسمك بدلع</p>
+<input id="pass">
+<button onclick="login()">دخول</button>
 </section>
 
-<!-- 🎂 Scene 3 -->
+<!-- 🎂 -->
 <section id="s3" class="scene">
-  <h1 class="big">🎂 كل عام وانتي بخير</h1>
-  <p class="sub">21 سنة جمال 🤍</p>
-  <p class="hint">اضغطي للمتابعة</p>
+<div id="cakeArea">
+<div class="cake">🎂</div>
+<div id="candle">🕯️</div>
+</div>
+<p id="cakeHint" class="hint">👆 اضغطي أكثر من مرة باش تولعي الشمعة</p>
 </section>
 
-<!-- 📰 Scene 4 (Story) -->
+<!-- 📰 -->
 <section id="s4" class="scene scroll">
-  <div class="storyWrap">
-    <div id="storyText"></div>
-  </div>
+<div id="storyBox"></div>
+<p class="hint">👇 اضغطي "التالي" باش تكملي</p>
+<button id="nextMsg">التالي 💌</button>
 </section>
 
-<!-- 💌 Scene 5 (Card) -->
+<!-- ❤️ -->
 <section id="s5" class="scene">
-  <div class="card">
-    <img src="Saja.png" alt="">
-    <div class="cardText">
-      <b>جوجو 🤍</b><br><br>
-      شكراً لأنك في حياتي… وصبرك عليا حتى لما نكون مزعج 🤍<br>
-      سامحيني لو يوم ضايقتك، كل شي كان من حبي ليك 🤍
-    </div>
-    <div class="cardHint">مرّري لتحت لو في نص مخبي ↓</div>
-  </div>
+<div id="heart">❤️</div>
+<p class="hint">👆 اضغطي وبعدها حركي صبعك وارسمي</p>
 </section>
 
-<!-- ❤️ Scene 6 (Heart) -->
+<!-- 💌 -->
 <section id="s6" class="scene">
-  <div id="heart">❤️</div>
-  <p class="hint">اضغطي على القلب</p>
+<div class="card">
+<img src="Saja.png">
+<div id="cardText"></div>
+<p class="hint">👇 اضغطي "نحبك" باش تشوفي المفاجأة</p>
+<button onclick="flipCard()">نحبك 🤍</button>
+</div>
 </section>
 
-<!-- 🎧 زر الصوت -->
-<button id="musicBtn" class="pill">🎧 شغّلي الجو</button>
-
-<!-- ▶️ زر النهاية (يوتيوب) -->
-<a id="finalBtn" class="pill final" href="https://www.youtube.com/watch?v=1t9sfYqZ2iY" target="_blank">
-  ▶️ اسمعيها للنهاية
+<!-- ▶️ -->
+<a id="yt" href="https://youtube.com/watch?v=1t9sfYqZ2iY" target="_blank">
+▶️ اضغطي هنا وخليها للاخير 🤍
 </a>
 
-<!-- 🔊 صوت داخلي -->
-<audio id="bgm" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8f5c7b1d9.mp3?filename=romantic-ambient-110828.mp3"></audio>
+<audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8f5c7b1d9.mp3"></audio>
 
 <script src="script.js"></script>
 </body>
