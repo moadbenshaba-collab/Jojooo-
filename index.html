@@ -2,301 +2,417 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>سجو 🤍</title>
 
 <style>
-html,body{
+body{
 margin:0;
-padding:0;
-width:100%;
-height:100%;
 overflow:hidden;
 font-family:sans-serif;
-background:linear-gradient(180deg,#fff,#ffe0ef);
+background:#fff;
+text-align:center;
 }
 
-/* 🔐 شاشة الدخول */
-#lockScreen{
+/* 🎁 الهدية */
+#gift{
 position:fixed;
 inset:0;
-background:#fff;
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
-z-index:9999;
-text-align:center;
+font-size:80px;
+cursor:pointer;
+flex-direction:column;
+}
+
+/* 🔐 تسجيل الدخول */
+#login{
+display:none;
+position:fixed;
+inset:0;
+justify-content:center;
+align-items:center;
+flex-direction:column;
 }
 
 input{
-padding:12px;
+padding:10px;
+margin:10px;
 border-radius:10px;
-border:1px solid #ddd;
-margin-top:10px;
-text-align:center;
+border:1px solid #ccc;
 }
 
 button{
-margin-top:15px;
-padding:12px 20px;
+padding:10px 20px;
 background:#ff4d88;
 color:#fff;
 border:none;
-border-radius:12px;
-font-size:15px;
+border-radius:10px;
 }
 
-/* 💬 النص */
-.text{
-font-size:22px;
-line-height:1.8;
-max-width:320px;
-opacity:0;
-transform:translateY(20px);
-transition:0.6s;
-color:#c2185b;
-position:relative;
-z-index:5;
-}
-.show{
-opacity:1;
-transform:translateY(0);
-}
-
-/* 🖼️ الصورة */
-.avatar{
-width:140px;
-margin-top:20px;
+/* 🎂 */
+#birthday{
 display:none;
-border-radius:20px;
-box-shadow:0 10px 25px rgba(255,77,136,0.3);
-position:relative;
-z-index:5;
+position:fixed;
+inset:0;
+background:#fff0f6;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-size:22px;
+padding:20px;
+}
+
+/* 📰 القصة */
+#story{
+display:none;
+position:fixed;
+inset:0;
+padding:20px;
+font-size:18px;
+line-height:1.7;
+overflow:auto;
+}
+
+/* ❤️ القلب */
+#bigHeart{
+display:none;
+position:fixed;
+top:-150px;
+left:50%;
+transform:translateX(-50%);
+font-size:120px;
+cursor:pointer;
+}
+
+/* 💗 العناصر */
+.p{
+position:absolute;
+font-size:20px;
+animation:fly 6s linear forwards;
+}
+
+@keyframes fly{
+to{
+transform:translateY(-120vh);
+opacity:0;
+}
 }
 
 /* 🎧 زر */
 #musicBtn{
 display:none;
 margin-top:20px;
+padding:10px 15px;
 background:#ff4d88;
 color:#fff;
 border:none;
-padding:10px 18px;
 border-radius:10px;
-font-size:14px;
-position:relative;
-z-index:5;
-}
-
-/* 📩 إشعار */
-#notif{
-position:fixed;
-left:50%;
-top:70%;
-transform:translate(-50%,-50%);
-background:#fff;
-color:#c2185b;
-padding:12px 18px;
-border-radius:12px;
-box-shadow:0 10px 20px rgba(0,0,0,0.1);
-transition:0.6s;
-z-index:9999;
-display:none;
-}
-
-/* 💌 رسالة */
-#secret{
-display:none;
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:#fff;
-color:#c2185b;
-padding:25px;
-border-radius:15px;
-text-align:center;
-z-index:9999;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
-}
-
-/* 💗 القلوب + 🌸 الورد */
-.particle{
-position:absolute;
-font-size:24px;
-opacity:0.9;
-animation:float 6s linear forwards;
-z-index:1;
-}
-
-@keyframes float{
-0%{transform:translateY(0) scale(0.8);}
-100%{transform:translateY(-120vh) scale(1.5);opacity:0;}
-}
-
-/* تحت لفوق */
-.down{
-animation:downUp 6s linear forwards;
-}
-
-@keyframes downUp{
-0%{transform:translateY(120vh) scale(0.8);}
-100%{transform:translateY(-20vh) scale(1.5);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🔐 القفل -->
-<div id="lockScreen">
-<h2>في حاجة مخبيها لك 🤍</h2>
-<p>اكتبي الرمز:</p>
-<b>سجوو</b>
+<!-- 🎁 -->
+<div id="gift">
+🎁
+<small>اضغطي لفتح الهدية</small>
+</div>
 
+<!-- 🔐 -->
+<div id="login">
+<h3>اكتبي الرمز</h3>
 <input id="pass">
-<button id="loginBtn">دخول</button>
+<button onclick="check()">دخول</button>
 </div>
 
-<!-- المحتوى -->
-<div style="display:flex;justify-content:center;align-items:center;height:100vh;text-align:center;">
-<div>
-
-<div class="text" id="text"></div>
-
-<img id="img" class="avatar" src="Saja.png">
-
-<button onclick="next()">كملي</button>
-
-<button id="musicBtn" onclick="openMusic()">هذا ليك يا جوجو 🤍</button>
-
-</div>
+<!-- 🎂 -->
+<div id="birthday">
+<div id="bText"></div>
+<small>اضغطي الشاشة للمتابعة</small>
 </div>
 
-<!-- إشعار -->
-<div id="notif">📩 اضغطي هنا</div>
+<!-- 📰 -->
+<div id="story">
+<div id="storyText"></div>
 
-<!-- رسالة -->
-<div id="secret">
-💌  
-يمكن ما قلتهاش قبل…  
-بس كل مرة نشوفك فيها  
-نحس إني نبيك أكثر 🤍
+<button id="musicBtn" onclick="openMusic()">🎧 اسمعي النهاية</button>
 </div>
+
+<!-- ❤️ -->
+<div id="bigHeart">❤️</div>
 
 <script>
 
 let i=0;
 
-let texts=[
-"10 مايو 🎂 هذا يومك",
-"في الجامعة… بداية كل شي",
-"طيبتك شدّتني",
-"مهندستي 🤍",
-"لينا مع بعض ❣️"
-];
+/* 🎁 البداية */
+document.getElementById("gift").onclick=()=>{
+gift.style.display="none";
+login.style.display="flex";
+};
 
-
-// 📳 اهتزاز ذكي
-function vib(p){
-navigator.vibrate?.(p);
-}
-
-
-// 💥 إنشاء عنصر من مكان الضغط
-function spawn(x,y){
-
-let items=["♥","🌸","💖"];
-
-for(let i=0;i<6;i++){
-
-let el=document.createElement("div");
-el.className="particle";
-el.innerHTML=items[Math.floor(Math.random()*items.length)];
-el.style.left=x+"px";
-el.style.top=y+"px";
-
-/* نصف يطلع لفوق */
-if(Math.random()>0.5){
-el.style.animation="float 6s linear forwards";
+/* 🔐 التحقق */
+function check(){
+if(pass.value.trim()=="سجوو"){
+login.style.display="none";
+startBirthday();
 }else{
-el.classList.add("down");
+alert("الرمز غلط 🤍");
+}
 }
 
+/* 🎂 عيد الميلاد */
+function startBirthday(){
+birthday.style.display="flex";
+
+bText.innerHTML=`
+كل عام وانتي بخير 🎂<br>
+Happy Birthday 🎉<br>
+21 🎀
+`;
+
+/* قلوب + كيك */
+setInterval(()=>{
+let e=document.createElement("div");
+e.className="p";
+e.innerHTML=Math.random()>0.5?"🎂":"🎀";
+e.style.left=Math.random()*100+"vw";
+document.body.appendChild(e);
+setTimeout(()=>e.remove(),5000);
+},300);
+
+/* انتقال */
+birthday.onclick=()=>{
+birthday.style.display="none";
+startStory();
+};
+}
+
+/* 📰 القصة */
+function startStory(){
+story.style.display="block";
+
+let full = `من يوم 3 / 12  
+وانا بديت نحس بشي مختلف...
+
+مش فاهمه في البداية  
+ولا حتى عارف شنو هو بالضبط  
+
+بس مع الأيام  
+لقيت روحي نميل لك  
+ونرتاح لك  
+
+اني الفتره اللي فاتت كلها  
+ومنيش مستريح  
+حاس في شي ناقص...  
+
+وكل مرة نقول  
+شنو الشي هذا؟  
+
+بس أول ما نهدرز معاك  
+نحس كأني لقيته  
+
+حتى لو ما قلتي شي  
+وجودك بس...  
+يرتاحله قلبي  
+
+كأنك خديتي بيدي  
+وطبطبتي عليا  
+بدون حتى ما تحسي  
+
+واني...  
+رغم اني نشوف الحكي ضعف  
+
+لكن معاك لا  
+
+معاك نحكي  
+بدون ما نحس إني غلط  
+ولا إني لازم نسكت  
+
+حتى لما نقولك مستاحشك  
+مش كلمة وخلاص  
+
+هذي شعور  
+
+لأني نبي نهدرز معاك ديما  
+مش لأن مفيش شي نديره  
+
+لكن لأنك انتي  
+الاستراحة متعي  
+
+من كل دوشة في راسي  
+
+مرات نحاول نهرب  
+نرقد... نطلع... نضيع وقت  
+
+بس في النهاية  
+نرجع نفكر فيك  
+
+ونلقى روحي نبي نهدرز معاك  
+حتى لو دقيقة  
+حتى لو كلمة  
+
+ويمكن مرات نحس روحي ثقيل  
+ونقولها لك  
+
+بس الحقيقة...  
+اني بس نبيك تكوني معايا  
+
+ولو انتي تعبتي  
+وخديتي وقتك  
+
+اني بنستنى  
+
+مش مجبور  
+لكن خاطر نبي  
+
+نبيك انتي 🤍  
+
+ومش عارف كيف صارت...  
+بس اني بديت نحبك 🤍  
+
+
+جوجو 🤍  
+كل عام وانتي بخير يا قطعة من قلبي…  
+بس والله حتى كلمة “كل عام وانتي بخير” نحسها صغيرة عليك،  
+لأنك مش مناسبة نعدّيها ونمشي…  
+انتي حياة كاملة دخلت حياتي وغيّرت كل شي فيها.  
+
+سجى❤️‍🩹  
+لو نقعد نحكي من توّا لغدوا، ما نوصلش للي في قلبي عليك  
+لكن خليني نحاول، يمكن شوية من إحساسي يوصلّك…  
+
+انتي ملاذي الآمن…  
+المكان اللي نهرب له من كل شي، ونلقى فيه راحتي بدون ما نفسر  
+انتي الشمعة اللي نورتلي الظلمه كنت عايش فيها،  
+والنور اللي نمشي عليه حتى في أصعب طريقي  
+وصدقيني… لولاك، كان في حاجات هلبا فيا طفت من زمان  
+
+انتي مش بس إنسانة نحبها…  
+انتي طمأنينة، وسكون، وهدوء وسط زحمة حياتي  
+وجودك جنبي بس يكفيني، وكلامك يبدل يومي،  
+وحتى سكوتك مرات… فيه راحة ما نلقاهاش في أي حد  
+
+أنا عارفك كويس…  
+وعارف إنك مش من النوع اللي يقول كلام حلو هلبا  
+بس والله كل تصرف منك يوصلني إحساس أكبر من ألف كلمة  
+نشوفك في خوفك عليا، في سؤالك، في ريبوستاتك،  
+في التفاصيل الصغيرة اللي غيرك يمكن ما يلاحظهاش… وأنا نعيش فيها  
+
+سجوووو ❣️  
+أنا نحبك حب مش مربوط بوقت، ولا بموقف  
+حب ثابت، هادي، وصادق من قلبي  
+حب خلاني نشوف فيك “حياة” مش مجرد علاقة او ارتباط  
+
+ويمكن الحاجة اللي توجعني شوية…  
+إني توّا مش في المكان اللي نبيه  
+لا كونت نفسي بالشكل اللي نحلم بيه، ولا وصلت للي نستاهله  
+لكن والله، ربي عالم بنيتي…  
+قاعد نسعى، ونحاول، ونتعب، وندعي ليل ونهار  
+إنه يفتحها في وجهي، ويرزقني من حيث لا أحتسب  
+
+مش بس علي خاطري اني  
+لكن علي خاطرك انتي يا سجى  
+بش نقدر نوقف قدامك وأنا مرتاح،  
+ونقول: توّا نقدر نعيشك العيشة اللي تستاهليها  
+ونكون راجل قدّك، وقد قلبك، وقد كل شي عطيتيني الامل ودعمتيني فيه  
+
+أنا مانبيش نكون مرحلة في حياتك…  
+ولا ذكرى حلوة وخلاص  
+أنا نبيك تكوني حلالي  
+نبيك تكوني معاي في كل خطوة، في كل بداية، وفي كل نهاية  
+
+نبي نشاركك حياتي…  
+نفرح معاك، ونوقف معاك، ونحميك من كل شي  
+ونكون لك الأمان زي ما كنتي ليا أمان  
+
+ويمكن سامعتيها مني اكثر من مره  
+لكن انتي عارفة مكانك عندي  
+وعارفة إنك أقربلي من أي حد، وأغلى من أي شي  
+
+كل عام وانتي معاي  
+كل عام وانتي سبب في راحتي  
+وكل ليله ندعي ربي يجمعني بيك بالحلال، عاجلا غير اجلا  
+وتكوني نصيبي اللي ما نبيش غيره 🤍  
+
+والله يا سجى…  
+لو في دعوة مستحيل نملّ منها،  
+فهي ان ربي يكتبلي النصيب وباقي العمر معاك 🤍`;
+let i=0;
+
+let inter=setInterval(()=>{
+storyText.innerHTML+=full[i];
+i++;
+if(i>=full.length){
+clearInterval(inter);
+
+setTimeout(showHeart,1500);
+}
+},40);
+}
+
+/* ❤️ القلب */
+function showHeart(){
+bigHeart.style.display="block";
+
+let pos=-150;
+let down=setInterval(()=>{
+pos+=6;
+bigHeart.style.top=pos+"px";
+if(pos>250) clearInterval(down);
+},20);
+
+bigHeart.onclick=explode;
+}
+
+/* 💥 الانفجار */
+function explode(){
+
+bigHeart.style.display="none";
+
+/* 200 عنصر بدل 5000 (خفيف للموبايل) */
+for(let i=0;i<200;i++){
+let el=document.createElement("div");
+el.className="p";
+el.innerHTML=Math.random()>0.5?"💗":"🌸";
+el.style.left=Math.random()*100+"vw";
+el.style.top=Math.random()*100+"vh";
 document.body.appendChild(el);
 setTimeout(()=>el.remove(),6000);
 }
-}
 
+/* زر الأغنية */
+setTimeout(()=>{
+musicBtn.style.display="block";
+},1500);
 
-// 👆 كل لمسة = قلوب + ورد من نفس المكان
-document.addEventListener("click",function(e){
-spawn(e.clientX,e.clientY);
-vib([50]);
+/* تتبع الإصبع */
+document.addEventListener("touchmove",(e)=>{
+let t=e.touches[0];
+spawn(t.clientX,t.clientY);
 });
-
-
-// 🔐 دخول
-document.getElementById("loginBtn").addEventListener("click",function(){
-
-let val=document.getElementById("pass").value.trim();
-
-if(val!=="سجوو"){
-vib([300,100,300]);
-alert("الرمز غلط 🤍");
-return;
 }
 
-// 💥 انفجار من الوسط
-spawn(window.innerWidth/2, window.innerHeight/2);
-vib([100,50,100]);
-
-document.getElementById("lockScreen").style.display="none";
-type(texts[0]);
-});
-
-
-// ✍️ النص
-function type(text){
-let el=document.getElementById("text");
-el.innerHTML=text.replace(/\n/g,"<br>");
-el.classList.add("show");
-
-// 🖼️ صورة
-if(i===2){
-document.getElementById("img").style.display="block";
-}
-
-// 🔥 النهاية
-if(i===texts.length-1){
-document.getElementById("notif").style.display="block";
-document.getElementById("musicBtn").style.display="block";
+/* 👆 قلوب عند اللمس */
+function spawn(x,y){
+for(let i=0;i<3;i++){
+let el=document.createElement("div");
+el.className="p";
+el.innerHTML="💗";
+el.style.left=x+"px";
+el.style.top=y+"px";
+document.body.appendChild(el);
+setTimeout(()=>el.remove(),3000);
 }
 }
 
-
-// التالي
-function next(){
-i++;
-if(i<texts.length){
-type(texts[i]);
-}
-}
-
-
-// 🎧 يوتيوب
+/* 🎧 يوتيوب */
 function openMusic(){
 window.open("https://youtube.com/watch?v=1t9sfYqZ2iY","_blank");
 }
-
-
-// 📩 إشعار
-document.getElementById("notif").onclick=function(){
-this.style.display="none";
-document.getElementById("secret").style.display="block";
-vib([100,50,100,50,200]);
-};
 
 </script>
 
