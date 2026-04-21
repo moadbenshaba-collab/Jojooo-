@@ -2,140 +2,144 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width , initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>هدية سجو 🤍</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
+html,body{height:100%;}
 
 body{
 overflow:hidden;
 background:linear-gradient(180deg,#fff,#ffd6e7);
-height:100vh;
 }
 
-/* 🌸 خلفية */
+/* 🌸 خلفية حيّة */
 body::before{
 content:"";
-position:fixed;
-inset:0;
-background:radial-gradient(circle,#fff,#ffe3ef,#ffd6e7);
-z-index:-2;
-animation:bg 8s infinite alternate;
+position:fixed;inset:0;z-index:-2;
+background:radial-gradient(circle at 50% 20%,#fff,#ffe3ef,#ffd6e7);
+animation:bg 10s ease-in-out infinite alternate;
 }
 @keyframes bg{
 0%{filter:hue-rotate(0deg);}
-100%{filter:hue-rotate(15deg);}
+100%{filter:hue-rotate(14deg);}
 }
 
-/* 💗 عناصر */
+/* 💗 عناصر طايرة (قلوب/ورد/شموع) */
 .float{
 position:absolute;
-font-size:18px;
-opacity:0.7;
-animation:up linear forwards;
 pointer-events:none;
+opacity:.85;
+animation:up linear forwards;
 }
 @keyframes up{
-0%{transform:translateY(100vh);}
-100%{transform:translateY(-120vh);opacity:0;}
+0%{transform:translateY(110vh) scale(0.9);}
+100%{transform:translateY(-120vh) scale(1.25);opacity:0;}
 }
 
-/* 🎁 */
+/* 🎁 / 🔐 / 📰 شاشات */
 .screen{
-position:fixed;
-inset:0;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-text-align:center;
-padding:20px;
-transition:1s;
+position:fixed;inset:0;
+display:flex;justify-content:center;align-items:center;
+flex-direction:column;text-align:center;padding:20px;
 }
-#gift{font-size:80px;cursor:pointer;}
+.hidden{display:none!important;}
 
-/* 🔐 */
+#gift{font-size:80px;cursor:pointer;animation:giftFloat 1.2s ease-in-out infinite alternate;}
+@keyframes giftFloat{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+
 input,button{
-padding:10px;
-border-radius:10px;
-border:1px solid #ddd;
-margin-top:10px;
-text-align:center;
+padding:12px;border-radius:12px;border:1px solid #eee;
+margin-top:10px;text-align:center;
 }
-button{
-background:#ff4d88;
-color:#fff;
-border:none;
-}
+button{background:#ff4d88;color:#fff;border:none;}
+
+/* 🎂 */
+#birthday{display:none;font-size:22px;}
 
 /* 📰 */
 #story{
 display:none;
 overflow:auto;
-font-size:18px;
-line-height:2;
+font-size:18px;line-height:2;
 }
 
 /* 💌 كرت */
 #card{
 display:none;
-position:fixed;
-inset:0;
-justify-content:center;
-align-items:flex-start;
-padding-top:40px;
-background:rgba(255,255,255,0.6);
+position:fixed;inset:0;
+justify-content:center;align-items:flex-start;
+padding-top:36px;background:rgba(255,255,255,.55);
+backdrop-filter: blur(4px);
 }
 .cardBox{
-background:#fff;
-width:85%;
-padding:15px;
-border-radius:15px;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
-max-height:80vh;
-overflow:auto;
+background:#fff;width:88%;max-width:520px;
+padding:16px;border-radius:16px;text-align:center;
+box-shadow:0 12px 30px rgba(0,0,0,.18);
+max-height:82vh;overflow:auto;
 }
-.cardBox small{color:#999}
+.cardBox img{
+width:100%;border-radius:12px;margin-bottom:10px;
+}
 
-/* ❤️ */
+/* ❤️ قلب كبير */
 #heart{
 display:none;
-position:fixed;
-top:-150px;
-left:50%;
+position:fixed;top:-160px;left:50%;
 transform:translateX(-50%);
-font-size:120px;
-cursor:pointer;
+font-size:120px;cursor:pointer;
+filter: drop-shadow(0 10px 10px rgba(0,0,0,.15));
 }
 
 /* 💬 رسالة صغيرة */
 #miniMsg{
 display:none;
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:#fff;
-padding:15px;
-border-radius:12px;
-box-shadow:0 10px 20px rgba(0,0,0,0.2);
-text-align:center;
+position:fixed;top:50%;left:50%;
+transform:translate(-50%,-50%) scale(.8);
+background:#fff;padding:16px 18px;border-radius:14px;
+box-shadow:0 12px 25px rgba(0,0,0,.2);
+text-align:center;z-index:999;
+transition:.25s;
 }
 
 /* 🎧 */
 #music{
 display:none;
-position:fixed;
-bottom:20px;
-left:50%;
+position:fixed;bottom:18px;left:50%;
 transform:translateX(-50%);
-background:#ff4d88;
-color:#fff;
-border:none;
-padding:12px 18px;
-border-radius:12px;
+background:#ff4d88;color:#fff;border:none;
+padding:12px 18px;border-radius:12px;
+box-shadow:0 8px 18px rgba(0,0,0,.15);
+}
+
+/* 🎁 مفاجآت */
+.sBox{
+position:fixed;left:50%;top:50%;
+transform:translate(-50%,-50%) scale(.85);
+background:#fff;padding:14px 16px;border-radius:14px;
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+text-align:center;z-index:999;
+opacity:0;transition:.2s;
+}
+
+/* ✍️ الرسم */
+.draw{
+position:absolute;pointer-events:none;
+animation:fade 3s linear forwards;
+}
+@keyframes fade{
+to{opacity:0;transform:scale(1.3) translateY(-20px);}
+}
+
+/* ✨ لمعة خفيفة */
+.spark{
+position:absolute;pointer-events:none;
+animation:spark 1.2s ease-out forwards;
+}
+@keyframes spark{
+0%{opacity:1;transform:scale(.6)}
+100%{opacity:0;transform:scale(1.6)}
 }
 </style>
 </head>
@@ -149,27 +153,31 @@ border-radius:12px;
 </div>
 
 <!-- 🔐 -->
-<div id="login" class="screen" style="display:none;">
+<div id="login" class="screen hidden">
 <h3>اكتبي الرمز</h3>
 <small>تلميح: اسمك بطريقة دلع 🤍</small>
-<input id="pass">
+<input id="pass" placeholder="••••">
 <button onclick="check()">دخول</button>
 </div>
 
+<!-- 🎂 -->
+<div id="birthday" class="screen hidden"></div>
+
 <!-- 📰 -->
-<div id="story" class="screen">
+<div id="story" class="screen hidden">
 <div id="txt"></div>
+<small style="opacity:.6;margin-top:10px">جربي تنزلي وتقري براحتك 🤍</small>
 </div>
 
 <!-- 💌 -->
-<div id="card">
+<div id="card" class="hidden">
 <div class="cardBox">
-<img src="Saja.png">
+<img src="Saja.png" alt="Saja">
 <div>
 جوجو 🤍<br><br>
-كلمات حب وامتنان لوجودك في حياتي...<br>
+كلمات حب وامتنان لوجودك في حياتي…<br>
 وصبرك عليا حتى وقت نكون مزعج<br><br>
-سامحيني لو ضايقتك 🤍<br><br>
+سامحيني لو يوم ضايقتك 🤍<br><br>
 <small>كمّلي لتحت 👇</small>
 </div>
 </div>
@@ -184,46 +192,142 @@ border-radius:12px;
 <button id="music">🎧 اسمعي النهاية</button>
 
 <script>
+/* 📳 اهتزاز خفيف */
+const vib = (p=[40])=>navigator.vibrate && navigator.vibrate(p);
 
-/* 🌸 خلفية عشوائية */
+/* 🌸 خلفية مستمرة (عشوائية + غير مزدحمة) */
 setInterval(()=>{
 let e=document.createElement("div");
 e.className="float";
-e.innerHTML=Math.random()>0.5?"💗":"🌸";
-e.style.left=Math.random()*100+"vw";
+const pool=["💗","🌸","🎂"];
+e.innerHTML=pool[Math.floor(Math.random()*pool.length)];
+e.style.left=(Math.random()*100)+"vw";
+e.style.fontSize=(16+Math.random()*10)+"px";
 e.style.animationDuration=(6+Math.random()*5)+"s";
+e.style.animationDelay=(Math.random()*1.2)+"s";
 document.body.appendChild(e);
-setTimeout(()=>e.remove(),8000);
-},300);
+setTimeout(()=>e.remove(),9000);
+},260);
 
 /* 🎁 */
 gift.onclick=()=>{
-gift.style.display="none";
-login.style.display="flex";
+gift.classList.add('hidden');
+login.classList.remove('hidden');
 };
 
 /* 🔐 */
 function check(){
-if(pass.value.trim()=="سجوو"){
-login.style.display="none";
-startStory();
-}else alert("جربي التلميح 🤍");
+if(pass.value.trim()==="سجوو"){
+vib([50,40,50]);
+login.classList.add('hidden');
+startBirthday();
+}else{
+alert("جربي التلميح 🤍");
+}
 }
 
-/* 📰 القصة جاهزة */
+/* 🎂 */
+function startBirthday(){
+birthday.classList.remove('hidden');
+birthday.innerHTML=`
+<h2>كل عام وانتي بخير 🎂</h2>
+<p>Happy Birthday 🎉</p>
+<p>21 🤍</p>
+<small>اضغطي للمتابعة</small>
+`;
+birthday.onclick=()=>{
+burstMany(90,["🎂","💗","🌸"]);
+birthday.classList.add('hidden');
+startStory();
+};
+}
+
+/* 📰 القصة كاملة (تصفح حر) */
 function startStory(){
-story.style.display="flex";
+story.classList.remove('hidden');
+txt.innerHTML = `من يوم 3 / 12  
+وانا بديت نحس بشي مختلف...
 
-txt.innerHTML=`[القصة بالكامل هنا زي ما انت كاتبها 🔥]`;
+مش فاهمه في البداية  
+ولا حتى عارف شنو هو بالضبط  
 
-setTimeout(()=>showCard(),1000);
+بس مع الأيام  
+لقيت روحي نميل لك  
+ونرتاح لك  
+
+اني الفتره اللي فاتت كلها  
+ومنيش مستريح  
+حاس في شي ناقص...  
+
+وكل مرة نقول  
+شنو الشي هذا؟  
+
+بس أول ما نهدرز معاك  
+نحس كأني لقيته  
+
+حتى لو ما قلتي شي  
+وجودك بس...  
+يرتاحله قلبي  
+
+كأنك خديتي بيدي  
+وطبطبتي عليا  
+بدون حتى ما تحسي  
+
+واني...  
+رغم اني نشوف الحكي ضعف  
+لكن معاك لا  
+
+معاك نحكي  
+بدون ما نحس إني غلط  
+
+حتى لما نقولك مستاحشك  
+هذي شعور  
+
+لأني نبي نهدرز معاك ديما  
+لأنك انتي الاستراحة متعي  
+
+ومش عارف كيف صارت...  
+بس اني بديت نحبك 🤍  
+
+— — —
+
+جوجو 🤍  
+كل عام وانتي بخير يا قطعة من قلبي…  
+انتي حياة كاملة دخلت حياتي وغيّرت كل شي فيها.  
+
+سجى❤️‍🩹  
+لو نحكي من توّا لغدوا، ما نوصلش للي في قلبي عليك…  
+
+انتي ملاذي الآمن…  
+والنور اللي نمشي عليه حتى في أصعب طريقي  
+
+انتي طمأنينة وسكون…  
+وجودك يكفيني وكلامك يبدل يومي  
+
+سجووو ❣️  
+أنا نحبك حب ثابت وصادق  
+
+ونتعب ونحاول…  
+باش نوصل ونكون قدّك وقد قلبك  
+
+أنا مانبيش نكون مرحلة…  
+نبيك تكوني حياتي  
+
+كل عام وانتي معاي 🤍  
+وكل ليلة ندعي ربي يجمعني بيك بالحلال 🤍`;
+
+/* تلميح خفيف */
+showHint("جربي تنزلي وتقري براحتك 🤍");
+
+/* بعد شوية يطلع الكرت */
+setTimeout(showCard,1500);
 }
 
 /* 💌 */
 function showCard(){
-card.style.display="flex";
+card.classList.remove('hidden');
 card.onclick=()=>{
-card.style.display="none";
+card.classList.add('hidden');
 showHeart();
 };
 }
@@ -231,62 +335,169 @@ showHeart();
 /* ❤️ */
 function showHeart(){
 heart.style.display="block";
-
-let y=-150;
+let y=-160;
 let d=setInterval(()=>{
 y+=6;
 heart.style.top=y+"px";
 if(y>220) clearInterval(d);
-},20);
+},16);
+
+/* تلميح */
+showHint("ترا جربي تضغطي على القلب ❤️");
 }
 
-/* 💥 */
+/* 💥 انفجار + تفعيل الرسم + مفاجآت */
+let drawingEnabled=false;
 heart.onclick=()=>{
-
 heart.style.display="none";
+burstMany(140,["💗","🌸"]);
+vib([70,40,70]);
 
-/* انفجار */
-for(let i=0;i<100;i++){
-let e=document.createElement("div");
-e.className="float";
-e.innerHTML=Math.random()>0.5?"💗":"🌸";
-e.style.left=Math.random()*100+"vw";
-e.style.top=Math.random()*100+"vh";
-document.body.appendChild(e);
-setTimeout(()=>e.remove(),5000);
-}
-
-/* 💬 رسالة */
+/* 💬 رسالة صغيرة */
 miniMsg.style.display="block";
-miniMsg.innerHTML="تقدري يعيوني ترسمي بالقلوب 🤍";
+miniMsg.style.transform="translate(-50%,-50%) scale(1)";
+miniMsg.innerHTML="تقدري يعيوني ترسمي بالقلوب في الشاشة 🤍";
+setTimeout(()=>{
+miniMsg.style.display="none";
+},2600);
 
-/* ✍️ رسم */
-document.addEventListener("touchmove",draw);
+/* تفعيل الرسم */
+drawingEnabled=true;
 
-/* 🎧 */
-setTimeout(()=>music.style.display="block",2000);
+/* زر الأغنية */
+setTimeout(()=>music.style.display="block",2200);
+
+/* تلميح */
+showHint("جربي تمرّري بإصبعك على الشاشة 🤍");
+
+/* ابدأ المفاجآت */
+startSurprises();
 };
 
-/* رسم */
-function draw(e){
+/* ✍️ الرسم (يطلعوا قريبين وقت الرسم) */
+document.addEventListener("touchmove",(e)=>{
+if(!drawingEnabled) return;
 let t=e.touches[0];
 for(let i=0;i<3;i++){
 let el=document.createElement("div");
-el.className="float";
+el.className="draw";
 el.innerHTML="💗";
-el.style.left=t.clientX+"px";
-el.style.top=t.clientY+"px";
-el.style.animationDuration="3s";
+el.style.left=(t.clientX + (Math.random()*12-6))+"px";
+el.style.top=(t.clientY + (Math.random()*12-6))+"px";
+el.style.fontSize=(18+Math.random()*10)+"px";
 document.body.appendChild(el);
 setTimeout(()=>el.remove(),3000);
 }
+});
+
+/* 💥 مساعد انفجار */
+function burstMany(n,arr){
+for(let i=0;i<n;i++){
+let e=document.createElement("div");
+e.className="float";
+e.innerHTML=arr[Math.floor(Math.random()*arr.length)];
+e.style.left=(Math.random()*100)+"vw";
+e.style.top=(Math.random()*100)+"vh";
+e.style.fontSize=(16+Math.random()*12)+"px";
+e.style.animationDuration=(4+Math.random()*3)+"s";
+document.body.appendChild(e);
+setTimeout(()=>e.remove(),6000);
+}
 }
 
-/* 🎧 
+/* 💡 تلميحات */
+let hintTimer=null;
+function showHint(text){
+clearTimeout(hintTimer);
+let h=document.getElementById('hintBar');
+if(!h){
+h=document.createElement('div');
+h.id='hintBar';
+h.style.position='fixed';
+h.style.bottom='70px';
+h.style.left='50%';
+h.style.transform='translateX(-50%)';
+h.style.background='rgba(255,255,255,.9)';
+h.style.padding='8px 12px';
+h.style.borderRadius='10px';
+h.style.boxShadow='0 8px 18px rgba(0,0,0,.12)';
+h.style.fontSize='13px';
+document.body.appendChild(h);
+}
+h.innerText=text;
+h.style.opacity='1';
+hintTimer=setTimeout(()=>h.style.opacity='0',2600);
+}
+
+/* 🎁 21 مفاجأة ذكية */
+let sCount=0;
+const msgs=[
+"نحبك بدون سبب 🤍","وجودك يفرق في يومي 💗","حتى سكوتك راحة 🌸","انتي أجمل صدفة ✨",
+"قلبي ارتاح فيك 🤍","ضحكتك عالم ثاني 💗","معاك ننسى كل شي 🌸","انتي الطمأنينة 🤍",
+"ديما في بالي 💭","نحب نهدرز معاك ديما 💗","وجودك نعمة 🤍","معاك نكون أنا 💫",
+"انتي راحتي 🌸","كل شي فيك حلو 🤍","قلبك طيب 💗","نبيك ديما معاي 🤍",
+"حضورك حياة 🌸","انتي سر سعادتي 💗","نحس روحي أقوى بيك 🤍","نبي نكمل حياتي معاك 🌸",
+"✨ هادي رقم 21... لأنك وصلتي 21 🤍\nوأجمل حاجة في عمري انك انتي فيه 💗"
+];
+
+function startSurprises(){
+document.addEventListener("click",surpriseClick);
+showHint("ترا جربي تضغطي في أي مكان… في مفاجآت 🤍");
+}
+
+function surpriseClick(e){
+if(!drawingEnabled) return;
+if(sCount>=21) return;
+
+sCount++;
+vib([40,30,40]);
+
+let type = Math.floor(Math.random()*4);
+let msg = msgs[sCount-1];
+
+/* 1: بوكس */
+if(type===0){
+let b=document.createElement('div');
+b.className='sBox';
+b.innerHTML=`<b>مفاجأة ${sCount}</b><br><br>${msg}`;
+document.body.appendChild(b);
+setTimeout(()=>{b.style.opacity='1';b.style.transform='translate(-50%,-50%) scale(1)';},20);
+setTimeout(()=>b.remove(),2800);
+}
+
+/* 2: شريط فوق */
+if(type===1){
+let t=document.createElement('div');
+t.style.position='fixed';t.style.top='14px';t.style.width='100%';t.style.textAlign='center';
+t.innerHTML=`💌 ${msg}`;
+document.body.appendChild(t);
+setTimeout(()=>t.remove(),2300);
+}
+
+/* 3: انفجار صغير */
+if(type===2){
+burstMany(24,["💗","🌸"]);
+}
+
+/* 4: mini msg */
+if(type===3){
+miniMsg.style.display="block";
+miniMsg.style.transform="translate(-50%,-50%) scale(1)";
+miniMsg.innerHTML=`مفاجأة ${sCount} 🤍<br>${msg}`;
+setTimeout(()=>miniMsg.style.display="none",2400);
+}
+
+/* مفاجأة 21 كبيرة */
+if(sCount===21){
+burstMany(220,["💗","🌸","🎂"]);
+showHint("وصلتي 21 🎉");
+}
+}
+
+/* 🎧 */
 music.onclick=()=>{
 window.open("https://youtube.com/watch?v=1t9sfYqZ2iY","_blank");
 };
-
 </script>
 
 </body>
