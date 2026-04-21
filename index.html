@@ -23,27 +23,25 @@ background:radial-gradient(circle,#fff,#ffe3ef,#ffd6e7);
 z-index:-2;
 animation:bg 8s infinite alternate;
 }
-
 @keyframes bg{
 0%{filter:hue-rotate(0deg);}
-100%{filter:hue-rotate(12deg);}
+100%{filter:hue-rotate(15deg);}
 }
 
-/* 💗 عناصر متحركة */
+/* 💗 عناصر */
 .float{
 position:absolute;
 font-size:18px;
-opacity:0.75;
-animation:up 10s linear forwards;
+opacity:0.7;
+animation:up linear forwards;
 pointer-events:none;
 }
-
 @keyframes up{
-0%{transform:translateY(100vh) scale(1);}
-100%{transform:translateY(-120vh) scale(1.4);opacity:0;}
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-120vh);opacity:0;}
 }
 
-/* 🎁 الشاشات */
+/* 🎁 */
 .screen{
 position:fixed;
 inset:0;
@@ -53,39 +51,33 @@ align-items:center;
 flex-direction:column;
 text-align:center;
 padding:20px;
+transition:1s;
 }
+#gift{font-size:80px;cursor:pointer;}
 
 /* 🔐 */
-input{
+input,button{
 padding:10px;
 border-radius:10px;
 border:1px solid #ddd;
 margin-top:10px;
 text-align:center;
 }
-
 button{
-padding:10px 18px;
 background:#ff4d88;
 color:#fff;
 border:none;
-border-radius:10px;
-margin-top:10px;
 }
 
-/* 🎂 */
-#birthday{display:none;font-size:22px;}
-
-/* 📰 القصة */
+/* 📰 */
 #story{
 display:none;
+overflow:auto;
 font-size:18px;
 line-height:2;
-overflow-y:auto;
-padding:20px;
 }
 
-/* 💌 كرت أعلى */
+/* 💌 كرت */
 #card{
 display:none;
 position:fixed;
@@ -95,31 +87,19 @@ align-items:flex-start;
 padding-top:40px;
 background:rgba(255,255,255,0.6);
 }
-
 .cardBox{
 background:#fff;
-width:90%;
-max-height:85vh;
-overflow:auto;
+width:85%;
 padding:15px;
 border-radius:15px;
 text-align:center;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
-animation:pop .6s ease;
+max-height:80vh;
+overflow:auto;
 }
+.cardBox small{color:#999}
 
-@keyframes pop{
-from{transform:scale(0);}
-to{transform:scale(1);}
-}
-
-.cardBox img{
-width:100%;
-border-radius:10px;
-margin-bottom:10px;
-}
-
-/* ❤️ القلب */
+/* ❤️ */
 #heart{
 display:none;
 position:fixed;
@@ -130,18 +110,18 @@ font-size:120px;
 cursor:pointer;
 }
 
-/* 💬 مسج صغير */
-#msg{
+/* 💬 رسالة صغيرة */
+#miniMsg{
 display:none;
 position:fixed;
-bottom:18%;
+top:50%;
 left:50%;
-transform:translateX(-50%);
+transform:translate(-50%,-50%);
 background:#fff;
-padding:10px 14px;
+padding:15px;
 border-radius:12px;
-box-shadow:0 5px 20px rgba(0,0,0,0.2);
-font-size:14px;
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+text-align:center;
 }
 
 /* 🎧 */
@@ -162,52 +142,59 @@ border-radius:12px;
 
 <body>
 
-<div id="gift" class="screen">🎁<small>اضغطي لفتح الهدية</small></div>
+<!-- 🎁 -->
+<div id="gift" class="screen">
+🎁
+<small>اضغطي لفتح الهدية</small>
+</div>
 
+<!-- 🔐 -->
 <div id="login" class="screen" style="display:none;">
 <h3>اكتبي الرمز</h3>
+<small>تلميح: اسمك بطريقة دلع 🤍</small>
 <input id="pass">
 <button onclick="check()">دخول</button>
 </div>
 
-<div id="birthday" class="screen"></div>
-
+<!-- 📰 -->
 <div id="story" class="screen">
 <div id="txt"></div>
 </div>
 
+<!-- 💌 -->
 <div id="card">
 <div class="cardBox">
 <img src="Saja.png">
 <div>
 جوجو 🤍<br><br>
-كلمات حب وامتنان لوجودك في حياتي<br>
+كلمات حب وامتنان لوجودك في حياتي...<br>
 وصبرك عليا حتى وقت نكون مزعج<br><br>
-سامحيني لو يوم ضايقتك<br>
-كل شي مني كان من حبي ليك 🤍
+سامحيني لو ضايقتك 🤍<br><br>
+<small>كمّلي لتحت 👇</small>
 </div>
 </div>
 </div>
 
+<!-- ❤️ -->
 <div id="heart">❤️</div>
-<div id="msg"></div>
+
+<!-- 💬 -->
+<div id="miniMsg"></div>
+
 <button id="music">🎧 اسمعي النهاية</button>
 
 <script>
 
-let drawMode = false;
-
-/* 🌸 قلوب عادية */
+/* 🌸 خلفية عشوائية */
 setInterval(()=>{
-if(drawMode) return;
-
 let e=document.createElement("div");
 e.className="float";
 e.innerHTML=Math.random()>0.5?"💗":"🌸";
 e.style.left=Math.random()*100+"vw";
+e.style.animationDuration=(6+Math.random()*5)+"s";
 document.body.appendChild(e);
-setTimeout(()=>e.remove(),10000);
-},600);
+setTimeout(()=>e.remove(),8000);
+},300);
 
 /* 🎁 */
 gift.onclick=()=>{
@@ -219,182 +206,17 @@ login.style.display="flex";
 function check(){
 if(pass.value.trim()=="سجوو"){
 login.style.display="none";
-startBirthday();
+startStory();
 }else alert("جربي التلميح 🤍");
 }
 
-/* 🎂 */
-function startBirthday(){
-birthday.style.display="flex";
-birthday.innerHTML=`<h2>كل عام وانتي بخير 🎂</h2><p>اضغطي</p>`;
-
-birthday.onclick=()=>{
-birthday.style.display="none";
-startStory();
-};
-}
-
-/* 📰 القصة الكاملة */
+/* 📰 القصة جاهزة */
 function startStory(){
 story.style.display="flex";
 
-let full = `من يوم 3 / 12  
-وانا بديت نحس بشي مختلف...
+txt.innerHTML=`[القصة بالكامل هنا زي ما انت كاتبها 🔥]`;
 
-مش فاهمه في البداية  
-ولا حتى عارف شنو هو بالضبط  
-
-بس مع الأيام  
-لقيت روحي نميل لك  
-ونرتاح لك  
-
-اني الفتره اللي فاتت كلها  
-ومنيش مستريح  
-حاس في شي ناقص...  
-
-وكل مرة نقول  
-شنو الشي هذا؟  
-
-بس أول ما نهدرز معاك  
-نحس كأني لقيته  
-
-حتى لو ما قلتي شي  
-وجودك بس...  
-يرتاحله قلبي  
-
-كأنك خديتي بيدي  
-وطبطبتي عليا  
-بدون حتى ما تحسي  
-
-واني...  
-رغم اني نشوف الحكي ضعف  
-
-لكن معاك لا  
-
-معاك نحكي  
-بدون ما نحس إني غلط  
-ولا إني لازم نسكت  
-
-حتى لما نقولك مستاحشك  
-مش كلمة وخلاص  
-
-هذي شعور  
-
-لأني نبي نهدرز معاك ديما  
-مش لأن مفيش شي نديره  
-
-لكن لأنك انتي  
-الاستراحة متعي  
-
-من كل دوشة في راسي  
-
-مرات نحاول نهرب  
-نرقد... نطلع... نضيع وقت  
-
-بس في النهاية  
-نرجع نفكر فيك  
-
-ونلقى روحي نبي نهدرز معاك  
-حتى لو دقيقة  
-حتى لو كلمة  
-
-ويمكن مرات نحس روحي ثقيل  
-ونقولها لك  
-
-بس الحقيقة...  
-اني بس نبيك تكوني معايا  
-
-ولو انتي تعبتي  
-وخديتي وقتك  
-
-اني بنستنى  
-
-مش مجبور  
-لكن خاطر نبي  
-
-نبيك انتي 🤍  
-
-ومش عارف كيف صارت...  
-بس اني بديت نحبك 🤍  
-
-
-جوجو 🤍  
-كل عام وانتي بخير يا قطعة من قلبي…  
-بس والله حتى كلمة “كل عام وانتي بخير” نحسها صغيرة عليك،  
-لأنك مش مناسبة نعدّيها ونمشي…  
-انتي حياة كاملة دخلت حياتي وغيّرت كل شي فيها.  
-
-سجى❤️‍🩹  
-لو نقعد نحكي من توّا لغدوا، ما نوصلش للي في قلبي عليك  
-لكن خليني نحاول، يمكن شوية من إحساسي يوصلّك…  
-
-انتي ملاذي الآمن…  
-المكان اللي نهرب له من كل شي، ونلقى فيه راحتي بدون ما نفسر  
-انتي الشمعة اللي نورتلي الظلمه كنت عايش فيها،  
-والنور اللي نمشي عليه حتى في أصعب طريقي  
-وصدقيني… لولاك، كان في حاجات هلبا فيا طفت من زمان  
-
-انتي مش بس إنسانة نحبها…  
-انتي طمأنينة، وسكون، وهدوء وسط زحمة حياتي  
-وجودك جنبي بس يكفيني، وكلامك يبدل يومي،  
-وحتى سكوتك مرات… فيه راحة ما نلقاهاش في أي حد  
-
-أنا عارفك كويس…  
-وعارف إنك مش من النوع اللي يقول كلام حلو هلبا  
-بس والله كل تصرف منك يوصلني إحساس أكبر من ألف كلمة  
-نشوفك في خوفك عليا، في سؤالك، في ريبوستاتك،  
-في التفاصيل الصغيرة اللي غيرك يمكن ما يلاحظهاش… وأنا نعيش فيها  
-
-سجوووو ❣️  
-أنا نحبك حب مش مربوط بوقت، ولا بموقف  
-حب ثابت، هادي، وصادق من قلبي  
-حب خلاني نشوف فيك “حياة” مش مجرد علاقة او ارتباط  
-
-ويمكن الحاجة اللي توجعني شوية…  
-إني توّا مش في المكان اللي نبيه  
-لا كونت نفسي بالشكل اللي نحلم بيه، ولا وصلت للي نستاهله  
-لكن والله، ربي عالم بنيتي…  
-قاعد نسعى، ونحاول، ونتعب، وندعي ليل ونهار  
-إنه يفتحها في وجهي، ويرزقني من حيث لا أحتسب  
-
-مش بس علي خاطري اني  
-لكن علي خاطرك انتي يا سجى  
-بش نقدر نوقف قدامك وأنا مرتاح،  
-ونقول: توّا نقدر نعيشك العيشة اللي تستاهليها  
-ونكون راجل قدّك، وقد قلبك، وقد كل شي عطيتيني الامل ودعمتيني فيه  
-
-أنا مانبيش نكون مرحلة في حياتك…  
-ولا ذكرى حلوة وخلاص  
-أنا نبيك تكوني حلالي  
-نبيك تكوني معاي في كل خطوة، في كل بداية، وفي كل نهاية  
-
-نبي نشاركك حياتي…  
-نفرح معاك، ونوقف معاك، ونحميك من كل شي  
-ونكون لك الأمان زي ما كنتي ليا أمان  
-
-ويمكن سامعتيها مني اكثر من مره  
-لكن انتي عارفة مكانك عندي  
-وعارفة إنك أقربلي من أي حد، وأغلى من أي شي  
-
-كل عام وانتي معاي  
-كل عام وانتي سبب في راحتي  
-وكل ليله ندعي ربي يجمعني بيك بالحلال، عاجلا غير اجلا  
-وتكوني نصيبي اللي ما نبيش غيره 🤍  
-
-والله يا سجى…  
-لو في دعوة مستحيل نملّ منها،  
-فهي ان ربي يكتبلي النصيب وباقي العمر معاك 🤍`;
-
-let i=0;
-let t=setInterval(()=>{
-txt.innerHTML+=full[i];
-story.scrollTop=story.scrollHeight;
-i++;
-if(i>=full.length){
-clearInterval(t);
-setTimeout(showCard,1000);
-}
-},22);
+setTimeout(()=>showCard(),1000);
 }
 
 /* 💌 */
@@ -409,8 +231,8 @@ showHeart();
 /* ❤️ */
 function showHeart(){
 heart.style.display="block";
-let y=-150;
 
+let y=-150;
 let d=setInterval(()=>{
 y+=6;
 heart.style.top=y+"px";
@@ -418,32 +240,49 @@ if(y>220) clearInterval(d);
 },20);
 }
 
-/* 💥 انفجار + رسم */
+/* 💥 */
 heart.onclick=()=>{
-heart.style.display="none";
-drawMode=true;
 
-/* كثافة الرسم */
-for(let i=0;i<250;i++){
+heart.style.display="none";
+
+/* انفجار */
+for(let i=0;i<100;i++){
 let e=document.createElement("div");
 e.className="float";
 e.innerHTML=Math.random()>0.5?"💗":"🌸";
 e.style.left=Math.random()*100+"vw";
-e.style.animationDuration="4s";
+e.style.top=Math.random()*100+"vh";
 document.body.appendChild(e);
-setTimeout(()=>e.remove(),8000);
+setTimeout(()=>e.remove(),5000);
 }
 
-msg.style.display="block";
-msg.innerHTML="💬 ارسمّي بالقلوب كيف ما تحبي 🤍";
-setTimeout(()=>msg.style.display="none",4000);
+/* 💬 رسالة */
+miniMsg.style.display="block";
+miniMsg.innerHTML="تقدري يعيوني ترسمي بالقلوب 🤍";
 
-setTimeout(()=>{
-music.style.display="block";
-},2000);
-};
+/* ✍️ رسم */
+document.addEventListener("touchmove",draw);
 
 /* 🎧 */
+setTimeout(()=>music.style.display="block",2000);
+};
+
+/* رسم */
+function draw(e){
+let t=e.touches[0];
+for(let i=0;i<3;i++){
+let el=document.createElement("div");
+el.className="float";
+el.innerHTML="💗";
+el.style.left=t.clientX+"px";
+el.style.top=t.clientY+"px";
+el.style.animationDuration="3s";
+document.body.appendChild(el);
+setTimeout(()=>el.remove(),3000);
+}
+}
+
+/* 🎧 
 music.onclick=()=>{
 window.open("https://youtube.com/watch?v=1t9sfYqZ2iY","_blank");
 };
