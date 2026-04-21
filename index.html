@@ -13,38 +13,34 @@
 
 <!-- 🎁 -->
 <section id="s1" class="scene active">
-<div class="gift" onclick="go(1);playMusic()">🎁</div>
-<p class="hint">👆 اضغطي هنا باش تفتحي الهدية</p>
+<div class="gift" onclick="start()">🎁</div>
+<p class="hint">اضغطي هنا 🤍</p>
 </section>
 
 <!-- 🔐 -->
 <section id="s2" class="scene">
-<h2>اكتبي الرمز 🤍</h2>
-<p class="hint">💡 تلميح: اسمك بدلع</p>
+<h2>اكتبي الرمز</h2>
+<p class="hint">💡 التلميح: اسمك بدلع</p>
 <input id="pass">
 <button onclick="login()">دخول</button>
 </section>
 
 <!-- 🎂 -->
 <section id="s3" class="scene">
-<div id="cakeArea">
-<div class="cake">🎂</div>
-<div id="candle">🕯️</div>
-</div>
-<p id="cakeHint" class="hint">👆 اضغطي أكثر من مرة باش تولعي الشمعة</p>
+<div id="cake">🎂<div id="candle">🕯️</div></div>
+<p id="hintCake" class="hint">اضغطي باش تشعليها 🔥</p>
 </section>
 
 <!-- 📰 -->
 <section id="s4" class="scene scroll">
-<div id="storyBox"></div>
-<p class="hint">👇 اضغطي "التالي" باش تكملي</p>
-<button id="nextMsg">التالي 💌</button>
+<div id="story"></div>
+<button id="next">التالي 💌</button>
 </section>
 
 <!-- ❤️ -->
 <section id="s5" class="scene">
 <div id="heart">❤️</div>
-<p class="hint">👆 اضغطي وبعدها حركي صبعك وارسمي</p>
+<p class="hint">اضغطي وارسمي 🤍</p>
 </section>
 
 <!-- 💌 -->
@@ -52,17 +48,17 @@
 <div class="card">
 <img src="Saja.png">
 <div id="cardText"></div>
-<p class="hint">👇 اضغطي "نحبك" باش تشوفي المفاجأة</p>
-<button onclick="flipCard()">نحبك 🤍</button>
+<button onclick="love()">نحبك 🤍</button>
 </div>
 </section>
 
-<!-- ▶️ -->
-<a id="yt" href="https://youtube.com/watch?v=1t9sfYqZ2iY" target="_blank">
-▶️ اضغطي هنا وخليها للاخير 🤍
+<a id="yt" target="_blank"
+href="https://youtube.com/watch?v=1t9sfYqZ2iY">
+▶️ النهاية
 </a>
 
-<audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8f5c7b1d9.mp3"></audio>
+<audio id="music"
+src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8f5c7b1d9.mp3"></audio>
 
 <script src="script.js"></script>
 </body>
