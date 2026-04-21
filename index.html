@@ -1,333 +1,80 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>سجو 🤍</title>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
+<link rel="stylesheet" href="style.css">
 
-body{
-overflow:hidden;
-background:linear-gradient(180deg,#fff,#ffd6e7);
-transition:1s;
-}
-
-/* خلفية متحركة */
-.float{
-position:absolute;
-pointer-events:none;
-animation:up linear forwards;
-}
-@keyframes up{
-0%{transform:translateY(100vh) scale(0.8);}
-100%{transform:translateY(-120vh) scale(1.3);opacity:0;}
-}
-
-/* شاشات */
-.screen{
-position:fixed;
-inset:0;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-text-align:center;
-padding:20px;
-transition:0.8s;
-}
-
-/* زر */
-button,input{
-padding:12px;
-border-radius:12px;
-border:none;
-margin-top:10px;
-}
-
-/* القصة */
-#story{
-display:none;
-overflow:auto;
-padding:20px;
-font-size:18px;
-line-height:2;
-scroll-behavior:smooth;
-}
-
-/* كرت */
-#card{
-display:none;
-position:fixed;
-inset:0;
-justify-content:center;
-align-items:flex-start;
-padding-top:40px;
-background:rgba(255,255,255,0.7);
-backdrop-filter:blur(6px);
-}
-.cardBox{
-background:#fff;
-width:90%;
-padding:15px;
-border-radius:15px;
-animation:pop 0.7s;
-max-height:80vh;
-overflow:auto;
-}
-@keyframes pop{
-from{transform:scale(0);}
-to{transform:scale(1);}
-}
-
-/* القلب */
-#heart{
-display:none;
-position:fixed;
-top:-150px;
-left:50%;
-transform:translateX(-50%);
-font-size:120px;
-cursor:pointer;
-transition:0.3s;
-}
-
-/* رسالة */
-#miniMsg{
-display:none;
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%) scale(0);
-background:#fff;
-padding:15px;
-border-radius:12px;
-transition:0.3s;
-}
-
-/* زر اغنية */
-#music{
-display:none;
-position:fixed;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-background:#ff4d88;
-color:#fff;
-}
-</style>
+<!-- GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
 </head>
 
 <body>
 
-<div id="gift" class="screen">
-🎁<br><small>اضغطي لفتح الهدية</small>
-</div>
+<!-- 🌸 خلفية -->
+<div id="bg"></div>
 
-<div id="login" class="screen" style="display:none;">
-<h3>اكتبي الرمز</h3>
-<small>تلميح: اسمك بدلع 🤍</small>
-<input id="pass">
-<button id="btn">دخول</button>
-</div>
+<!-- 🎁 Scene 1 -->
+<section id="s1" class="scene active">
+  <div class="gift" id="giftBtn">🎁</div>
+  <p class="hint">اضغطي لفتح الهدية 🤍</p>
+</section>
 
-<div id="birthday" class="screen" style="display:none;"></div>
+<!-- 🔐 Scene 2 -->
+<section id="s2" class="scene">
+  <h2>اكتبي الرمز</h2>
+  <p class="hint">تلميح: اسمك بدلع 🤍</p>
+  <input id="pass" placeholder="••••">
+  <button id="loginBtn">دخول</button>
+</section>
 
-<div id="story"><div id="txt"></div></div>
+<!-- 🎂 Scene 3 -->
+<section id="s3" class="scene">
+  <h1 class="big">🎂 كل عام وانتي بخير</h1>
+  <p class="sub">21 سنة جمال 🤍</p>
+  <p class="hint">اضغطي للمتابعة</p>
+</section>
 
-<div id="card">
-<div class="cardBox">
-<img src="Saja.png" style="width:100%;border-radius:10px;">
-<div>
-جوجو 🤍<br><br>
-شكراً لأنك في حياتي…<br>
-وصبرك عليا رغم كل شي 🤍
-</div>
-</div>
-</div>
+<!-- 📰 Scene 4 (Story) -->
+<section id="s4" class="scene scroll">
+  <div class="storyWrap">
+    <div id="storyText"></div>
+  </div>
+</section>
 
-<div id="heart">❤️</div>
-<div id="miniMsg"></div>
+<!-- 💌 Scene 5 (Card) -->
+<section id="s5" class="scene">
+  <div class="card">
+    <img src="Saja.png" alt="">
+    <div class="cardText">
+      <b>جوجو 🤍</b><br><br>
+      شكراً لأنك في حياتي… وصبرك عليا حتى لما نكون مزعج 🤍<br>
+      سامحيني لو يوم ضايقتك، كل شي كان من حبي ليك 🤍
+    </div>
+    <div class="cardHint">مرّري لتحت لو في نص مخبي ↓</div>
+  </div>
+</section>
 
-<button id="music">🎧 اسمعي النهاية</button>
+<!-- ❤️ Scene 6 (Heart) -->
+<section id="s6" class="scene">
+  <div id="heart">❤️</div>
+  <p class="hint">اضغطي على القلب</p>
+</section>
 
-<script>
+<!-- 🎧 زر الصوت -->
+<button id="musicBtn" class="pill">🎧 شغّلي الجو</button>
 
-/* تعريف */
-const gift=document.getElementById("gift");
-const login=document.getElementById("login");
-const birthday=document.getElementById("birthday");
-const story=document.getElementById("story");
-const txt=document.getElementById("txt");
-const card=document.getElementById("card");
-const heart=document.getElementById("heart");
-const miniMsg=document.getElementById("miniMsg");
-const music=document.getElementById("music");
-const pass=document.getElementById("pass");
-const btn=document.getElementById("btn");
+<!-- ▶️ زر النهاية (يوتيوب) -->
+<a id="finalBtn" class="pill final" href="https://www.youtube.com/watch?v=1t9sfYqZ2iY" target="_blank">
+  ▶️ اسمعيها للنهاية
+</a>
 
-/* اهتزاز */
-const vib=()=>navigator.vibrate&&navigator.vibrate([40,30,40]);
+<!-- 🔊 صوت داخلي -->
+<audio id="bgm" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8f5c7b1d9.mp3?filename=romantic-ambient-110828.mp3"></audio>
 
-/* خلفية */
-setInterval(()=>{
-let e=document.createElement("div");
-e.className="float";
-e.innerHTML=Math.random()>0.5?"💗":"🌸";
-e.style.left=Math.random()*100+"vw";
-e.style.animationDuration=(6+Math.random()*4)+"s";
-document.body.appendChild(e);
-setTimeout(()=>e.remove(),9000);
-},250);
-
-/* بداية */
-gift.onclick=()=>{
-gift.style.opacity="0";
-setTimeout(()=>{
-gift.style.display="none";
-login.style.display="flex";
-},600);
-};
-
-/* دخول */
-btn.onclick=()=>{
-if(pass.value=="سجوو"){
-vib();
-login.style.display="none";
-startBirthday();
-}else alert("غلط 🤍");
-};
-
-/* عيد ميلاد */
-function startBirthday(){
-birthday.style.display="flex";
-birthday.innerHTML="🎂 كل عام وانتي بخير 🤍<br>21 سنة جمال 🎉<br><small>اضغطي</small>";
-birthday.onclick=()=>{
-explode();
-birthday.style.display="none";
-startStory();
-};
-}
-
-/* انفجار */
-function explode(){
-for(let i=0;i<120;i++){
-let e=document.createElement("div");
-e.className="float";
-e.innerHTML="💗🌸";
-e.style.left=Math.random()*100+"vw";
-document.body.appendChild(e);
-setTimeout(()=>e.remove(),5000);
-}
-}
-
-/* قصة */
-function startStory(){
-story.style.display="block";
-
-txt.innerText=`من يوم 3 / 12  
-وانا بديت نحس بشي مختلف...
-
-اني الفتره اللي فاتت كلها ومنيش مستريح  
-حاس في شي ناقص  
-
-بس أول ما نهدرز معاك  
-نحس كأني لقيته  
-
-وجودك راحة  
-وطبطبة بدون كلام  
-
-واني رغم اني نشوف الحكي ضعف  
-لكن معاك لا  
-
-جوجو 🤍  
-كل عام وانتي بخير  
-
-سجى ❤️  
-انتي طمأنينة  
-
-أنا نحبك 🤍`;
-
-setTimeout(()=>card.style.display="flex",2000);
-}
-
-/* كرت */
-card.onclick=()=>{
-card.style.display="none";
-showHeart();
-};
-
-/* قلب */
-function showHeart(){
-heart.style.display="block";
-let y=-150;
-let t=setInterval(()=>{
-y+=5;
-heart.style.top=y+"px";
-if(y>200)clearInterval(t);
-},20);
-}
-
-/* قلب ضغط */
-let draw=false;
-heart.onclick=()=>{
-draw=true;
-heart.style.transform="translateX(-50%) scale(1.2)";
-explode();
-
-miniMsg.style.display="block";
-miniMsg.style.transform="translate(-50%,-50%) scale(1)";
-miniMsg.innerText="جربي ترسمي 🤍";
-
-setTimeout(()=>miniMsg.style.display="none",2000);
-
-music.style.display="block";
-};
-
-/* رسم */
-document.addEventListener("touchmove",(e)=>{
-if(!draw)return;
-let t=e.touches[0];
-for(let i=0;i<2;i++){
-let el=document.createElement("div");
-el.innerHTML="💗";
-el.style.position="absolute";
-el.style.left=t.clientX+"px";
-el.style.top=t.clientY+"px";
-document.body.appendChild(el);
-setTimeout(()=>el.remove(),2000);
-}
-});
-
-/* مفاجآت */
-let count=0;
-document.addEventListener("click",()=>{
-if(!draw)return;
-if(count>=21)return;
-count++;
-
-let box=document.createElement("div");
-box.style.position="fixed";
-box.style.top="50%";
-box.style.left="50%";
-box.style.transform="translate(-50%,-50%) scale(0)";
-box.style.background="#fff";
-box.style.padding="12px";
-box.style.borderRadius="12px";
-box.innerText="مفاجأة "+count+" 🤍";
-document.body.appendChild(box);
-
-setTimeout(()=>box.style.transform="translate(-50%,-50%) scale(1)",50);
-setTimeout(()=>box.remove(),2000);
-});
-
-/* اغنية */
-music.onclick=()=>{
-window.open("https://youtube.com/watch?v=1t9sfYqZ2iY");
-};
-
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
