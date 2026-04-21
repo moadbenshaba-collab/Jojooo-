@@ -1,123 +1,240 @@
 const scenes=document.querySelectorAll(".scene");
 const music=document.getElementById("music");
 
-function go(n){
+function go(i){
 scenes.forEach(s=>s.classList.remove("active"));
-scenes[n].classList.add("active");
+scenes[i].classList.add("active");
 }
 
-/* 🎧 */
-function playMusic(){
+function start(){
 music.play().catch(()=>{});
+go(1);
 }
 
-/* 🔐 */
 function login(){
-if(pass.value=="سجوو"){
+if(pass.value==="سجوو"){
 go(2);
-}else{
-alert("قريبة 🤍");
-}
+}else alert("قريبة 🤍");
 }
 
-/* 🎂 الكيكة */
-let clicks=0;
-let lit=false;
+/* 🎂 */
+let clicks=0,lit=false;
 
-document.getElementById("cakeArea").onclick=()=>{
-
+cake.onclick=()=>{
 clicks++;
 
-/* 🔥 توليع */
 if(!lit){
-let spark=document.createElement("div");
-spark.innerHTML="🔥";
-spark.style.position="fixed";
-spark.style.left="50%";
-spark.style.top="50%";
-document.body.appendChild(spark);
-
-setTimeout(()=>spark.remove(),800);
+spawn("🔥");
 
 if(clicks>5){
-document.getElementById("candle").innerHTML="🕯️🔥";
-document.getElementById("cakeHint").innerText="🍰 توا اضغطي باش تقصي الكيكة";
+candle.innerHTML="🕯️🔥";
+hintCake.innerText="توا قصّيها 🍰";
 lit=true;
 }
+}else{
+gsap.to("#cake",{scale:0,duration:.6});
+setTimeout(()=>go(3),600);
 }
-
-/* 🔪 تقطيع */
-else{
-document.getElementById("cakeArea").style.transform="scale(0)";
-setTimeout(()=>{
-go(3);
-startStory();
-},800);
-}
-
 };
 
-/* 📰 القصة */
-let msgs=[
-"من يوم 3/12 حسيت بشي مختلف...",
-"وجودك راحة 🤍",
-"حتى سكوتك فيه أمان",
-"انتي مش عادية",
-"نحبك 🤍",
-"✨ 21 لأنك انتي 21 في قلبي"
-];
+function spawn(i){
+let e=document.createElement("div");
+e.innerHTML=i;
+e.style.position="fixed";
+e.style.left=Math.random()*100+"vw";
+e.style.top=Math.random()*100+"vh";
+document.body.appendChild(e);
+gsap.to(e,{opacity:0,y:-50,duration:1,onComplete:()=>e.remove()});
+}
+
+/* 📰 القصة الطويلة الأصلية */
+let storyText = `من يوم 3 / 12  
+وانا بديت نحس بشي مختلف...
+
+مش فاهمه في البداية  
+ولا حتى عارف شنو هو بالضبط  
+
+بس مع الأيام  
+لقيت روحي نميل لك  
+ونرتاح لك  
+
+اني الفتره اللي فاتت كلها  
+ومنيش مستريح  
+حاس في شي ناقص...  
+
+وكل مرة نقول  
+شنو الشي هذا؟  
+
+بس أول ما نهدرز معاك  
+نحس كأني لقيته  
+
+حتى لو ما قلتي شي  
+وجودك بس...  
+يرتاحله قلبي  
+
+كأنك خديتي بيدي  
+وطبطبتي عليا  
+بدون حتى ما تحسي  
+
+واني...  
+رغم اني نشوف الحكي ضعف  
+
+لكن معاك لا  
+
+معاك نحكي  
+بدون ما نحس إني غلط  
+ولا إني لازم نسكت  
+
+حتى لما نقولك مستاحشك  
+مش كلمة وخلاص  
+
+هذي شعور  
+
+لأني نبي نهدرز معاك ديما  
+مش لأن مفيش شي نديره  
+
+لكن لأنك انتي  
+الاستراحة متعي  
+
+من كل دوشة في راسي  
+
+مرات نحاول نهرب  
+نرقد... نطلع... نضيع وقت  
+
+بس في النهاية  
+نرجع نفكر فيك  
+
+ونلقى روحي نبي نهدرز معاك  
+حتى لو دقيقة  
+حتى لو كلمة  
+
+ويمكن مرات نحس روحي ثقيل  
+ونقولها لك  
+
+بس الحقيقة...  
+اني بس نبيك تكوني معايا  
+
+ولو انتي تعبتي  
+وخديتي وقتك  
+
+اني بنستنى  
+
+مش مجبور  
+لكن خاطر نبي  
+
+نبيك انتي 🤍  
+
+ومش عارف كيف صارت...  
+بس اني بديت نحبك 🤍  
+
+
+جوجو 🤍  
+كل عام وانتي بخير يا قطعة من قلبي…  
+بس والله حتى كلمة “كل عام وانتي بخير” نحسها صغيرة عليك،  
+لأنك مش مناسبة نعدّيها ونمشي…  
+انتي حياة كاملة دخلت حياتي وغيّرت كل شي فيها.  
+
+سجى❤️‍🩹  
+لو نقعد نحكي من توّا لغدوا، ما نوصلش للي في قلبي عليك  
+لكن خليني نحاول، يمكن شوية من إحساسي يوصلّك…  
+
+انتي ملاذي الآمن…  
+المكان اللي نهرب له من كل شي، ونلقى فيه راحتي بدون ما نفسر  
+انتي الشمعة اللي نورتلي الظلمه كنت عايش فيها،  
+والنور اللي نمشي عليه حتى في أصعب طريقي  
+وصدقيني… لولاك، كان في حاجات هلبا فيا طفت من زمان  
+
+انتي مش بس إنسانة نحبها…  
+انتي طمأنينة، وسكون، وهدوء وسط زحمة حياتي  
+وجودك جنبي بس يكفيني، وكلامك يبدل يومي،  
+وحتى سكوتك مرات… فيه راحة ما نلقاهاش في أي حد  
+
+أنا عارفك كويس…  
+وعارف إنك مش من النوع اللي يقول كلام حلو هلبا  
+بس والله كل تصرف منك يوصلني إحساس أكبر من ألف كلمة  
+نشوفك في خوفك عليا، في سؤالك، في ريبوستاتك،  
+في التفاصيل الصغيرة اللي غيرك يمكن ما يلاحظهاش… وأنا نعيش فيها  
+
+سجوووو ❣️  
+أنا نحبك حب مش مربوط بوقت، ولا بموقف  
+حب ثابت، هادي، وصادق من قلبي  
+حب خلاني نشوف فيك “حياة” مش مجرد علاقة او ارتباط  
+
+ويمكن الحاجة اللي توجعني شوية…  
+إني توّا مش في المكان اللي نبيه  
+لا كونت نفسي بالشكل اللي نحلم بيه، ولا وصلت للي نستاهله  
+لكن والله، ربي عالم بنيتي…  
+قاعد نسعى، ونحاول، ونتعب، وندعي ليل ونهار  
+إنه يفتحها في وجهي، ويرزقني من حيث لا أحتسب  
+
+مش بس علي خاطري اني  
+لكن علي خاطرك انتي يا سجى  
+بش نقدر نوقف قدامك وأنا مرتاح،  
+ونقول: توّا نقدر نعيشك العيشة اللي تستاهليها  
+ونكون راجل قدّك، وقد قلبك، وقد كل شي عطيتيني الامل ودعمتيني فيه  
+
+أنا مانبيش نكون مرحلة في حياتك…  
+ولا ذكرى حلوة وخلاص  
+أنا نبيك تكوني حلالي  
+نبيك تكوني معاي في كل خطوة، في كل بداية، وفي كل نهاية  
+
+نبي نشاركك حياتي…  
+نفرح معاك، ونوقف معاك، ونحميك من كل شي  
+ونكون لك الأمان زي ما كنتي ليا أمان  
+
+ويمكن سامعتيها مني اكثر من مره  
+لكن انتي عارفة مكانك عندي  
+وعارفة إنك أقربلي من أي حد، وأغلى من أي شي  
+
+كل عام وانتي معاي  
+كل عام وانتي سبب في راحتي  
+وكل ليله ندعي ربي يجمعني بيك بالحلال، عاجلا غير اجلا  
+وتكوني نصيبي اللي ما نبيش غيره 🤍  
+
+والله يا سجى…  
+لو في دعوة مستحيل نملّ منها،  
+فهي ان ربي يكتبلي النصيب وباقي العمر معاك 🤍`;
 
 let i=0;
 
-function startStory(){
-showMsg();
-}
-
-function showMsg(){
-if(i>=msgs.length){
+next.onclick=()=>{
+if(i>=storyText.length){
 go(4);
 return;
 }
-storyBox.innerHTML="💌 "+msgs[i];
+story.innerHTML+=storyText[i];
 i++;
-}
+};
 
-nextMsg.onclick=()=>showMsg();
-
-/* ❤️ رسم */
-let drawing=false;
-let startTime=0;
+/* ❤️ */
+let drawing=false,start;
 
 heart.onclick=()=>{
 drawing=true;
-startTime=Date.now();
+start=Date.now();
 };
 
-/* رسم */
-document.addEventListener("touchmove",(e)=>{
+document.addEventListener("mousemove",(e)=>{
 if(!drawing)return;
 
-let t=e.touches[0];
+let d=document.createElement("div");
+d.innerHTML=Math.random()>0.5?"💗":"🌸";
+d.style.position="fixed";
+d.style.left=e.clientX+"px";
+d.style.top=e.clientY+"px";
+document.body.appendChild(d);
 
-let el=document.createElement("div");
-el.innerHTML="💗";
-el.style.position="fixed";
-el.style.left=t.clientX+"px";
-el.style.top=t.clientY+"px";
-document.body.appendChild(el);
+gsap.to(d,{opacity:0,y:-40,duration:1.2,onComplete:()=>d.remove()});
 
-setTimeout(()=>el.remove(),2000);
-
-/* بعد 20 ثانية */
-if(Date.now()-startTime>20000){
+if(Date.now()-start>20000){
 go(5);
-cardText.innerText="وجودك في حياتي نعمة 🤍";
+cardText.innerText="وجودك نعمة 🤍";
 drawing=false;
 }
 });
 
 /* 💌 */
-function flipCard(){
+function love(){
 cardText.innerText="نحبك ياعيوني 🤍";
 yt.style.display="block";
 }
