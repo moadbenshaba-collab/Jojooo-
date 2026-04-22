@@ -1,67 +1,114 @@
+*{box-sizing:border-box}
 body{
-margin:0;
-font-family:sans-serif;
-background:linear-gradient(#fff,#ffd6e7);
-overflow:hidden;
-text-align:center;
+  margin:0;
+  font-family:system-ui, -apple-system, sans-serif;
+  background:linear-gradient(180deg,#ffffff,#ffd6e7);
+  overflow:hidden;
+  text-align:center;
 }
 
+/* 🎬 scenes */
 .scene{
-position:fixed;
-inset:0;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-opacity:0;
-pointer-events:none;
-transition:0.8s ease;
+  position:fixed; inset:0;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:10px; padding:20px;
+  opacity:0; pointer-events:none;
+  transform:scale(1.03);
+  transition:.6s ease;
 }
-
 .scene.active{
-opacity:1;
-pointer-events:auto;
+  opacity:1; pointer-events:auto; transform:scale(1);
 }
 
-.gift{
-font-size:120px;
-animation:float 2s infinite alternate;
-}
+h1{font-size:42px;margin:0}
+h2{margin:0}
+.hint{opacity:.8}
 
+/* buttons */
+button{
+  padding:10px 16px;
+  border:none; border-radius:12px;
+  background:#ff4d88; color:#fff;
+  box-shadow:0 6px 16px rgba(255,77,136,.25);
+}
+button.primary{background:#e63b77}
+
+/* 🎁 */
+.box{
+  font-size:90px;
+  animation:float 2s ease-in-out infinite alternate;
+}
 @keyframes float{
-from{transform:translateY(0)}
-to{transform:translateY(-15px)}
+  from{transform:translateY(0)}
+  to{transform:translateY(-12px)}
 }
 
-.scroll{
-overflow:auto;
-padding:15px;
+/* 🎂 */
+.cakeVis{
+  width:140px; height:80px; border-radius:12px;
+  background:#fff; box-shadow:0 10px 30px rgba(0,0,0,.1);
+  display:flex; align-items:flex-end; justify-content:center;
+  margin:10px 0;
+}
+.candle{
+  width:8px; height:40px; background:#ff4d88;
+  position:relative; border-radius:4px;
+}
+.candle.lit::after{
+  content:""; position:absolute; top:-12px; left:-4px;
+  width:16px; height:16px; border-radius:50%;
+  background:radial-gradient(circle,#fff,#ffd700);
+  box-shadow:0 0 12px #ffd700;
+  animation:flicker .2s infinite alternate;
+}
+@keyframes flicker{
+  from{transform:scale(1)}
+  to{transform:scale(1.1)}
 }
 
+/* 📖 */
+.scroll{overflow:auto}
+.paper{
+  width:92%; max-width:520px;
+  background:#fff; border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+  padding:16px;
+}
 #storyText{
-width:90%;
-background:white;
-padding:15px;
-border-radius:15px;
-line-height:2.2;
+  white-space:pre-line;
+  line-height:2.1;
+  text-align:center;
 }
 
-/* كرت */
-.cardBox{
-background:white;
-padding:15px;
-border-radius:15px;
-width:80%;
+/* 💌 */
+.card{
+  width:88%; max-width:420px;
+  background:#fff; border-radius:16px;
+  padding:12px; box-shadow:0 10px 30px rgba(0,0,0,.15);
+  transition:.6s;
+}
+.card.flip{transform:rotateY(180deg); background:#ffd6e7}
+.card img{width:100%; border-radius:12px}
+.cardText{line-height:1.9}
+.cardBtns{display:flex; gap:10px; justify-content:center}
+
+/* ❤️ */
+#bigHeart{
+  font-size:120px; cursor:pointer;
+  transform:translateY(-40vh);
+  transition:1s ease;
 }
 
-.cardBox img{
-width:100%;
-border-radius:10px;
+/* 🎁 alerts */
+.alert{
+  background:#fff; border-radius:12px;
+  padding:10px 12px; margin:8px 0;
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
 }
 
-/* canvas */
-canvas{
-position:fixed;
-inset:0;
-z-index:-1;
-}
+/* 🖌️ */
+#draw{touch-action:none}
+
+/* 💗 canvas */
+#fx{position:fixed; inset:0; z-index:-1}
