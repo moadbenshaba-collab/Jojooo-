@@ -11,45 +11,45 @@
 
 <canvas id="bg"></canvas>
 
-<!-- 🎁 -->
 <section id="gift" class="scene active">
 <div class="giftBox" onclick="openGift()">🎁</div>
 <p>لمسي الهدية 🤍</p>
 </section>
 
-<!-- 📖 -->
-<section id="story" class="scene">
-<div id="storyBox">
-<div id="storyText"></div>
+<section id="cake" class="scene">
+<div class="cakeBox">
+<div class="cake"></div>
+<div id="flame" class="flame"></div>
+</div>
+<p>شعلي الشمعة 🕯️</p>
+<button onclick="light()">إشعال</button>
+<button id="cutBtn" onclick="cut()" style="display:none;">قص الكيكة 🎂</button>
+</section>
 
-<button onclick="goCard()">كملي 🤍</button>
+<section id="story" class="scene">
+<div class="storyBox">
+<div id="storyText"></div>
+<button onclick="go('card')">قرأت 🤍</button>
 </div>
 </section>
 
-<!-- 💌 -->
 <section id="card" class="scene">
 <div class="card">
-
 <img src="Saja.png">
-
 <h2>جوجو 🤍</h2>
-
 <p>
-انتي الحاجة اللي غيرتني…  
-وخلتني نحس براحة ما عمري حسيتها  
+انتي راحتي والأمان متعي  
 سامحيني لو ضايقتك يوم  
 كل شي كان من حبي 🤍
 </p>
-
-<button onclick="goDraw()">كملي 💗</button>
-
+<button onclick="go('draw')">كملي 💗</button>
 </div>
 </section>
 
-<!-- 🖌️ -->
 <section id="draw" class="scene">
 <h3>ارسمي 💗</h3>
-<button onclick="go('gift')">إعادة</button>
+<button onclick="go('gift')">رجوع ↩</button>
+<button class="yt" onclick="playMusic()">🎧 الأغنية</button>
 </section>
 
 <script src="script.js"></script>
