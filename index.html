@@ -6,56 +6,85 @@
 <title>سجو 🤍</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <canvas id="fx"></canvas>
 
+<!-- 🎧 صوت (يشتغل بعد أول ضغط) -->
+<audio id="bgm" loop preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_9c6c3.mp3?filename=love-ambient-142997.mp3" type="audio/mpeg">
+</audio>
+
 <!-- 🎁 -->
 <section id="gift" class="scene active">
-<div class="gift" onclick="goLogin()">🎁</div>
-<p>اضغطي لبدء الرحلة</p>
+  <div class="box">🎁</div>
+  <p class="hint">اضغطي لفتح الهدية 🤍</p>
+  <button onclick="start()">فتح</button>
 </section>
 
 <!-- 🔐 -->
 <section id="login" class="scene">
-<h2>اكتبي الرمز</h2>
-<input id="pass">
-<button onclick="check()">دخول</button>
+  <h2>🔐 الرمز</h2>
+  <p class="hint">تلميح: اسمك بالدلع 🤍</p>
+  <input id="pass" placeholder="اكتبي الرمز">
+  <button onclick="check()">دخول</button>
 </section>
 
 <!-- 🎂 -->
 <section id="cake" class="scene">
-<h1>🎂</h1>
-<button onclick="openStory()">فتح الرسالة</button>
+  <h1>🎂</h1>
+  <p id="cakeHint" class="hint">الخطوة 1: إشعال الشمعة 🕯️</p>
+  <div class="cakeVis">
+    <div id="candle" class="candle"></div>
+  </div>
+  <button onclick="light()">إشعال الشمعة</button>
+  <button id="cutBtn" onclick="cut()" style="display:none;">الخطوة 2: قص الكيكة 🔪</button>
 </section>
 
 <!-- 📖 -->
 <section id="story" class="scene scroll">
-<div id="storyText"></div>
-<button onclick="openCard()">اكتمال القراءة ✔</button>
+  <div class="paper">
+    <div id="storyText"></div>
+  </div>
+  <button class="primary" onclick="toCard()">قرأت ✔</button>
 </section>
 
-<!-- 💌 كرت -->
+<!-- 💌 -->
 <section id="card" class="scene">
-<div class="cardBox">
-<img src="Saja.png">
-<p>جوجو 🤍</p>
-<button onclick="openSurprise()">متابعة</button>
-</div>
+  <div id="cardBox" class="card">
+    <img src="Saja.png" alt="Saja">
+    <div class="cardText">
+      <p>جوجو 🤍</p>
+      <p>وجودك في حياتي نعمة… سامحيني لو ضايقتك يوم، كله من حبي 🤍</p>
+    </div>
+    <div class="cardBtns">
+      <button onclick="flip()">نحبك</button>
+      <button onclick="dropHeart()">كمّلي</button>
+    </div>
+  </div>
+</section>
+
+<!-- ❤️ -->
+<section id="heartScene" class="scene">
+  <div id="bigHeart">❤️</div>
+  <p class="hint">اضغطي على القلب 🤍</p>
 </section>
 
 <!-- 🎁 مفاجآت -->
 <section id="surprise" class="scene">
-<h2>🎁 مفاجآت</h2>
-<button onclick="startDraw()">ابدئي الرسم 💗</button>
-<button onclick="openYT()">🎧 اليوتيوب</button>
+  <h2>🎁 مفاجآت</h2>
+  <p class="hint">كل مرة اضغطي زر… ما يطلع اللي بعده إلا لما تضغطي 🤍</p>
+  <div id="alerts"></div>
+  <button id="sBtn" onclick="nextSurprise()">ابدئي</button>
+  <button onclick="go('draw')">جربي الرسم 💗</button>
+  <button onclick="yt()">🎧 اسمعي النهاية</button>
 </section>
 
-<!-- 🖌️ رسم -->
+<!-- 🖌️ -->
 <section id="draw" class="scene">
-<h3>ارسم باللمس 💗</h3>
-<p>المس الشاشة</p>
+  <h3>ارسمي بالقلوب 💗</h3>
+  <p class="hint">المسي الشاشة… وخلي القلوب تمشي معاك</p>
+  <button onclick="go('gift')">إعادة 🤍</button>
 </section>
 
 <script src="script.js"></script>
