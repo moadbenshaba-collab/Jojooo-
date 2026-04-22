@@ -9,72 +9,47 @@
 
 <body>
 
-<canvas id="bgfx"></canvas>
-
-<audio id="music" loop>
-<source src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_9c6c3.mp3">
-</audio>
+<canvas id="bg"></canvas>
 
 <!-- 🎁 -->
 <section id="gift" class="scene active">
-<h1>🎁</h1>
-<p>اضغطي… في حاجة مستنيتك 🤍</p>
-<button onclick="start()">فتح</button>
-</section>
-
-<!-- 🔐 -->
-<section id="login" class="scene">
-<h2>الرمز 🤍</h2>
-<p>تلميح: اسمك بالدلع</p>
-<input id="pass">
-<button onclick="check()">دخول</button>
-</section>
-
-<!-- 🎂 -->
-<section id="cake" class="scene">
-<h1>🎂</h1>
-<p id="hint">الخطوة 1: إشعال الشمعة</p>
-
-<div id="candle" class="candle"></div>
-
-<button onclick="light()">إشعال 🕯️</button>
-<button id="cutBtn" onclick="cut()" style="display:none;">قص الكيكة 🔪</button>
+<div class="giftBox" onclick="openGift()">🎁</div>
+<p>لمسي الهدية 🤍</p>
 </section>
 
 <!-- 📖 -->
-<section id="story" class="scene scroll">
+<section id="story" class="scene">
+<div id="storyBox">
 <div id="storyText"></div>
-<button onclick="go('card')">قرأت ✔</button>
+
+<button onclick="goCard()">كملي 🤍</button>
+</div>
 </section>
 
 <!-- 💌 -->
 <section id="card" class="scene">
-<div class="card" id="cardBox">
+<div class="card">
+
 <img src="Saja.png">
-<p>جوجو 🤍<br>سامحيني لو ضايقتك… كله من حبي</p>
-<button onclick="flip()">نحبك</button>
-<button onclick="showHeart()">كملي</button>
+
+<h2>جوجو 🤍</h2>
+
+<p>
+انتي الحاجة اللي غيرتني…  
+وخلتني نحس براحة ما عمري حسيتها  
+سامحيني لو ضايقتك يوم  
+كل شي كان من حبي 🤍
+</p>
+
+<button onclick="goDraw()">كملي 💗</button>
+
 </div>
-</section>
-
-<!-- ❤️ -->
-<section id="heartScene" class="scene">
-<div id="bigHeart">❤️</div>
-<p>اضغطي القلب 🤍</p>
-</section>
-
-<!-- 🎁 -->
-<section id="surprise" class="scene">
-<h2>مفاجآت 🎁</h2>
-<div id="alerts"></div>
-<button onclick="nextSurprise()">ابدئي</button>
-<button onclick="go('draw')">ارسم 💗</button>
-<button onclick="yt()">🎧 النهاية</button>
 </section>
 
 <!-- 🖌️ -->
 <section id="draw" class="scene">
 <h3>ارسمي 💗</h3>
+<button onclick="go('gift')">إعادة</button>
 </section>
 
 <script src="script.js"></script>
