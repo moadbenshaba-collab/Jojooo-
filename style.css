@@ -1,13 +1,10 @@
 body{
 margin:0;
 font-family:sans-serif;
-background:linear-gradient(#fff,#ffd6e7);
 overflow:hidden;
-text-align:center;
-color:#000;
+background:linear-gradient(180deg,#ffe4ef,#ffd6e7,#ffc1d6);
 }
 
-/* scenes */
 .scene{
 position:fixed;
 inset:0;
@@ -16,77 +13,59 @@ justify-content:center;
 align-items:center;
 flex-direction:column;
 opacity:0;
-transition:0.6s;
+transition:.7s;
 pointer-events:none;
 }
+.scene.active{opacity:1;pointer-events:auto;}
 
-.scene.active{
-opacity:1;
-pointer-events:auto;
-}
-
-/* 🎁 */
 .giftBox{
-font-size:100px;
-cursor:pointer;
+font-size:90px;
 animation:shake 1.5s infinite;
+cursor:pointer;
 }
-
 @keyframes shake{
 0%{transform:rotate(0)}
-25%{transform:rotate(3deg)}
-50%{transform:rotate(-3deg)}
-75%{transform:rotate(2deg)}
+50%{transform:rotate(5deg)}
 100%{transform:rotate(0)}
 }
 
-/* 📖 */
-#storyBox{
+.cakeBox{position:relative;width:120px;height:100px;}
+.cake{width:100%;height:80px;background:#5c2c2c;border-radius:10px;}
+.flame{
+position:absolute;top:-20px;left:50%;
+transform:translateX(-50%);
+width:10px;height:20px;background:orange;
+border-radius:50%;display:none;
+}
+
+.storyBox{
 background:#ffffffdd;
-padding:20px;
-border-radius:20px;
-width:90%;
-max-height:70vh;
+padding:20px;border-radius:20px;
+width:90%;max-height:70vh;
 overflow:auto;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
+#storyText{line-height:2.3;white-space:pre-line;}
 
-#storyText{
-line-height:2.4;
-white-space:pre-line;
-}
-
-/* 💌 */
 .card{
-background:white;
-padding:15px;
-border-radius:20px;
-width:85%;
-box-shadow:0 15px 40px rgba(0,0,0,0.15);
-animation:fadeUp 0.7s ease;
+background:#fff;padding:15px;
+border-radius:20px;width:85%;
 }
+.card img{width:100%;border-radius:15px;}
 
-.card img{
-width:100%;
-border-radius:15px;
-}
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(30px)}
-to{opacity:1;transform:translateY(0)}
-}
-
-/* buttons */
 button{
 margin-top:10px;
 padding:10px 18px;
-border:none;
-border-radius:12px;
-background:#ff4d88;
-color:white;
+border:none;border-radius:12px;
+background:#ff4d88;color:white;
 }
 
-/* canvas */
+.yt{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+}
+
 canvas{
 position:fixed;
 inset:0;
