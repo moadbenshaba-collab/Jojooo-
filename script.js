@@ -1,162 +1,90 @@
-/* 🎬 */
 function go(id){
 document.querySelectorAll(".scene").forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
-vib();
-}
-
-/* 🎧 */
-function start(){
-music.play().catch(()=>{});
-go("login");
-}
-
-/* 📳 */
-function vib(){
-if(navigator.vibrate) navigator.vibrate(30);
-}
-
-/* 🔐 */
-function check(){
-if(pass.value==="سجوو"){
-go("cake");
-}else alert("ركزي في التلميح 🤍");
-}
-
-/* 🎂 */
-let lit=false;
-
-function light(){
-lit=true;
-candle.classList.add("lit");
-hint.innerText="قص الكيكة 🔪";
-cutBtn.style.display="block";
-}
-
-function cut(){
-if(lit){
-burst();
-go("story");
-typeStory();
-}
-}
-
-/* 💥 */
-function burst(){
-for(let i=0;i<60;i++){
-let e=document.createElement("div");
-e.innerText=Math.random()>0.5?"💗":"🌸";
-e.style.position="absolute";
-e.style.left=Math.random()*100+"vw";
-e.style.top=Math.random()*100+"vh";
-document.body.appendChild(e);
-setTimeout(()=>e.remove(),1500);
-}
-}
-
-/* 📖 cinematic */
-const storyParts = [
-
-`من يوم 3 / 12  
-وانا بديت نحس بشي مختلف...`,
-
-`مش فاهمه في البداية  
-لكن قلبي فهم`,
-
-`لقيت روحي نميل لك  
-ونرتاح لك`,
-
-`وجودك بس يريحني  
-حتى بدون كلام`,
-
-`كأنك أمان`,
-
-`جوجو 🤍  
-كل عام وانتي بخير`,
-
-`سجى ❤️‍🩹  
-أنا نحبك 🤍`
-];
-
-function typeStory(){
-
-storyText.innerHTML="";
-let i=0;
-
-function next(){
-
-if(i>=storyParts.length) return;
-
-let p=document.createElement("div");
-p.className="paragraph";
-p.innerText=storyParts[i];
-
-storyText.appendChild(p);
-
-setTimeout(()=>{
-p.classList.add("show");
-window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
-},100);
-
-i++;
-setTimeout(next,2200);
-}
-
-next();
-}
-
-/* 💌 */
-function flip(){
-cardBox.classList.toggle("flip");
-burst();
-}
-
-/* ❤️ */
-function showHeart(){
-go("heartScene");
-
-bigHeart.onclick=()=>{
-burst();
-go("surprise");
-};
 }
 
 /* 🎁 */
-let msgs=[
-"💗 وجودك فرق فيا",
-"🌸 نرتاح معاك",
-"🤍 انتي الأمان",
-"💗 نحبك",
-"🤍 وصلتي 21 🤍"
-];
+function openGift(){
 
-let i=0;
-function nextSurprise(){
-if(i>=msgs.length) return;
+for(let i=0;i<120;i++){
+let e=document.createElement("div");
+e.innerText=Math.random()>0.5?"🌸":"💗";
+e.style.position="fixed";
+e.style.left=Math.random()*100+"vw";
+e.style.top=Math.random()*100+"vh";
+e.style.fontSize=(16+Math.random()*10)+"px";
 
-let d=document.createElement("div");
-d.innerText=msgs[i++];
-alerts.appendChild(d);
+document.body.appendChild(e);
+setTimeout(()=>e.remove(),2000);
 }
 
-/* 🎧 */
-function yt(){
-window.open("https://youtube.com/watch?v=1t9sfYqZ2iY");
+setTimeout(()=>{
+go("story");
+showStory();
+},800);
 }
 
-/* 🖌️ */
+/* 📖 */
+function showStory(){
+storyText.innerText = `من يوم 3 / 12  
+
+وانا بديت نحس بشي مختلف...
+
+مش فاهمه في البداية  
+لكن قلبي فهم  
+
+مع الوقت  
+لقيت روحي نميل لك  
+ونرتاح لك  
+
+اني لما نحكي معاك  
+نرتاح بدون سبب  
+
+حتى لو ما قلتي شي  
+وجودك يكفيني  
+
+كأنك طبطبتي عليا  
+
+واني رغم اني نشوف الحكي ضعف  
+لكن معاك لا  
+
+معاك نحكي بدون خوف  
+
+جوجو 🤍  
+كل عام وانتي بخير  
+
+سجى ❤️‍🩹  
+انتي راحتي  
+وانتي الأمان  
+
+أنا نحبك 🤍`;
+}
+
+/* 💌 */
+function goCard(){
+go("card");
+}
+
+function goDraw(){
+go("draw");
+}
+
+/* 🖌️ رسم */
 document.addEventListener("touchmove",(e)=>{
+let t=e.touches[0];
+
 let h=document.createElement("div");
 h.innerText="💗";
-h.style.position="absolute";
-h.style.left=e.touches[0].clientX+"px";
-h.style.top=e.touches[0].clientY+"px";
+h.style.position="fixed";
+h.style.left=t.clientX+"px";
+h.style.top=t.clientY+"px";
 document.body.appendChild(h);
+
 setTimeout(()=>h.remove(),800);
 });
 
-/* 💗 canvas */
-const c=document.getElementById("bgfx");
+/* 💗 خلفية */
+const c=document.getElementById("bg");
 const x=c.getContext("2d");
 
 c.width=innerWidth;
@@ -168,7 +96,7 @@ function spawn(){
 p.push({
 x:Math.random()*c.width,
 y:c.height,
-s:Math.random()*2+1,
+s:1+Math.random()*2,
 t:Math.random()>0.5?"💗":"🌸"
 });
 }
@@ -186,5 +114,5 @@ if(e.y<0) p.splice(i,1);
 requestAnimationFrame(draw);
 }
 
-setInterval(spawn,120);
+setInterval(spawn,150);
 draw();
