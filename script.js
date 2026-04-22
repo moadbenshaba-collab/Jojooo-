@@ -1,53 +1,35 @@
 const scenes=document.querySelectorAll(".scene");
-const light=document.querySelector(".light");
-const flash=document.querySelector(".flash");
+const glow=document.querySelector(".glow");
 
-/* انتقال سينمائي */
 function go(id){
-flash.style.opacity=1;
-setTimeout(()=>{
 scenes.forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
-flash.style.opacity=0;
-},400);
 }
-
-/* صوت */
-let sound=new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b98a1.mp3");
 
 /* 🎁 */
 document.querySelector(".gift").onclick=()=>{
-sound.play();
-shakeScreen();
-burst();
+softBurst();
 setTimeout(()=>{
 go("story");
 write();
-},900);
+},600);
 };
 
-/* اهتزاز */
-function shakeScreen(){
-document.body.style.transform="translateX(10px)";
-setTimeout(()=>document.body.style.transform="translateX(-10px)",100);
-setTimeout(()=>document.body.style.transform="translateX(0)",200);
-}
-
-/* انفجار */
-function burst(){
-for(let i=0;i<200;i++){
+/* 🌸 انفجار ناعم */
+function softBurst(){
+for(let i=0;i<120;i++){
 let e=document.createElement("div");
 e.innerText=Math.random()>0.5?"💗":"🌸";
 e.style.position="fixed";
 e.style.left=Math.random()*100+"vw";
 e.style.top=Math.random()*100+"vh";
-e.style.fontSize=(14+Math.random()*14)+"px";
+e.style.opacity=.8;
 document.body.appendChild(e);
-setTimeout(()=>e.remove(),2000);
+setTimeout(()=>e.remove(),1500);
 }
 }
 
-/* كتابة */
+/* 📖 */
 function write(){
 text.innerText=`من يوم 3 / 12  
 
@@ -64,41 +46,57 @@ text.innerText=`من يوم 3 / 12
 أنا نحبك 🤍`;
 }
 
-/* الانتقال */
-document.querySelector(".glass").onclick=()=>go("card");
-document.querySelector(".card").onclick=()=>go("final");
+/* scroll */
+document.getElementById("box").onscroll=function(){
+if(this.scrollTop + this.clientHeight >= this.scrollHeight){
+setTimeout(()=>go("card"),500);
+}
+};
+
+/* card */
+document.querySelector(".card").onclick=()=>{
+go("final");
+};
 
 /* ❤️ */
 document.querySelector(".heart").onclick=()=>{
-burst();
 finalText.innerText="نحبك يا عيوني 🤍";
+softBurst();
 };
 
-/* ضوء */
+/* glow follow */
 document.addEventListener("mousemove",(e)=>{
-light.style.left=e.clientX-150+"px";
-light.style.top=e.clientY-150+"px";
+glow.style.left=e.clientX-120+"px";
+glow.style.top=e.clientY-120+"px";
 });
 
-/* خلفية */
+/* background optimized */
 const c=document.getElementById("bg");
 const x=c.getContext("2d");
+
 c.width=innerWidth;
 c.height=innerHeight;
 
-let p=[];
+let particles=[];
 
 setInterval(()=>{
-p.push({x:Math.random()*c.width,y:c.height,t:Math.random()>0.5?"💗":"🌸"});
-},100);
+particles.push({
+x:Math.random()*c.width,
+y:c.height,
+s:0.5+Math.random(),
+t:Math.random()>0.5?"💗":"🌸"
+});
+},200);
 
 function draw(){
 x.clearRect(0,0,c.width,c.height);
-p.forEach((e,i)=>{
-e.y-=1;
-x.fillText(e.t,e.x,e.y);
-if(e.y<0)p.splice(i,1);
+
+particles.forEach((p,i)=>{
+p.y-=p.s;
+x.fillText(p.t,p.x,p.y);
+if(p.y<0)particles.splice(i,1);
 });
+
 requestAnimationFrame(draw);
 }
 draw();
