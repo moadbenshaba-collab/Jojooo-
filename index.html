@@ -10,46 +10,36 @@
 <body>
 
 <canvas id="bg"></canvas>
+<div class="light"></div>
+<div class="flash"></div>
 
 <section id="gift" class="scene active">
-<div class="giftBox" onclick="openGift()">🎁</div>
-<p>لمسي الهدية 🤍</p>
-</section>
-
-<section id="cake" class="scene">
-<div class="cakeBox">
-<div class="cake"></div>
-<div id="flame" class="flame"></div>
-</div>
-<p>شعلي الشمعة 🕯️</p>
-<button onclick="light()">إشعال</button>
-<button id="cutBtn" onclick="cut()" style="display:none;">قص الكيكة 🎂</button>
+<div class="gift">🎁</div>
+<p>لمسة وحدة بس...</p>
 </section>
 
 <section id="story" class="scene">
-<div class="storyBox">
-<div id="storyText"></div>
-<button onclick="go('card')">قرأت 🤍</button>
+<div class="glass">
+<div id="text"></div>
 </div>
 </section>
 
 <section id="card" class="scene">
 <div class="card">
 <img src="Saja.png">
-<h2>جوجو 🤍</h2>
 <p>
+جوجو 🤍<br><br>
 انتي راحتي والأمان متعي  
 سامحيني لو ضايقتك يوم  
 كل شي كان من حبي 🤍
 </p>
-<button onclick="go('draw')">كملي 💗</button>
 </div>
 </section>
 
-<section id="draw" class="scene">
-<h3>ارسمي 💗</h3>
-<button onclick="go('gift')">رجوع ↩</button>
-<button class="yt" onclick="playMusic()">🎧 الأغنية</button>
+<section id="final" class="scene">
+<div class="heart">❤️</div>
+<h2 id="finalText">في حاجة ما قلتهاش...</h2>
+<button onclick="music()">🎧 اسمعي</button>
 </section>
 
 <script src="script.js"></script>
