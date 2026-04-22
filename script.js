@@ -1,236 +1,190 @@
-// 🎬 navigation
+/* 🎬 */
 function go(id){
-  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  vib(25);
+document.querySelectorAll(".scene").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+vib();
 }
+
+/* 🎧 */
 function start(){
-  // يبدأ الصوت بعد أول تفاعل
-  const a=document.getElementById('bgm');
-  a.volume=.6; a.play().catch(()=>{});
-  go('login');
+music.play().catch(()=>{});
+go("login");
 }
 
-// 📳
-function vib(ms){ if(navigator.vibrate) navigator.vibrate(ms||20); }
+/* 📳 */
+function vib(){
+if(navigator.vibrate) navigator.vibrate(30);
+}
 
-// 🔐
+/* 🔐 */
 function check(){
-  if(pass.value.trim()==="سجوو"){
-    go('cake');
-  }else{
-    alert("التلميح واضح 🤍");
-  }
+if(pass.value==="سجوو"){
+go("cake");
+}else alert("ركزي في التلميح 🤍");
 }
 
-// 🎂
+/* 🎂 */
 let lit=false;
+
 function light(){
-  lit=true;
-  candle.classList.add('lit');
-  cakeHint.innerText="الخطوة 2: قص الكيكة 🔪";
-  cutBtn.style.display='inline-block';
-  vib(30);
+lit=true;
+candle.classList.add("lit");
+hint.innerText="قص الكيكة 🔪";
+cutBtn.style.display="block";
 }
+
 function cut(){
-  if(!lit) return;
-  burst(80);
-  go('story');
-  typeStory();
+if(lit){
+burst();
+go("story");
+typeStory();
+}
 }
 
-// 💥 burst
-function burst(n){
-  for(let i=0;i<n;i++){
-    const e=document.createElement('div');
-    e.innerText=Math.random()>.5?'💗':'🌸';
-    e.style.position='fixed';
-    e.style.left=Math.random()*100+'vw';
-    e.style.top=Math.random()*100+'vh';
-    e.style.fontSize=(16+Math.random()*10)+'px';
-    document.body.appendChild(e);
-    setTimeout(()=>e.remove(),1200);
-  }
+/* 💥 */
+function burst(){
+for(let i=0;i<60;i++){
+let e=document.createElement("div");
+e.innerText=Math.random()>0.5?"💗":"🌸";
+e.style.position="absolute";
+e.style.left=Math.random()*100+"vw";
+e.style.top=Math.random()*100+"vh";
+document.body.appendChild(e);
+setTimeout(()=>e.remove(),1500);
+}
 }
 
-// 📖 story (كاملة ومرتبة)
-const story = `من يوم 3 / 12  
-وانا بديت نحس بشي مختلف...
+/* 📖 cinematic */
+const storyParts = [
 
-مش فاهمه في البداية  
-ولا حتى عارف شنو هو بالضبط  
+`من يوم 3 / 12  
+وانا بديت نحس بشي مختلف...`,
 
-بس مع الأيام  
-لقيت روحي نميل لك  
-ونرتاح لك  
+`مش فاهمه في البداية  
+لكن قلبي فهم`,
 
-اني الفتره اللي فاتت كلها  
-ومنيش مستريح  
-حاس في شي ناقص...  
+`لقيت روحي نميل لك  
+ونرتاح لك`,
 
-وكل مرة نقول  
-شنو الشي هذا؟  
+`وجودك بس يريحني  
+حتى بدون كلام`,
 
-بس أول ما نهدرز معاك  
-نحس كأني لقيته  
+`كأنك أمان`,
 
-حتى لو ما قلتي شي  
-وجودك بس...  
-يرتاحله قلبي  
+`جوجو 🤍  
+كل عام وانتي بخير`,
 
-كأنك خديتي بيدي  
-وطبطبتي عليا  
-
-واني رغم اني نشوف الحكي ضعف  
-لكن معاك لا  
-
-معاك نحكي بدون خوف  
-
-حتى لما نقولك مستاحشك  
-مش كلمة وخلاص  
-
-هذي شعور  
-
-لأني نبي نهدرز معاك ديما  
-مش لأن مفيش شي نديره  
-
-لكن لأنك انتي  
-الاستراحة متعي  
-
-جوجو 🤍  
-كل عام وانتي بخير  
-
-سجى❤️‍🩹  
-انتي ملاذي الآمن  
-والراحة اللي نلقى فيها نفسي  
-
-أنا نحبك حب صادق وثابت  
-ونبيك تكوني جزء من حياتي 🤍`;
+`سجى ❤️‍🩹  
+أنا نحبك 🤍`
+];
 
 function typeStory(){
-  storyText.innerText="";
-  let i=0;
-  const t=setInterval(()=>{
-    storyText.innerText += story[i] || "";
-    i++;
-    if(i>=story.length) clearInterval(t);
-  },18);
+
+storyText.innerHTML="";
+let i=0;
+
+function next(){
+
+if(i>=storyParts.length) return;
+
+let p=document.createElement("div");
+p.className="paragraph";
+p.innerText=storyParts[i];
+
+storyText.appendChild(p);
+
+setTimeout(()=>{
+p.classList.add("show");
+window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+},100);
+
+i++;
+setTimeout(next,2200);
 }
 
-// 💌
-function toCard(){ go('card'); }
+next();
+}
+
+/* 💌 */
 function flip(){
-  cardBox.classList.toggle('flip');
-  burst(40);
+cardBox.classList.toggle("flip");
+burst();
 }
 
-// ❤️
-function dropHeart(){
-  go('heartScene');
-  const h=document.getElementById('bigHeart');
-  setTimeout(()=>{ h.style.transform='translateY(0)'; },50);
-  h.onclick=()=>{
-    burst(150);
-    showHint("تقدري ترسمي بالقلوب زي ما عبيتي حياتي حنية 🤍");
-    go('surprise');
-  };
+/* ❤️ */
+function showHeart(){
+go("heartScene");
+
+bigHeart.onclick=()=>{
+burst();
+go("surprise");
+};
 }
 
-// 🎁 surprises step-by-step
-const msgs=[
-  "💗 أول حاجة… وجودك فرق فيا",
-  "🌸 ثاني حاجة… نرتاح معاك بدون سبب",
-  "🤍 ثالث حاجة… حتى سكوتك يريح",
-  "💗 رابع حاجة… دايمًا في بالي",
-  "🌸 خامس حاجة… نبيك في كل خطوة",
-  "🤍 سادس حاجة… انتي الأمان",
-  "💗 سابع حاجة… دعائي ليك دايم",
-  "🌸 ثامن حاجة… مستحيل نمل منك",
-  "🤍 تاسع حاجة… أقربلي من الكل",
-  "💗 عاشر حاجة… نحبك",
-  "🌸 11… نحبك أكثر",
-  "🤍 12… نحبك أكثر وأكثر",
-  "💗 13… انتي حياتي",
-  "🌸 14… انتي راحتي",
-  "🤍 15… انتي اختياري",
-  "💗 16… انتي قدري",
-  "🌸 17… انتي البداية",
-  "🤍 18… انتي النهاية",
-  "💗 19… انتي كل شي",
-  "🌸 20… انتي قلبي",
-  "🤍 21… وصلتي 21… وكل عام وانتي بخير يا سجوو 🤍"
+/* 🎁 */
+let msgs=[
+"💗 وجودك فرق فيا",
+"🌸 نرتاح معاك",
+"🤍 انتي الأمان",
+"💗 نحبك",
+"🤍 وصلتي 21 🤍"
 ];
-let si=0;
+
+let i=0;
 function nextSurprise(){
-  if(si>=msgs.length) return;
-  const box=document.createElement('div');
-  box.className='alert';
-  box.innerText=msgs[si++];
-  alerts.appendChild(box);
-  vib(15);
+if(i>=msgs.length) return;
+
+let d=document.createElement("div");
+d.innerText=msgs[i++];
+alerts.appendChild(d);
 }
 
-// 🖌️ draw (يتبع الإصبع)
-let drawing=false;
-document.getElementById('draw').addEventListener('touchstart',()=>drawing=true);
-document.getElementById('draw').addEventListener('touchend',()=>drawing=false);
-document.getElementById('draw').addEventListener('touchmove',(e)=>{
-  if(!drawing) return;
-  const t=e.touches[0];
-  for(let i=0;i<3;i++){
-    const h=document.createElement('div');
-    h.innerText="💗";
-    h.style.position="fixed";
-    h.style.left=(t.clientX+(Math.random()*20-10))+"px";
-    h.style.top=(t.clientY+(Math.random()*20-10))+"px";
-    h.style.fontSize="20px";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),900);
-  }
+/* 🎧 */
+function yt(){
+window.open("https://youtube.com/watch?v=1t9sfYqZ2iY");
+}
+
+/* 🖌️ */
+document.addEventListener("touchmove",(e)=>{
+let h=document.createElement("div");
+h.innerText="💗";
+h.style.position="absolute";
+h.style.left=e.touches[0].clientX+"px";
+h.style.top=e.touches[0].clientY+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),800);
 });
 
-// 🎧
-function yt(){
-  window.open("https://youtube.com/watch?v=1t9sfYqZ2iY","_blank");
-}
+/* 💗 canvas */
+const c=document.getElementById("bgfx");
+const x=c.getContext("2d");
 
-// 💬 hint popup
-function showHint(txt){
-  const b=document.createElement('div');
-  b.className='alert';
-  b.style.position='fixed';
-  b.style.bottom='20px';
-  b.style.left='50%';
-  b.style.transform='translateX(-50%)';
-  b.innerText=txt;
-  document.body.appendChild(b);
-  setTimeout(()=>b.remove(),2200);
-}
+c.width=innerWidth;
+c.height=innerHeight;
 
-// 💗 Canvas bg (خفيف)
-const c=document.getElementById('fx');
-const x=c.getContext('2d');
-function resize(){ c.width=innerWidth; c.height=innerHeight; }
-resize(); addEventListener('resize',resize);
+let p=[];
 
-let P=[];
 function spawn(){
-  P.push({
-    x:Math.random()*c.width,
-    y:c.height+10,
-    s:1+Math.random()*2,
-    t:Math.random()>.5?'💗':'🌸'
-  });
+p.push({
+x:Math.random()*c.width,
+y:c.height,
+s:Math.random()*2+1,
+t:Math.random()>0.5?"💗":"🌸"
+});
 }
-function loop(){
-  x.clearRect(0,0,c.width,c.height);
-  P.forEach((p,i)=>{
-    p.y-=p.s;
-    x.font="18px system-ui";
-    x.fillText(p.t,p.x,p.y);
-    if(p.y<-20) P.splice(i,1);
-  });
-  requestAnimationFrame(loop);
+
+function draw(){
+x.clearRect(0,0,c.width,c.height);
+
+p.forEach((e,i)=>{
+e.y-=e.s;
+x.font="18px Arial";
+x.fillText(e.t,e.x,e.y);
+if(e.y<0) p.splice(i,1);
+});
+
+requestAnimationFrame(draw);
 }
-setInterval(spawn,140);
-loop();
+
+setInterval(spawn,120);
+draw();
