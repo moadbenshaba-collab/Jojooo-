@@ -11,61 +11,166 @@
 </head>
 <body>
 
-<canvas id="bgCanvas"></canvas>
-<canvas id="explosionCanvas"></canvas>
-<div id="flashOverlay"></div>
-<div id="audioBtn" onclick="toggleAudio()">🎵</div>
+<!-- ═══════════════════════════════════════ -->
+<!--           CINEMATIC INTRO              -->
+<!-- ═══════════════════════════════════════ -->
+<div id="introWrapper">
+  <canvas id="introCanvas"></canvas>
 
-<div id="progressDots">
-  <div class="dot active" id="dot0"></div>
-  <div class="dot" id="dot1"></div>
-  <div class="dot" id="dot2"></div>
-  <div class="dot" id="dot3"></div>
-  <div class="dot" id="dot4"></div>
-  <div class="dot" id="dot5"></div>
-</div>
-
-<!-- SCENE 1: GIFT -->
-<div class="scene active" id="scene1">
-  <div class="gift-wrap">
-    <div class="gift-box" id="giftBox" onclick="openGift()">
-      <svg class="gift-svg" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="75" width="120" height="75" rx="10" fill="url(#boxGrad)"/>
-        <rect x="14" y="58" width="132" height="24" rx="8" fill="url(#lidGrad)"/>
-        <rect x="72" y="58" width="16" height="92" rx="4" fill="#fff" opacity="0.7"/>
-        <rect x="14" y="64" width="132" height="12" rx="4" fill="#fff" opacity="0.7"/>
-        <ellipse cx="65" cy="52" rx="22" ry="14" fill="#ffb3cc" transform="rotate(-20 65 52)"/>
-        <ellipse cx="95" cy="52" rx="22" ry="14" fill="#ffb3cc" transform="rotate(20 95 52)"/>
-        <circle cx="80" cy="52" r="10" fill="#ff6fa8"/>
-        <circle cx="80" cy="52" r="6" fill="#fff" opacity="0.5"/>
-        <ellipse cx="50" cy="90" rx="18" ry="8" fill="#fff" opacity="0.15" transform="rotate(-15 50 90)"/>
-        <defs>
-          <linearGradient id="boxGrad" x1="20" y1="75" x2="140" y2="150" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#ff6fa8"/>
-            <stop offset="1" stop-color="#c2185b"/>
-          </linearGradient>
-          <linearGradient id="lidGrad" x1="14" y1="58" x2="146" y2="82" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#ff80b5"/>
-            <stop offset="1" stop-color="#e91e8c"/>
-          </linearGradient>
-        </defs>
-      </svg>
+  <!-- INTRO SLIDE 0: Date -->
+  <div class="intro-slide" id="islide0">
+    <div class="intro-text-block">
+      <div class="intro-line big" id="il0a">في يوم 10 / 05 / 2005...</div>
+      <div class="intro-line" id="il0b">ولدت فتاة...</div>
+      <div class="intro-line glow" id="il0c">تشبه القمر 🤍</div>
     </div>
-    <div class="gift-hint">لمسة وحدة 🤍</div>
-    <div class="tap-hint">اضغطي على الهدية ✨</div>
   </div>
+
+  <!-- INTRO SLIDE 1: Baby -->
+  <div class="intro-slide" id="islide1">
+    <div class="intro-baby" id="introBaby">
+      <canvas id="babyCanvas" width="200" height="220"></canvas>
+    </div>
+    <div class="intro-text-block">
+      <div class="intro-line" id="il1a">من يومها...</div>
+      <div class="intro-line glow" id="il1b">والجمال فيها مش عادي</div>
+    </div>
+  </div>
+
+  <!-- INTRO SLIDE 2: Growing up -->
+  <div class="intro-slide" id="islide2">
+    <div class="intro-figure" id="figureGrow">
+      <canvas id="growCanvas" width="160" height="240"></canvas>
+    </div>
+    <div class="intro-text-block">
+      <div class="intro-line" id="il2a">كبرت...</div>
+      <div class="intro-line" id="il2b">وكانت طيبتها تسبق كلامها</div>
+      <div class="intro-line glow" id="il2c">وحلاوتها كانت دايم تسرق الانتباه</div>
+    </div>
+  </div>
+
+  <!-- INTRO SLIDE 3: Age 18 -->
+  <div class="intro-slide" id="islide3">
+    <div class="intro-figure" id="figure18">
+      <canvas id="girl18Canvas" width="160" height="260"></canvas>
+    </div>
+    <div class="intro-text-block">
+      <div class="intro-line big" id="il3a">وصلت لـ 18...</div>
+      <div class="intro-line" id="il3b">واختارت طريقها</div>
+      <div class="intro-line glow" id="il3c">الهندسة 🤍</div>
+      <div class="intro-line glow" id="il3d">والبرمجة 💻</div>
+    </div>
+  </div>
+
+  <!-- INTRO SLIDE 4: Study -->
+  <div class="intro-slide" id="islide4">
+    <div class="intro-figure">
+      <canvas id="studyCanvas" width="200" height="200"></canvas>
+    </div>
+    <div class="intro-text-block">
+      <div class="intro-line" id="il4a">مكافحة...</div>
+      <div class="intro-line" id="il4b">مجتهدة...</div>
+      <div class="intro-line" id="il4c">مواظبة...</div>
+      <div class="intro-line glow" id="il4d">وشطورة</div>
+    </div>
+  </div>
+
+  <!-- INTRO SLIDE 5: Age 21 -->
+  <div class="intro-slide" id="islide5">
+    <div class="intro-figure">
+      <canvas id="girl21Canvas" width="160" height="270"></canvas>
+    </div>
+    <div class="intro-text-block">
+      <div class="intro-line big" id="il5a">واليوم...</div>
+      <div class="intro-line big" id="il5b">وصلت لـ 21</div>
+      <div class="intro-line glow" id="il5c">وقريبة تحقق حلمها...</div>
+    </div>
+  </div>
+
+  <!-- INTRO SLIDE 6: Mirror -->
+  <div class="intro-slide" id="islide6">
+    <div class="intro-figure">
+      <canvas id="mirrorCanvas" width="220" height="280"></canvas>
+    </div>
+    <div class="intro-text-block">
+      <div class="intro-line" id="il6a">تشوف نفسها...</div>
+      <div class="intro-line glow big" id="il6b">خريجة 🤍</div>
+    </div>
+  </div>
+
+  <!-- INTRO SLIDE 7: Final intro text -->
+  <div class="intro-slide" id="islide7">
+    <div class="intro-text-block center-only">
+      <div class="intro-line big" id="il7a">وهذي هي...</div>
+      <div class="intro-line hero" id="il7b">سجى 🤍</div>
+      <div class="intro-line soft" id="il7c">خلينا نحكيلك قصتها...</div>
+    </div>
+  </div>
+
+  <!-- Skip button -->
+  <div id="introSkip" onclick="skipIntro()">تخطي ⟩</div>
 </div>
 
-<!-- SCENE 2: VIDEO -->
-<div class="scene" id="scene2">
-  <div class="video-overlay"></div>
-  <div class="video-title">سجى 🤍</div>
-</div>
+<!-- ═══════════════════════════════════════ -->
+<!--           MAIN WEBSITE                 -->
+<!-- ═══════════════════════════════════════ -->
+<div id="mainSite" style="display:none;">
 
-<!-- SCENE 3: STORY -->
-<div class="scene" id="scene3">
-  <div class="story-glass">
-    <div class="story-text">من يوم 3 / 12
+  <canvas id="bgCanvas"></canvas>
+  <canvas id="explosionCanvas"></canvas>
+  <div id="flashOverlay"></div>
+  <div id="audioBtn" onclick="toggleAudio()">🎵</div>
+
+  <div id="progressDots">
+    <div class="dot active" id="dot0"></div>
+    <div class="dot" id="dot1"></div>
+    <div class="dot" id="dot2"></div>
+    <div class="dot" id="dot3"></div>
+    <div class="dot" id="dot4"></div>
+    <div class="dot" id="dot5"></div>
+  </div>
+
+  <!-- SCENE 1: GIFT -->
+  <div class="scene active" id="scene1">
+    <div class="gift-wrap">
+      <div class="gift-box" id="giftBox" onclick="openGift()">
+        <svg class="gift-svg" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="75" width="120" height="75" rx="10" fill="url(#boxGrad)"/>
+          <rect x="14" y="58" width="132" height="24" rx="8" fill="url(#lidGrad)"/>
+          <rect x="72" y="58" width="16" height="92" rx="4" fill="#fff" opacity="0.7"/>
+          <rect x="14" y="64" width="132" height="12" rx="4" fill="#fff" opacity="0.7"/>
+          <ellipse cx="65" cy="52" rx="22" ry="14" fill="#ffb3cc" transform="rotate(-20 65 52)"/>
+          <ellipse cx="95" cy="52" rx="22" ry="14" fill="#ffb3cc" transform="rotate(20 95 52)"/>
+          <circle cx="80" cy="52" r="10" fill="#ff6fa8"/>
+          <circle cx="80" cy="52" r="6" fill="#fff" opacity="0.5"/>
+          <ellipse cx="50" cy="90" rx="18" ry="8" fill="#fff" opacity="0.15" transform="rotate(-15 50 90)"/>
+          <defs>
+            <linearGradient id="boxGrad" x1="20" y1="75" x2="140" y2="150" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#ff6fa8"/>
+              <stop offset="1" stop-color="#c2185b"/>
+            </linearGradient>
+            <linearGradient id="lidGrad" x1="14" y1="58" x2="146" y2="82" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#ff80b5"/>
+              <stop offset="1" stop-color="#e91e8c"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="gift-hint">لمسة وحدة 🤍</div>
+      <div class="tap-hint">اضغطي على الهدية ✨</div>
+    </div>
+  </div>
+
+  <!-- SCENE 2: VIDEO -->
+  <div class="scene" id="scene2">
+    <div class="video-overlay"></div>
+    <div class="video-title">سجى 🤍</div>
+  </div>
+
+  <!-- SCENE 3: STORY -->
+  <div class="scene" id="scene3">
+    <div class="story-glass">
+      <div class="story-text">من يوم 3 / 12
 
 وانا بديت نحس بشي مختلف...
 
@@ -103,65 +208,67 @@
 وانتي الأمان
 
 أنا نحبك 🤍</div>
-    <button class="story-next-btn" onclick="goToScene(4)">التالي 🤍</button>
-  </div>
-</div>
-
-<!-- SCENE 4: CARD -->
-<div class="scene" id="scene4">
-  <div class="card-container">
-    <div class="card-image-placeholder">
-      <span style="position:relative;z-index:1;font-size:5rem;">🌸</span>
-      <div style="position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.2);top:-20px;right:-20px;"></div>
-      <div style="position:absolute;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.15);bottom:10px;left:10px;"></div>
-    </div>
-    <div class="card-body">
-      <div class="card-text">وجودك غير كل شي 🤍</div>
-      <button class="card-next-btn" onclick="goToScene(5)">للأمام 💫</button>
+      <button class="story-next-btn" onclick="goToScene(4)">التالي 🤍</button>
     </div>
   </div>
-</div>
 
-<!-- SCENE 5: HEART -->
-<div class="scene" id="scene5">
-  <svg class="heart-btn" id="finalHeart" onclick="finalExplosion()" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M100 170 C100 170 20 120 20 65 C20 38 42 20 65 20 C80 20 93 28 100 40 C107 28 120 20 135 20 C158 20 180 38 180 65 C180 120 100 170 100 170Z" fill="url(#heartGrad)"/>
-    <path d="M100 170 C100 170 20 120 20 65 C20 38 42 20 65 20 C80 20 93 28 100 40 C107 28 120 20 135 20 C158 20 180 38 180 65 C180 120 100 170 100 170Z" fill="url(#heartGlow)" opacity="0.5"/>
-    <ellipse cx="72" cy="70" rx="18" ry="12" fill="#fff" opacity="0.25" transform="rotate(-30 72 70)"/>
-    <defs>
-      <linearGradient id="heartGrad" x1="20" y1="20" x2="180" y2="170" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stop-color="#ff80b5"/>
-        <stop offset="1" stop-color="#e91e8c"/>
-      </linearGradient>
-      <radialGradient id="heartGlow" cx="50%" cy="30%" r="60%">
-        <stop offset="0" stop-color="#fff" stop-opacity="0.6"/>
-        <stop offset="1" stop-color="#ff4d94" stop-opacity="0"/>
-      </radialGradient>
-    </defs>
-  </svg>
-  <div class="final-text" id="finalText">كل عام وانتي ليا يا عمرييي 🤍</div>
-  <a class="yt-btn" id="ytBtn" href="https://youtube.com/shorts/1t9sfYqZ2iY" target="_blank" rel="noopener">
-    <span class="yt-icon">▶️</span>
-    <span>شاهدي الأغنية 🎵</span>
-  </a>
-</div>
+  <!-- SCENE 4: CARD -->
+  <div class="scene" id="scene4">
+    <div class="card-container">
+      <div class="card-image-placeholder">
+        <span style="position:relative;z-index:1;font-size:5rem;">🌸</span>
+        <div style="position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.2);top:-20px;right:-20px;"></div>
+        <div style="position:absolute;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.15);bottom:10px;left:10px;"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-text">وجودك غير كل شي 🤍</div>
+        <button class="card-next-btn" onclick="goToScene(5)">للأمام 💫</button>
+      </div>
+    </div>
+  </div>
 
-<!-- SCENE 6: SURPRISES + DRAW -->
-<div class="scene" id="scene6">
-  <canvas id="drawCanvas"></canvas>
-</div>
-
-<!-- SCENE 7: FINAL -->
-<div class="scene" id="scene7">
-  <div class="final-msg-wrap">
-    <div class="final-msg" id="finalMsg">نحبك يا عيوني 🤍</div>
-    <a class="yt-btn-final" id="finalYtBtn"
-       href="https://youtube.com/shorts/1t9sfYqZ2iY"
-       target="_blank" rel="noopener">
-      🎧 اسمعي النهاية
+  <!-- SCENE 5: HEART -->
+  <div class="scene" id="scene5">
+    <svg class="heart-btn" id="finalHeart" onclick="finalExplosion()" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 170 C100 170 20 120 20 65 C20 38 42 20 65 20 C80 20 93 28 100 40 C107 28 120 20 135 20 C158 20 180 38 180 65 C180 120 100 170 100 170Z" fill="url(#heartGrad)"/>
+      <path d="M100 170 C100 170 20 120 20 65 C20 38 42 20 65 20 C80 20 93 28 100 40 C107 28 120 20 135 20 C158 20 180 38 180 65 C180 120 100 170 100 170Z" fill="url(#heartGlow)" opacity="0.5"/>
+      <ellipse cx="72" cy="70" rx="18" ry="12" fill="#fff" opacity="0.25" transform="rotate(-30 72 70)"/>
+      <defs>
+        <linearGradient id="heartGrad" x1="20" y1="20" x2="180" y2="170" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#ff80b5"/>
+          <stop offset="1" stop-color="#e91e8c"/>
+        </linearGradient>
+        <radialGradient id="heartGlow" cx="50%" cy="30%" r="60%">
+          <stop offset="0" stop-color="#fff" stop-opacity="0.6"/>
+          <stop offset="1" stop-color="#ff4d94" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+    </svg>
+    <div class="final-text" id="finalText">كل عام وانتي ليا يا عمرييي 🤍</div>
+    <a class="yt-btn" id="ytBtn" href="https://youtube.com/shorts/1t9sfYqZ2iY" target="_blank" rel="noopener">
+      <span class="yt-icon">▶️</span>
+      <span>شاهدي الأغنية 🎵</span>
     </a>
   </div>
-</div>
+
+  <!-- SCENE 6: SURPRISES + DRAW -->
+  <div class="scene" id="scene6">
+    <canvas id="drawCanvas"></canvas>
+  </div>
+
+  <!-- SCENE 7: FINAL -->
+  <div class="scene" id="scene7">
+    <div class="final-msg-wrap">
+      <div class="final-msg" id="finalMsg">نحبك يا عيوني 🤍</div>
+      <a class="yt-btn-final" id="finalYtBtn"
+         href="https://youtube.com/shorts/1t9sfYqZ2iY"
+         target="_blank" rel="noopener">
+        🎧 اسمعي النهاية
+      </a>
+    </div>
+  </div>
+
+</div><!-- end #mainSite -->
 
 <script src="script.js"></script>
 </body>
