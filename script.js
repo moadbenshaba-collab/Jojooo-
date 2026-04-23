@@ -1,3 +1,652 @@
+// ════════════════════════════════════════════
+// INTRO SYSTEM
+// ════════════════════════════════════════════
+
+const introCanvas = document.getElementById('introCanvas');
+const iCtx = introCanvas.getContext('2d');
+let introW, introH;
+let introRainDrops = [];
+let introStars = [];
+let introFlowers = [];
+let introAnimFrame;
+let introSkipped = false;
+
+function resizeIntro() {
+  introW = introCanvas.width = window.innerWidth;
+  introH = introCanvas.height = window.innerHeight;
+}
+resizeIntro();
+window.addEventListener('resize', resizeIntro);
+
+// Stars
+for (let i = 0; i < 120; i++) {
+  introStars.push({
+    x: Math.random(),
+    y: Math.random() * 0.65,
+    r: 0.5 + Math.random() * 1.5,
+    twinkle: Math.random() * Math.PI * 2,
+    speed: 0.01 + Math.random() * 0.02
+  });
+}
+
+// Rain drops
+for (let i = 0; i < 80; i++) {
+  introRainDrops.push({
+    x: Math.random(),
+    y: Math.random(),
+    len: 8 + Math.random() * 14,
+    speed: 3 + Math.random() * 4,
+    opacity: 0.1 + Math.random() * 0.25
+  });
+}
+
+// Flowers
+const flowerColors = ['#ff80b5','#ffb3cc','#ff6fa8','#ffd6e8','#ffcce0','#e91e8c'];
+for (let i = 0; i < 18; i++) {
+  introFlowers.push({
+    x: Math.random(),
+    y: 0.72 + Math.random() * 0.28,
+    size: 10 + Math.random() * 18,
+    color: flowerColors[Math.floor(Math.random() * flowerColors.length)],
+    sway: Math.random() * Math.PI * 2,
+    swaySpeed: 0.008 + Math.random() * 0.012
+  });
+}
+
+function drawIntroFrame() {
+  iCtx.clearRect(0, 0, introW, introH);
+
+  // Night sky gradient
+  const skyGrad = iCtx.createLinearGradient(0, 0, 0, introH * 0.75);
+  skyGrad.addColorStop(0, '#060010');
+  skyGrad.addColorStop(0.5, '#0d0025');
+  skyGrad.addColorStop(1, '#1a0035');
+  iCtx.fillStyle = skyGrad;
+  iCtx.fillRect(0, 0, introW, introH * 0.75);
+
+  // Ground / field
+  const groundGrad = iCtx.createLinearGradient(0, introH * 0.7, 0, introH);
+  groundGrad.addColorStop(0, '#1a0030');
+  groundGrad.addColorStop(0.4, '#2d0050');
+  groundGrad.addColorStop(1, '#0a0015');
+  iCtx.fillStyle = groundGrad;
+  iCtx.fillRect(0, introH * 0.7, introW, introH * 0.3);
+
+  // Moon
+  const moonX = introW * 0.78, moonY = introH * 0.14, moonR = Math.min(introW, introH) * 0.07;
+  const moonGlow = iCtx.createRadialGradient(moonX, moonY, 0, moonX, moonY, moonR * 3.5);
+  moonGlow.addColorStop(0, 'rgba(255,240,200,0.18)');
+  moonGlow.addColorStop(0.4, 'rgba(255,220,180,0.08)');
+  moonGlow.addColorStop(1, 'rgba(255,200,150,0)');
+  iCtx.fillStyle = moonGlow;
+  iCtx.beginPath();
+  iCtx.arc(moonX, moonY, moonR * 3.5, 0, Math.PI * 2);
+  iCtx.fill();
+
+  iCtx.fillStyle = '#fff8e8';
+  iCtx.shadowColor = 'rgba(255,240,180,0.9)';
+  iCtx.shadowBlur = 30;
+  iCtx.beginPath();
+  iCtx.arc(moonX, moonY, moonR, 0, Math.PI * 2);
+  iCtx.fill();
+  iCtx.shadowBlur = 0;
+
+  // Stars
+  introStars.forEach(s => {
+    s.twinkle += s.speed;
+    const alpha = 0.4 + 0.6 * Math.abs(Math.sin(s.twinkle));
+    iCtx.save();
+    iCtx.globalAlpha = alpha;
+    iCtx.fillStyle = '#fff';
+    iCtx.shadowColor = '#fff';
+    iCtx.shadowBlur = 4;
+    iCtx.beginPath();
+    iCtx.arc(s.x * introW, s.y * introH, s.r, 0, Math.PI * 2);
+    iCtx.fill();
+    iCtx.restore();
+  });
+
+  // Rain
+  iCtx.strokeStyle = 'rgba(180,210,255,0.35)';
+  iCtx.lineWidth = 1;
+  introRainDrops.forEach(d => {
+    d.y += d.speed / introH;
+    if (d.y > 1) { d.y = -0.05; d.x = Math.random(); }
+    iCtx.save();
+    iCtx.globalAlpha = d.opacity;
+    iCtx.beginPath();
+    iCtx.moveTo(d.x * introW, d.y * introH);
+    iCtx.lineTo(d.x * introW - 1, d.y * introH + d.len);
+    iCtx.stroke();
+    iCtx.restore();
+  });
+
+  // Flowers
+  introFlowers.forEach(f => {
+    f.sway += f.swaySpeed;
+    const fx = f.x * introW + Math.sin(f.sway) * 3;
+    const fy = f.y * introH;
+    // Stem
+    iCtx.save();
+    iCtx.strokeStyle = 'rgba(100,200,80,0.5)';
+    iCtx.lineWidth = 1.5;
+    iCtx.beginPath();
+    iCtx.moveTo(fx, fy);
+    iCtx.lineTo(fx, fy + f.size * 1.2);
+    iCtx.stroke();
+    // Petals
+    iCtx.fillStyle = f.color;
+    iCtx.globalAlpha = 0.75;
+    for (let p = 0; p < 5; p++) {
+      const angle = (p / 5) * Math.PI * 2;
+      const px = fx + Math.cos(angle) * f.size * 0.45;
+      const py = fy + Math.sin(angle) * f.size * 0.45;
+      iCtx.beginPath();
+      iCtx.ellipse(px, py, f.size * 0.28, f.size * 0.18, angle, 0, Math.PI * 2);
+      iCtx.fill();
+    }
+    // Center
+    iCtx.fillStyle = '#fff8c0';
+    iCtx.globalAlpha = 0.9;
+    iCtx.beginPath();
+    iCtx.arc(fx, fy, f.size * 0.18, 0, Math.PI * 2);
+    iCtx.fill();
+    iCtx.restore();
+  });
+
+  introAnimFrame = requestAnimationFrame(drawIntroFrame);
+}
+drawIntroFrame();
+
+// ── Intro figure canvases ──
+function drawBaby(canvas) {
+  const c = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const t = Date.now() / 1000;
+  c.clearRect(0, 0, w, h);
+  const float = Math.sin(t * 1.2) * 5;
+
+  c.save();
+  c.translate(0, float);
+
+  // Body wrap
+  c.fillStyle = '#ffcce0';
+  c.beginPath();
+  c.ellipse(w/2, h*0.62, 38, 48, 0, 0, Math.PI*2);
+  c.fill();
+
+  // Head
+  c.fillStyle = '#ffe0c8';
+  c.shadowColor = 'rgba(255,150,180,0.4)';
+  c.shadowBlur = 12;
+  c.beginPath();
+  c.arc(w/2, h*0.32, 36, 0, Math.PI*2);
+  c.fill();
+  c.shadowBlur = 0;
+
+  // Hair
+  c.fillStyle = '#5c3317';
+  c.beginPath();
+  c.arc(w/2, h*0.28, 36, Math.PI, 0);
+  c.fill();
+  c.beginPath();
+  c.arc(w/2 - 28, h*0.3, 12, 0, Math.PI*2);
+  c.fill();
+  c.beginPath();
+  c.arc(w/2 + 28, h*0.3, 12, 0, Math.PI*2);
+  c.fill();
+
+  // Eyes
+  c.fillStyle = '#3d1a00';
+  c.beginPath(); c.arc(w/2-13, h*0.31, 5, 0, Math.PI*2); c.fill();
+  c.beginPath(); c.arc(w/2+13, h*0.31, 5, 0, Math.PI*2); c.fill();
+  c.fillStyle = '#fff';
+  c.beginPath(); c.arc(w/2-11, h*0.3, 2, 0, Math.PI*2); c.fill();
+  c.beginPath(); c.arc(w/2+15, h*0.3, 2, 0, Math.PI*2); c.fill();
+
+  // Smile
+  c.strokeStyle = '#c2185b';
+  c.lineWidth = 2;
+  c.beginPath();
+  c.arc(w/2, h*0.35, 10, 0.2, Math.PI-0.2);
+  c.stroke();
+
+  // Cheeks
+  c.fillStyle = 'rgba(255,150,150,0.35)';
+  c.beginPath(); c.ellipse(w/2-20, h*0.35, 10, 7, 0, 0, Math.PI*2); c.fill();
+  c.beginPath(); c.ellipse(w/2+20, h*0.35, 10, 7, 0, 0, Math.PI*2); c.fill();
+
+  // Arms
+  c.fillStyle = '#ffe0c8';
+  c.beginPath(); c.ellipse(w/2-44, h*0.6, 10, 22, -0.3, 0, Math.PI*2); c.fill();
+  c.beginPath(); c.ellipse(w/2+44, h*0.6, 10, 22, 0.3, 0, Math.PI*2); c.fill();
+
+  // Blanket
+  c.fillStyle = '#ff80b5';
+  c.beginPath();
+  c.ellipse(w/2, h*0.78, 42, 22, 0, 0, Math.PI*2);
+  c.fill();
+
+  c.restore();
+
+  // Floating hearts
+  for (let i = 0; i < 4; i++) {
+    const hx = w*0.15 + i*(w*0.22) + Math.sin(t*0.8+i)*8;
+    const hy = h*0.08 + Math.cos(t*0.6+i*1.3)*10;
+    c.save();
+    c.globalAlpha = 0.5 + 0.3*Math.sin(t+i);
+    c.font = `${12+i*3}px serif`;
+    c.fillText('🤍', hx, hy);
+    c.restore();
+  }
+}
+
+function drawGrowingGirl(canvas, age) {
+  // age: 0=child, 1=teen
+  const c = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const t = Date.now() / 1000;
+  c.clearRect(0, 0, w, h);
+
+  const scale = 0.75 + age * 0.25;
+  const headR = 28 + age * 6;
+  const bodyH = 55 + age * 25;
+  const cx = w / 2;
+  const headY = h * 0.28;
+
+  c.save();
+  c.translate(cx, 0);
+
+  // Hair
+  c.fillStyle = '#4a2800';
+  c.beginPath();
+  c.arc(0, headY, headR + 4, Math.PI, 0);
+  c.fill();
+  if (age > 0.5) {
+    // Long hair
+    c.beginPath();
+    c.moveTo(-headR-2, headY);
+    c.quadraticCurveTo(-headR-10, headY+40, -headR-5, headY+70);
+    c.quadraticCurveTo(-headR+5, headY+80, -headR+2, headY+70);
+    c.quadraticCurveTo(-headR-5, headY+40, -headR+5, headY);
+    c.fill();
+    c.beginPath();
+    c.moveTo(headR+2, headY);
+    c.quadraticCurveTo(headR+10, headY+40, headR+5, headY+70);
+    c.quadraticCurveTo(headR-5, headY+80, headR-2, headY+70);
+    c.quadraticCurveTo(headR+5, headY+40, headR-5, headY);
+    c.fill();
+  }
+
+  // Head
+  c.fillStyle = '#ffe0c8';
+  c.shadowColor = 'rgba(255,150,180,0.3)';
+  c.shadowBlur = 10;
+  c.beginPath();
+  c.arc(0, headY, headR, 0, Math.PI*2);
+  c.fill();
+  c.shadowBlur = 0;
+
+  // Eyes
+  c.fillStyle = '#3d1a00';
+  c.beginPath(); c.arc(-10, headY+2, 4, 0, Math.PI*2); c.fill();
+  c.beginPath(); c.arc(10, headY+2, 4, 0, Math.PI*2); c.fill();
+  c.fillStyle = '#fff';
+  c.beginPath(); c.arc(-8, headY+1, 1.5, 0, Math.PI*2); c.fill();
+  c.beginPath(); c.arc(12, headY+1, 1.5, 0, Math.PI*2); c.fill();
+
+  // Smile
+  c.strokeStyle = '#c2185b'; c.lineWidth = 1.8;
+  c.beginPath(); c.arc(0, headY+8, 8, 0.2, Math.PI-0.2); c.stroke();
+
+  // Cheeks
+  c.fillStyle = 'rgba(255,150,150,0.3)';
+  c.beginPath(); c.ellipse(-16, headY+6, 8, 5, 0, 0, Math.PI*2); c.fill();
+  c.beginPath(); c.ellipse(16, headY+6, 8, 5, 0, 0, Math.PI*2); c.fill();
+
+  // Body
+  const bodyColor = age < 0.5 ? '#ffb3cc' : '#ff80b5';
+  c.fillStyle = bodyColor;
+  c.beginPath();
+  c.roundRect(-22, headY+headR, 44, bodyH, 8);
+  c.fill();
+
+  // Legs
+  c.fillStyle = '#ffe0c8';
+  c.fillRect(-16, headY+headR+bodyH, 12, 30+age*10);
+  c.fillRect(4, headY+headR+bodyH, 12, 30+age*10);
+
+  // Shoes
+  c.fillStyle = '#c2185b';
+  c.beginPath(); c.ellipse(-10, headY+headR+bodyH+30+age*10, 12, 7, 0, 0, Math.PI*2); c.fill();
+  c.beginPath(); c.ellipse(10, headY+headR+bodyH+30+age*10, 12, 7, 0, 0, Math.PI*2); c.fill();
+
+  // Arms
+  c.fillStyle = '#ffe0c8';
+  const armSway = Math.sin(t * 1.5) * 5;
+  c.beginPath(); c.ellipse(-30, headY+headR+20+armSway, 8, 22, -0.2, 0, Math.PI*2); c.fill();
+  c.beginPath(); c.ellipse(30, headY+headR+20-armSway, 8, 22, 0.2, 0, Math.PI*2); c.fill();
+
+  c.restore();
+}
+
+function drawStudyScene(canvas) {
+  const c = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const t = Date.now() / 1000;
+  c.clearRect(0, 0, w, h);
+
+  // Desk
+  c.fillStyle = '#5c3317';
+  c.fillRect(10, h*0.65, w-20, 10);
+  c.fillRect(20, h*0.75, 8, h*0.25);
+  c.fillRect(w-28, h*0.75, 8, h*0.25);
+
+  // Laptop
+  c.fillStyle = '#333';
+  c.beginPath();
+  c.roundRect(w*0.3, h*0.38, w*0.4, h*0.27, 4);
+  c.fill();
+  // Screen glow
+  const screenGlow = c.createRadialGradient(w/2, h*0.5, 0, w/2, h*0.5, w*0.2);
+  screenGlow.addColorStop(0, 'rgba(100,200,255,0.6)');
+  screenGlow.addColorStop(1, 'rgba(50,100,200,0)');
+  c.fillStyle = screenGlow;
+  c.beginPath();
+  c.roundRect(w*0.32, h*0.4, w*0.36, h*0.23, 3);
+  c.fill();
+  // Code lines on screen
+  c.fillStyle = 'rgba(150,255,150,0.7)';
+  for (let i = 0; i < 4; i++) {
+    const lw = (0.4 + Math.random()*0.4) * w*0.3;
+    c.fillRect(w*0.34, h*0.43+i*h*0.045, lw, 3);
+  }
+  // Laptop base
+  c.fillStyle = '#444';
+  c.beginPath();
+  c.roundRect(w*0.25, h*0.65, w*0.5, h*0.04, 2);
+  c.fill();
+
+  // Books stack
+  const bookColors = ['#ff6fa8','#ff80b5','#c2185b','#ffb3cc'];
+  bookColors.forEach((col, i) => {
+    c.fillStyle = col;
+    c.fillRect(w*0.05, h*0.5-i*14, w*0.18, 13);
+    c.fillStyle = 'rgba(255,255,255,0.3)';
+    c.fillRect(w*0.05+2, h*0.5-i*14+3, w*0.18-4, 2);
+  });
+
+  // Floating particles (study sparks)
+  for (let i = 0; i < 6; i++) {
+    const px = w*0.3 + Math.sin(t*1.2+i*1.1)*w*0.25;
+    const py = h*0.3 - Math.abs(Math.sin(t*0.8+i))*h*0.2;
+    c.save();
+    c.globalAlpha = 0.4 + 0.4*Math.sin(t+i);
+    c.font = '14px serif';
+    c.fillText(['✨','💡','📚','⭐','🔬','💻'][i], px, py);
+    c.restore();
+  }
+
+  // Girl silhouette sitting
+  c.fillStyle = '#ffe0c8';
+  c.beginPath(); c.arc(w/2, h*0.35, 20, 0, Math.PI*2); c.fill();
+  c.fillStyle = '#4a2800';
+  c.beginPath(); c.arc(w/2, h*0.31, 21, Math.PI, 0); c.fill();
+  c.fillStyle = '#ff80b5';
+  c.beginPath(); c.roundRect(w/2-14, h*0.35+20, 28, 30, 5); c.fill();
+}
+
+function drawMirrorScene(canvas) {
+  const c = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const t = Date.now() / 1000;
+  c.clearRect(0, 0, w, h);
+
+  // Mirror frame
+  c.strokeStyle = '#c2a060';
+  c.lineWidth = 6;
+  c.shadowColor = 'rgba(255,220,100,0.5)';
+  c.shadowBlur = 15;
+  c.beginPath();
+  c.roundRect(w*0.52, h*0.05, w*0.42, h*0.75, 10);
+  c.stroke();
+  c.shadowBlur = 0;
+
+  // Mirror glass
+  const mirrorGrad = c.createLinearGradient(w*0.52, 0, w*0.94, 0);
+  mirrorGrad.addColorStop(0, 'rgba(200,230,255,0.15)');
+  mirrorGrad.addColorStop(0.5, 'rgba(255,255,255,0.08)');
+  mirrorGrad.addColorStop(1, 'rgba(200,220,255,0.12)');
+  c.fillStyle = mirrorGrad;
+  c.beginPath();
+  c.roundRect(w*0.52, h*0.05, w*0.42, h*0.75, 10);
+  c.fill();
+
+  // Reflection glow (graduate)
+  const glowR = c.createRadialGradient(w*0.73, h*0.4, 0, w*0.73, h*0.4, 60);
+  glowR.addColorStop(0, 'rgba(255,220,100,0.35)');
+  glowR.addColorStop(1, 'rgba(255,200,50,0)');
+  c.fillStyle = glowR;
+  c.beginPath(); c.arc(w*0.73, h*0.4, 60, 0, Math.PI*2); c.fill();
+
+  // Reflection figure (graduate cap)
+  const rx = w*0.73, ry = h*0.28;
+  c.fillStyle = '#ffe0c8';
+  c.beginPath(); c.arc(rx, ry, 18, 0, Math.PI*2); c.fill();
+  // Cap
+  c.fillStyle = '#1a0035';
+  c.fillRect(rx-22, ry-18, 44, 8);
+  c.beginPath(); c.arc(rx, ry-18, 14, 0, Math.PI*2); c.fill();
+  c.strokeStyle = '#c2a060'; c.lineWidth = 2;
+  c.beginPath(); c.moveTo(rx+14, ry-18); c.lineTo(rx+14, ry-8); c.stroke();
+  // Gown
+  c.fillStyle = '#1a0035';
+  c.beginPath(); c.roundRect(rx-16, ry+18, 32, 40, 5); c.fill();
+
+  // Real girl (left side)
+  const gx = w*0.22, gy = h*0.28;
+  c.fillStyle = '#ffe0c8';
+  c.shadowColor = 'rgba(255,150,180,0.3)'; c.shadowBlur = 8;
+  c.beginPath(); c.arc(gx, gy, 22, 0, Math.PI*2); c.fill();
+  c.shadowBlur = 0;
+  // Hair
+  c.fillStyle = '#4a2800';
+  c.beginPath(); c.arc(gx, gy-4, 23, Math.PI, 0); c.fill();
+  c.beginPath(); c.moveTo(gx-20, gy); c.quadraticCurveTo(gx-28, gy+35, gx-22, gy+60); c.quadraticCurveTo(gx-14, gy+65, gx-18, gy+55); c.quadraticCurveTo(gx-24, gy+30, gx-14, gy); c.fill();
+  c.beginPath(); c.moveTo(gx+20, gy); c.quadraticCurveTo(gx+28, gy+35, gx+22, gy+60); c.quadraticCurveTo(gx+14, gy+65, gx+18, gy+55); c.quadraticCurveTo(gx+24, gy+30, gx+14, gy); c.fill();
+  // Eyes
+  c.fillStyle = '#3d1a00';
+  c.beginPath(); c.arc(gx-9, gy+2, 3.5, 0, Math.PI*2); c.fill();
+  c.beginPath(); c.arc(gx+9, gy+2, 3.5, 0, Math.PI*2); c.fill();
+  // Smile
+  c.strokeStyle = '#c2185b'; c.lineWidth = 1.5;
+  c.beginPath(); c.arc(gx, gy+8, 7, 0.2, Math.PI-0.2); c.stroke();
+  // Body
+  c.fillStyle = '#ff80b5';
+  c.beginPath(); c.roundRect(gx-16, gy+22, 32, 50, 6); c.fill();
+  // Legs
+  c.fillStyle = '#ffe0c8';
+  c.fillRect(gx-12, gy+72, 10, 30);
+  c.fillRect(gx+2, gy+72, 10, 30);
+
+  // Sparkles around mirror
+  for (let i = 0; i < 5; i++) {
+    const sx = w*0.52 + Math.sin(t*1.1+i*1.3)*8 + i*(w*0.1);
+    const sy = h*0.05 + Math.cos(t*0.9+i)*6;
+    c.save();
+    c.globalAlpha = 0.5+0.4*Math.sin(t*1.5+i);
+    c.font = '14px serif';
+    c.fillText('✨', sx, sy);
+    c.restore();
+  }
+}
+
+// ── Animate figure canvases ──
+let figureAnimFrame;
+function animateFigures() {
+  const babyC = document.getElementById('babyCanvas');
+  const growC = document.getElementById('growCanvas');
+  const g18C = document.getElementById('girl18Canvas');
+  const studyC = document.getElementById('studyCanvas');
+  const g21C = document.getElementById('girl21Canvas');
+  const mirrorC = document.getElementById('mirrorCanvas');
+
+  if (babyC) drawBaby(babyC);
+  if (growC) drawGrowingGirl(growC, 0.3);
+  if (g18C) drawGrowingGirl(g18C, 0.85);
+  if (studyC) drawStudyScene(studyC);
+  if (g21C) drawGrowingGirl(g21C, 1.0);
+  if (mirrorC) drawMirrorScene(mirrorC);
+
+  figureAnimFrame = requestAnimationFrame(animateFigures);
+}
+animateFigures();
+
+// ── Intro slide sequencer ──
+const INTRO_SLIDES = [
+  {
+    id: 'islide0',
+    lines: [
+      { id: 'il0a', delay: 400 },
+      { id: 'il0b', delay: 1600 },
+      { id: 'il0c', delay: 2600 }
+    ],
+    duration: 5000
+  },
+  {
+    id: 'islide1',
+    lines: [
+      { id: 'il1a', delay: 500 },
+      { id: 'il1b', delay: 1600 }
+    ],
+    duration: 4500
+  },
+  {
+    id: 'islide2',
+    lines: [
+      { id: 'il2a', delay: 400 },
+      { id: 'il2b', delay: 1400 },
+      { id: 'il2c', delay: 2500 }
+    ],
+    duration: 5500
+  },
+  {
+    id: 'islide3',
+    lines: [
+      { id: 'il3a', delay: 400 },
+      { id: 'il3b', delay: 1500 },
+      { id: 'il3c', delay: 2500 },
+      { id: 'il3d', delay: 3300 }
+    ],
+    duration: 6000
+  },
+  {
+    id: 'islide4',
+    lines: [
+      { id: 'il4a', delay: 300 },
+      { id: 'il4b', delay: 1000 },
+      { id: 'il4c', delay: 1700 },
+      { id: 'il4d', delay: 2500 }
+    ],
+    duration: 5500
+  },
+  {
+    id: 'islide5',
+    lines: [
+      { id: 'il5a', delay: 400 },
+      { id: 'il5b', delay: 1300 },
+      { id: 'il5c', delay: 2400 }
+    ],
+    duration: 5000
+  },
+  {
+    id: 'islide6',
+    lines: [
+      { id: 'il6a', delay: 600 },
+      { id: 'il6b', delay: 1800 }
+    ],
+    duration: 5000
+  },
+  {
+    id: 'islide7',
+    lines: [
+      { id: 'il7a', delay: 400 },
+      { id: 'il7b', delay: 1400 },
+      { id: 'il7c', delay: 2800 }
+    ],
+    duration: 5500
+  }
+];
+
+let currentSlideIdx = 0;
+let slideTimeout = null;
+
+function showSlide(idx) {
+  if (introSkipped) return;
+  if (idx >= INTRO_SLIDES.length) {
+    endIntro();
+    return;
+  }
+
+  // Hide previous
+  if (idx > 0) {
+    const prev = document.getElementById(INTRO_SLIDES[idx-1].id);
+    if (prev) prev.classList.remove('visible');
+  }
+
+  const slide = INTRO_SLIDES[idx];
+  const el = document.getElementById(slide.id);
+  if (!el) { endIntro(); return; }
+
+  el.classList.add('visible');
+
+  // Animate lines
+  slide.lines.forEach(line => {
+    setTimeout(() => {
+      if (introSkipped) return;
+      const lineEl = document.getElementById(line.id);
+      if (lineEl) lineEl.classList.add('visible');
+    }, line.delay);
+  });
+
+  slideTimeout = setTimeout(() => {
+    currentSlideIdx++;
+    showSlide(currentSlideIdx);
+  }, slide.duration);
+}
+
+function skipIntro() {
+  introSkipped = true;
+  if (slideTimeout) clearTimeout(slideTimeout);
+  endIntro();
+}
+
+function endIntro() {
+  cancelAnimationFrame(introAnimFrame);
+  cancelAnimationFrame(figureAnimFrame);
+  const wrapper = document.getElementById('introWrapper');
+  wrapper.classList.add('fade-out');
+  setTimeout(() => {
+    wrapper.style.display = 'none';
+    const main = document.getElementById('mainSite');
+    main.style.display = 'block';
+    initMainSite();
+  }, 1400);
+}
+
+// Start intro after short delay
+setTimeout(() => showSlide(0), 600);
+
+// ════════════════════════════════════════════
+// MAIN SITE
+// ════════════════════════════════════════════
+
+function initMainSite() {
+  resizeBg();
+  resizeExp();
+  animateBg();
+}
+
 // ── AUDIO ENGINE ──
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 let audioCtx, masterGain, audioMuted = false;
@@ -84,7 +733,7 @@ function resizeBg() {
   bgCanvas.width = window.innerWidth;
   bgCanvas.height = window.innerHeight;
 }
-resizeBg();
+
 window.addEventListener('resize', resizeBg);
 
 const CHARS = ['🤍','💗','🌸','✨','💕','🌷','💖'];
@@ -129,7 +778,6 @@ function animateBg() {
   bgParticles.forEach(p => { p.update(); p.draw(bgCtx); });
   requestAnimationFrame(animateBg);
 }
-animateBg();
 
 // ── EXPLOSION CANVAS ──
 const expCanvas = document.getElementById('explosionCanvas');
@@ -140,7 +788,7 @@ function resizeExp() {
   expCanvas.width = window.innerWidth;
   expCanvas.height = window.innerHeight;
 }
-resizeExp();
+
 window.addEventListener('resize', resizeExp);
 
 class ExpParticle {
@@ -301,7 +949,7 @@ function startVideoScene() {
   drawVideoFrame();
 }
 
-// ── SCENE 5: HEART EXPLOSION → SCENE 6 ──
+// ── SCENE 5: HEART ──
 let finalDone = false;
 function finalExplosion() {
   if (finalDone) return;
@@ -325,7 +973,7 @@ function finalExplosion() {
 }
 
 // ════════════════════════════════════════════
-// ── SCENE 6: 21 SURPRISES ──
+// SCENE 6: 21 SURPRISES
 // ════════════════════════════════════════════
 const SURPRISES = [
   { text: 'اضغطي هنا 🤍',                              hint: 'ابدأي الرحلة' },
@@ -392,7 +1040,7 @@ function renderSurprise(index) {
       z-index:30;
     `;
 
-    // Progress dots row
+    // Progress dots
     const progressWrap = document.createElement('div');
     progressWrap.style.cssText = `
       position:absolute; top:20px; left:50%; transform:translateX(-50%);
@@ -410,7 +1058,7 @@ function renderSurprise(index) {
     }
     card.appendChild(progressWrap);
 
-    // Counter badge
+    // Counter
     const badge = document.createElement('div');
     badge.style.cssText = `
       font-size:0.85rem; font-weight:700;
@@ -435,12 +1083,8 @@ function renderSurprise(index) {
       cursor:pointer;
       transition:transform 0.15s, box-shadow 0.15s;
     `;
-    box.addEventListener('touchstart', () => {
-      box.style.transform = 'scale(0.96)';
-    }, { passive: true });
-    box.addEventListener('touchend', () => {
-      box.style.transform = 'scale(1)';
-    }, { passive: true });
+    box.addEventListener('touchstart', () => { box.style.transform = 'scale(0.96)'; }, { passive: true });
+    box.addEventListener('touchend', () => { box.style.transform = 'scale(1)'; }, { passive: true });
 
     const txt = document.createElement('div');
     txt.style.cssText = `
@@ -463,7 +1107,6 @@ function renderSurprise(index) {
     box.onclick = () => onSurpriseClick(index);
     card.appendChild(box);
 
-    // Hint text
     const hint = document.createElement('div');
     hint.style.cssText = `
       font-family:'Tajawal',sans-serif;
@@ -474,7 +1117,6 @@ function renderSurprise(index) {
     card.appendChild(hint);
 
     scene6.appendChild(card);
-
     requestAnimationFrame(() => requestAnimationFrame(() => {
       card.style.opacity = '1';
       card.style.transform = 'scale(1)';
@@ -500,17 +1142,14 @@ let drawTimer = null;
 
 function startDrawMode() {
   const scene6 = document.getElementById('scene6');
-
   const oldCard = document.getElementById('surpriseCard');
   if (oldCard) { oldCard.style.opacity = '0'; setTimeout(() => oldCard.remove(), 400); }
 
-  // Hint label
   const hint = document.createElement('div');
   hint.className = 'draw-hint';
   hint.textContent = 'جربي ارسمي 🤍';
   scene6.appendChild(hint);
 
-  // Countdown
   const countdown = document.createElement('div');
   countdown.id = 'drawCountdown';
   countdown.style.cssText = `
@@ -523,12 +1162,10 @@ function startDrawMode() {
     -webkit-backdrop-filter:blur(10px);
     border:1px solid rgba(255,255,255,0.35);
     border-radius:50px; padding:6px 16px;
-    z-index:40; direction:ltr;
-    transition:opacity 0.4s;
+    z-index:40; direction:ltr; transition:opacity 0.4s;
   `;
   scene6.appendChild(countdown);
 
-  // Draw canvas
   drawCanvas = document.getElementById('drawCanvas');
   drawCanvas.width = window.innerWidth;
   drawCanvas.height = window.innerHeight;
@@ -640,12 +1277,8 @@ function goToFinalScene() {
   flash.style.opacity = '1';
   setTimeout(() => { flash.style.opacity = '0'; }, 500);
 
-  setTimeout(() => {
-    document.getElementById('finalMsg').classList.add('show');
-  }, 700);
-  setTimeout(() => {
-    document.getElementById('finalYtBtn').classList.add('show');
-  }, 1800);
+  setTimeout(() => { document.getElementById('finalMsg').classList.add('show'); }, 700);
+  setTimeout(() => { document.getElementById('finalYtBtn').classList.add('show'); }, 1800);
 }
 
 // ── INIT ──
