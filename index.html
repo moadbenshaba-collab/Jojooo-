@@ -15,9 +15,7 @@
 <canvas id="explosionCanvas"></canvas>
 <div id="flashOverlay"></div>
 
-<!-- ═══════════ CINEMATIC INTRO ═══════════ -->
 <div id="introWrapper">
-
   <div class="cscene" id="cs0">
     <div class="cin-bars"></div>
     <div class="cin-center">
@@ -143,9 +141,7 @@
   <div id="introContinue" onclick="nextSlide()">اضغط للمتابعة ◀</div>
 </div>
 
-<!-- ═══════════ MAIN SITE ═══════════ -->
 <div id="mainSite" style="display:none">
-
   <div id="audioBtn" onclick="toggleAudio()">🎵</div>
   <div id="progressDots">
     <div class="dot active" id="dot0"></div>
@@ -156,7 +152,7 @@
     <div class="dot" id="dot5"></div>
   </div>
 
-  <!-- SCENE 1: GIFT -->
+  <!-- SCENE 1 -->
   <div class="scene active" id="scene1">
     <div class="gift-wrap">
       <div class="gift-box" onclick="openGift()">
@@ -184,13 +180,13 @@
     </div>
   </div>
 
-  <!-- SCENE 2: CINEMATIC VIDEO -->
+  <!-- SCENE 2 -->
   <div class="scene" id="scene2">
     <div class="video-overlay"></div>
     <div class="video-title">سجى 🤍</div>
   </div>
 
-  <!-- SCENE 3: STORY -->
+  <!-- SCENE 3 -->
   <div class="scene" id="scene3">
     <div class="story-glass">
       <div class="story-text">في يوم 10 / 05 / 2005
@@ -285,7 +281,7 @@
     </div>
   </div>
 
-  <!-- SCENE 4: CARD -->
+  <!-- SCENE 4 -->
   <div class="scene" id="scene4">
     <div class="card-container">
       <div class="card-image-placeholder">
@@ -298,7 +294,7 @@
     </div>
   </div>
 
-  <!-- SCENE 5: HEART -->
+  <!-- SCENE 5 -->
   <div class="scene" id="scene5">
     <svg class="heart-btn" id="finalHeart" onclick="finalExplosion()" viewBox="0 0 200 200" fill="none">
       <path d="M100 170 C100 170 20 120 20 65 C20 38 42 20 65 20 C80 20 93 28 100 40 C107 28 120 20 135 20 C158 20 180 38 180 65 C180 120 100 170 100 170Z" fill="url(#heartGrad)"/>
@@ -320,12 +316,12 @@
     </a>
   </div>
 
-  <!-- SCENE 6: SURPRISES + DRAW -->
+  <!-- SCENE 6 -->
   <div class="scene" id="scene6">
     <canvas id="drawCanvas"></canvas>
   </div>
 
-  <!-- SCENE 7: FINAL -->
+  <!-- SCENE 7 -->
   <div class="scene" id="scene7">
     <div class="final-msg-wrap">
       <div class="final-msg" id="finalMsg">كل عام وانتي ليا يا عمري 🤍</div>
@@ -334,7 +330,6 @@
       </a>
     </div>
   </div>
-
 </div>
 
 <script src="script.js"></script>
