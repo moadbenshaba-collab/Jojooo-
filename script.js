@@ -5,19 +5,24 @@ const bgCanvas = document.getElementById('bgCanvas');
 const bgCtx = bgCanvas.getContext('2d');
 let BW, BH, bgPhase = 0;
 
-function resizeBg() { BW = bgCanvas.width = window.innerWidth; BH = bgCanvas.height = window.innerHeight; }
+function resizeBg() {
+  BW = bgCanvas.width = window.innerWidth;
+  BH = bgCanvas.height = window.innerHeight;
+}
 resizeBg();
 window.addEventListener('resize', resizeBg);
 
 const STARS = Array.from({ length: 140 }, () => ({
-  x: Math.random(), y: Math.random() * 0.7,
+  x: Math.random(),
+  y: Math.random() * 0.7,
   r: 0.4 + Math.random() * 1.6,
   tw: Math.random() * Math.PI * 2,
   ts: 0.008 + Math.random() * 0.018
 }));
 
 const RAIN = Array.from({ length: 90 }, () => ({
-  x: Math.random(), y: Math.random(),
+  x: Math.random(),
+  y: Math.random(),
   len: 7 + Math.random() * 13,
   spd: 3.5 + Math.random() * 4,
   op: 0.08 + Math.random() * 0.22
@@ -62,11 +67,15 @@ function drawBg() {
   mg.addColorStop(0, 'rgba(255,240,200,0.2)');
   mg.addColorStop(1, 'rgba(255,200,150,0)');
   bgCtx.fillStyle = mg;
-  bgCtx.beginPath(); bgCtx.arc(mx, my, mr * 4, 0, Math.PI * 2); bgCtx.fill();
+  bgCtx.beginPath();
+  bgCtx.arc(mx, my, mr * 4, 0, Math.PI * 2);
+  bgCtx.fill();
   bgCtx.fillStyle = '#fff8e8';
   bgCtx.shadowColor = 'rgba(255,240,180,0.9)';
   bgCtx.shadowBlur = 28;
-  bgCtx.beginPath(); bgCtx.arc(mx, my, mr, 0, Math.PI * 2); bgCtx.fill();
+  bgCtx.beginPath();
+  bgCtx.arc(mx, my, mr, 0, Math.PI * 2);
+  bgCtx.fill();
   bgCtx.shadowBlur = 0;
 
   // Stars (night only)
@@ -79,7 +88,9 @@ function drawBg() {
       bgCtx.fillStyle = '#fff';
       bgCtx.shadowColor = '#fff';
       bgCtx.shadowBlur = 4;
-      bgCtx.beginPath(); bgCtx.arc(s.x * BW, s.y * BH, s.r, 0, Math.PI * 2); bgCtx.fill();
+      bgCtx.beginPath();
+      bgCtx.arc(s.x * BW, s.y * BH, s.r, 0, Math.PI * 2);
+      bgCtx.fill();
       bgCtx.restore();
     });
   }
@@ -189,7 +200,6 @@ function animateExp() {
 // ════════════════════════════════════════════
 // CHARACTER DRAWING ENGINE
 // ════════════════════════════════════════════
-
 function drawSaja(canvas, variant, t) {
   const c = canvas.getContext('2d');
   const w = canvas.width, h = canvas.height;
@@ -247,7 +257,8 @@ function drawSaja(canvas, variant, t) {
       const hx = w*0.1 + i*(w*0.2) + Math.sin(t*0.7+i)*10;
       const hy = h*0.06 + Math.cos(t*0.5+i*1.4)*12;
       c.save(); c.globalAlpha = 0.45 + 0.35*Math.sin(t+i);
-      c.font = `${11+i*2}px serif`; c.fillText('🤍', hx, hy); c.restore();
+      c.font = `${11+i*2}px serif`;
+      c.fillText('🤍', hx, hy); c.restore();
     }
 
   } else {
@@ -326,9 +337,9 @@ function drawSaja(canvas, variant, t) {
     c.beginPath(); c.ellipse(cx+headR*0.35, headY+headR+bodyH+headR*0.9, headR*0.38, headR*0.18, 0, 0, Math.PI*2); c.fill();
 
     for (let i = 0; i < 4; i++) {
-      const sx = cx-60+i*40 + Math.sin(t*0.9+i)*8;
-      const sy = headY-30 + Math.cos(t*0.7+i)*10;
-      c.save(); c.globalAlpha = 0.4+0.4*Math.sin(t*1.2+i);
+      const sx = cx - 60 + i*40 + Math.sin(t*0.9+i)*8;
+      const sy = headY - 30 + Math.cos(t*0.7+i)*10;
+      c.save(); c.globalAlpha = 0.4 + 0.4*Math.sin(t*1.2+i);
       c.font = '13px serif'; c.fillText('✨', sx, sy); c.restore();
     }
   }
@@ -442,7 +453,6 @@ function drawTogether(canvas, t) {
   glow.addColorStop(1, 'rgba(255,100,160,0)');
   c.fillStyle = glow; c.beginPath(); c.arc(w/2, h*0.5, 120, 0, Math.PI*2); c.fill();
 
-  // Muath (left)
   const mx = w*0.3, my = h*0.2, mr = 26;
   c.save(); c.translate(0, Math.sin(t*0.9)*4);
   c.fillStyle = '#1a0a00'; c.beginPath(); c.arc(mx, my, mr+2, Math.PI, 0); c.fill();
@@ -459,7 +469,6 @@ function drawTogether(canvas, t) {
   c.beginPath(); c.ellipse(mx+36, my+mr+30, 10, 28, 0.6, 0, Math.PI*2); c.fill();
   c.restore();
 
-  // Saja (right)
   const sx = w*0.68, sy = h*0.2, sr = 22;
   c.save(); c.translate(0, Math.sin(t*1.1)*5);
   c.fillStyle = '#3d2000'; c.beginPath(); c.arc(sx, sy, sr+2, Math.PI, 0); c.fill();
@@ -487,7 +496,6 @@ function drawTogether(canvas, t) {
   c.beginPath(); c.ellipse(sx-26, sy+sr+25, 8, 22, -0.5, 0, Math.PI*2); c.fill();
   c.restore();
 
-  // Heart between them
   const hx = w/2, hy = h*0.42 + Math.sin(t*1.5)*8;
   c.save(); c.globalAlpha = 0.7 + 0.3*Math.sin(t*2);
   c.font = `${28+Math.sin(t*2)*4}px serif`;
@@ -496,7 +504,7 @@ function drawTogether(canvas, t) {
   for (let i = 0; i < 6; i++) {
     const fx = w*0.1 + i*(w*0.16) + Math.sin(t*0.6+i)*12;
     const fy = h*0.05 + Math.cos(t*0.5+i*1.2)*15;
-    c.save(); c.globalAlpha = 0.35+0.3*Math.sin(t+i);
+    c.save(); c.globalAlpha = 0.35 + 0.3*Math.sin(t+i);
     c.font = `${10+i*2}px serif`;
     c.fillText(['🤍','💗','✨','🌹'][i%4], fx, fy); c.restore();
   }
@@ -548,7 +556,7 @@ function drawStudy(canvas, t) {
   for (let i = 0; i < 7; i++) {
     const px = w*0.2 + Math.sin(t*1.1+i*0.9)*w*0.3;
     const py = h*0.2 - Math.abs(Math.sin(t*0.7+i))*h*0.15;
-    c.save(); c.globalAlpha = 0.4+0.4*Math.sin(t+i);
+    c.save(); c.globalAlpha = 0.4 + 0.4*Math.sin(t+i);
     c.font = '15px serif';
     c.fillText(['✨','💡','📚','⭐','🔬','💻','🎀'][i], px, py); c.restore();
   }
@@ -625,7 +633,7 @@ function drawMirror(canvas, t) {
   for (let i = 0; i < 6; i++) {
     const sx = w*0.5 + Math.sin(t*1.1+i*1.3)*10 + i*(w*0.09);
     const sy = h*0.04 + Math.cos(t*0.9+i)*8;
-    c.save(); c.globalAlpha = 0.5+0.4*Math.sin(t*1.5+i);
+    c.save(); c.globalAlpha = 0.5 + 0.4*Math.sin(t*1.5+i);
     c.font = '13px serif'; c.fillText('✨', sx, sy); c.restore();
   }
 }
@@ -668,7 +676,7 @@ function drawCardChar(canvas, t) {
   for (let i = 0; i < 8; i++) {
     const fx = w*0.05 + i*(w*0.13) + Math.sin(t*0.8+i)*15;
     const fy = h*0.05 + Math.cos(t*0.6+i*1.1)*20;
-    c.save(); c.globalAlpha = 0.4+0.35*Math.sin(t+i);
+    c.save(); c.globalAlpha = 0.4 + 0.35*Math.sin(t+i);
     c.font = `${12+i*2}px serif`;
     c.fillText(['🤍','💗','✨','🌹','💕'][i%5], fx, fy); c.restore();
   }
@@ -678,15 +686,15 @@ function drawCardChar(canvas, t) {
 let figT = 0;
 function animateFigures() {
   figT = Date.now() / 1000;
-  const bc = document.getElementById('babyCanvas'); if (bc) drawSaja(bc, 'baby', figT);
-  const cc = document.getElementById('childCanvas'); if (cc) drawSaja(cc, 'child', figT);
-  const ec = document.getElementById('engineerCanvas'); if (ec) drawSaja(ec, 'adult', figT);
-  const sc = document.getElementById('studyCanvas'); if (sc) drawStudy(sc, figT);
+  const bc = document.getElementById('babyCanvas');     if (bc)  drawSaja(bc, 'baby', figT);
+  const cc = document.getElementById('childCanvas');    if (cc)  drawSaja(cc, 'child', figT);
+  const ec = document.getElementById('engineerCanvas'); if (ec)  drawSaja(ec, 'adult', figT);
+  const sc = document.getElementById('studyCanvas');    if (sc)  drawStudy(sc, figT);
   const g21 = document.getElementById('girl21Canvas'); if (g21) drawSaja(g21, 'adult', figT);
-  const mc = document.getElementById('mirrorCanvas'); if (mc) drawMirror(mc, figT);
-  const muc = document.getElementById('muathCanvas'); if (muc) drawMuath(muc, figT);
-  const tc = document.getElementById('togetherCanvas'); if (tc) drawTogether(tc, figT);
-  const ccc = document.getElementById('cardCharCanvas'); if (ccc) drawCardChar(ccc, figT);
+  const mc = document.getElementById('mirrorCanvas');   if (mc)  drawMirror(mc, figT);
+  const muc = document.getElementById('muathCanvas');   if (muc) drawMuath(muc, figT);
+  const tc = document.getElementById('togetherCanvas'); if (tc)  drawTogether(tc, figT);
+  const ccc = document.getElementById('cardCharCanvas');if (ccc) drawCardChar(ccc, figT);
   requestAnimationFrame(animateFigures);
 }
 animateFigures();
@@ -965,27 +973,27 @@ function finalExplosion() {
 // SCENE 6: 21 SURPRISES
 // ════════════════════════════════════════════
 const SURPRISES = [
-  { text: 'ياملاذي الامن من تعب الدنيا 🤍', hint: 'اضغطي' },
-  { text: 'كل شي بدي بابتسامة منك', hint: 'كملي' },
-  { text: 'ما كنتش متوقع إنك تغيّري كل ش فيا', hint: 'اضغطي' },
-  { text: 'وجودك بس يحلي ايامي', hint: 'كملي' },
-  { text: 'أحلى صدفة صارتلي', hint: 'اضغطي' },
-  { text: 'طريقتك مختلفة ومميزه', hint: 'كملي' },
-  { text: 'تخلي فيا نبتسم بدون سبب', hint: 'اضغطي' },
-  { text: 'معاك الوقت يجري بشكل أحلى', hint: 'كملي' },
-  { text: 'ربي يدومك جنبي ياعيوني', hint: 'اضغطي' },
-  { text: 'صرتي جزء اساسي من يومي', hint: 'كملي' },
-  { text: 'حتى سكوتك فيه راحة', hint: 'اضغطي' },
-  { text: 'كل رسالة منك تفرحني', hint: 'كملي' },
-  { text: 'نستنى كلامك حتى لو كلمة', hint: 'اضغطي' },
-  { text: 'نخاف نخسرك وان شاء الله ماتصير', hint: 'كملي' },
-  { text: 'انتي مش عادية', hint: 'اضغطي' },
-  { text: 'انتي إحساس', hint: 'كملي' },
-  { text: 'كل لحظة معاك كنز', hint: 'اضغطي' },
-  { text: 'وجودك نعمة', hint: 'كملي' },
-  { text: 'نبي راحتك قبل أي شي', hint: 'قريب النهاية' },
-  { text: 'خليتيني احسن وقاعد نتحسن والفضل كله ليك ياسندي في الدنيا وفعلا من يستند علي مهندسة لايسقط بل يزداد قوة❤️‍🩹', hint: 'آخر مفاجأة' },
-  { text: 'كل عام وانتي ليا يا عمري 🤍', hint: 'ابدأي المرحلة الأخيرة' }
+  { text: 'ياملاذي الامن من تعب الدنيا 🤍',                                                                                                                hint: 'اضغطي' },
+  { text: 'كل شي بدي بابتسامة منك',                                                                                                                        hint: 'كملي' },
+  { text: 'ما كنتش متوقع إنك تغيّري كل ش فيا',                                                                                                             hint: 'اضغطي' },
+  { text: 'وجودك بس يحلي ايامي',                                                                                                                            hint: 'كملي' },
+  { text: 'أحلى صدفة صارتلي',                                                                                                                               hint: 'اضغطي' },
+  { text: 'طريقتك مختلفة ومميزه',                                                                                                                           hint: 'كملي' },
+  { text: 'تخلي فيا نبتسم بدون سبب',                                                                                                                        hint: 'اضغطي' },
+  { text: 'معاك الوقت يجري بشكل أحلى',                                                                                                                      hint: 'كملي' },
+  { text: 'ربي يدومك جنبي ياعيوني',                                                                                                                         hint: 'اضغطي' },
+  { text: 'صرتي جزء اساسي من يومي',                                                                                                                         hint: 'كملي' },
+  { text: 'حتى سكوتك فيه راحة',                                                                                                                             hint: 'اضغطي' },
+  { text: 'كل رسالة منك تفرحني',                                                                                                                            hint: 'كملي' },
+  { text: 'نستنى كلامك حتى لو كلمة',                                                                                                                        hint: 'اضغطي' },
+  { text: 'نخاف نخسرك وان شاء الله ماتصير',                                                                                                                 hint: 'كملي' },
+  { text: 'انتي مش عادية',                                                                                                                                  hint: 'اضغطي' },
+  { text: 'انتي إحساس',                                                                                                                                     hint: 'كملي' },
+  { text: 'كل لحظة معاك كنز',                                                                                                                               hint: 'اضغطي' },
+  { text: 'وجودك نعمة',                                                                                                                                     hint: 'كملي' },
+  { text: 'نبي راحتك قبل أي شي',                                                                                                                            hint: 'قريب النهاية' },
+  { text: 'خليتيني احسن وقاعد نتحسن والفضل كله ليك ياسندي في الدنيا وفعلا من يستند علي مهندسة لايسقط بل يزداد قوة❤️‍🩹',                                   hint: 'آخر مفاجأة' },
+  { text: 'كل عام وانتي ليا يا عمري 🤍',                                                                                                                    hint: 'ابدأي المرحلة الأخيرة' }
 ];
 
 let surpriseIndex = 0, surpriseActive = false;
@@ -1025,7 +1033,7 @@ function renderSurprise(index) {
     }
     card.appendChild(pw);
 
-    // Counter
+    // Counter badge
     const badge = document.createElement('div');
     badge.style.cssText = "font-size:0.85rem;font-weight:700;color:rgba(194,24,91,0.5);letter-spacing:0.1em;margin-top:48px;font-family:'Tajawal',sans-serif;";
     badge.textContent = `${index + 1} / ${SURPRISES.length}`;
@@ -1075,7 +1083,7 @@ function onSurpriseClick(index) {
 }
 
 // ════════════════════════════════════════════
-// DRAW MODE (40 seconds)
+// DRAW MODE — 40 seconds
 // ════════════════════════════════════════════
 let drawCanvas, drawCtx, isDrawing = false, drawParticles = [], drawTimer = null;
 
@@ -1204,8 +1212,12 @@ function goToFinalScene() {
   flash.style.opacity = '1';
   setTimeout(() => { flash.style.opacity = '0'; }, 500);
 
-  setTimeout(() => { document.getElementById('finalMsg').classList.add('show'); }, 700);
-  setTimeout(() => { document.getElementById('finalYtBtn').classList.add('show'); }, 1800);
+  setTimeout(() => {
+    document.getElementById('finalMsg').classList.add('show');
+  }, 700);
+  setTimeout(() => {
+    document.getElementById('finalYtBtn').classList.add('show');
+  }, 1800);
 }
 
 // ════════════════════════════════════════════
