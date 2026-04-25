@@ -1,341 +1,207 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>سجى 🤍</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<canvas id="bgCanvas"></canvas>
-<canvas id="explosionCanvas"></canvas>
-<div id="flashOverlay"></div>
+<!-- ===== INTRO ===== -->
+<section id="intro">
+  <div class="rain-container" id="rain"></div>
+  <div class="stars" id="stars"></div>
+  <div class="moon">🌙</div>
+  <div class="intro-content">
+    <p class="intro-date glow-text">في يوم 10 / 05 / 2005</p>
+    <h1 class="intro-title glow-text">ولدت فتاة… تشبه القمر</h1>
+    <p class="scroll-hint">انزلي وشوفي الحكاية 🤍</p>
+  </div>
+  <div class="floating-hearts" id="floatingHearts"></div>
+</section>
 
-<!-- ═══════════ CINEMATIC INTRO ═══════════ -->
-<div id="introWrapper">
-
-  <div class="cscene" id="cs0">
-    <div class="cin-bars"></div>
-    <div class="cin-center">
-      <div class="cin-date reveal-line" id="cs0_a">في يوم 10 / 05 / 2005</div>
-      <div class="cin-sub reveal-line" id="cs0_b">بدأت حكاية بنيتي ونور عيوني جوجو…</div>
+<!-- ===== PART 1 — HER STORY ===== -->
+<section id="part1" class="story-section fade-section">
+  <div class="glass-card">
+    <div class="story-text" id="story1Text">
+      <p>في يوم 10 / 05 / 2005</p>
+      <p>بدأت حكاية بنيتي ونور عيوني جوجو…</p>
+      <p>سجو❤️‍🔥،<br>من أول لحظة…<br>كان فيها شي مختلف</p>
+      <p>كأنها جاية للدنيا<br>بش تنورها وتكون القطعة ل ناقصه من قمر ليله ميلادها نزلت ع الارض</p>
+      <p>كبرت شوي شوي…<br>وكانت الطيبة تمشي معاها في كل خطوة وتزيد</p>
+      <p>أي حد يقرب منها<br>يحس براحة بدون سبب</p>
+      <p>وكانت ابتسامتها…<br>تغير الجو كله</p>
+      <p class="name-glow">سجى 🤍</p>
+      <p>مش بس اسم…<br>لكن إحساس</p>
+      <p>ومع الوقت…<br>كبرت أحلامها</p>
+      <p>ووصلت لمرحلة<br>بدأت تختار طريقها بنفسها</p>
+      <p>واختارت تكون قوية…<br>وتبني مستقبلها</p>
+      <p>اختارت الهندسة 📐<br>واختارت البرمجة 💻</p>
+      <p>مش طريق سهل…<br>لكن هي إنسانة متعرفش الاستسلام</p>
+      <p>كانت دايم:<br>مكافحة<br>مجتهدة<br>مواظبة<br>وشطورة</p>
+      <p>مهندستي 🎀تتعب…<br>لكن تكمل</p>
+      <p>مهندستي تتعب…<br>لكن ما توقفش</p>
+      <p>لين وصلت لليوم…</p>
+      <p>21 سنة من الجمال<br>21 سنة من الطيبة<br>21 سنة من القوة<br>21 سنة من الحنيه</p>
+      <p>واليوم…<br>هي قريبة تحقق حلمها</p>
+      <p>كأنها واقفة قدام المراية…</p>
+      <p>تشوف نفسها<br>بعد سنة…</p>
+      <p>احلا خريجه واحلا بش مهندسه🎀 🤍</p>
+      <p>رافعه راسها<br>وفخورة بنفسها</p>
+      <p>وهذا هو…<br>أجمل شي فيها</p>
+      <p class="name-glow">سجى 🤍</p>
     </div>
-    <div class="cin-bars bottom"></div>
   </div>
+</section>
 
-  <div class="cscene" id="cs1">
-    <div class="cin-bars"></div>
-    <canvas class="char-canvas" id="babyCanvas" width="280" height="320"></canvas>
-    <div class="cin-center">
-      <div class="cin-line reveal-line" id="cs1_a">سجو❤️‍🔥،</div>
-      <div class="cin-line reveal-line" id="cs1_b">من أول لحظة…</div>
-      <div class="cin-line reveal-line" id="cs1_c">كان فيها شي مختلف</div>
-      <div class="cin-sub reveal-line" id="cs1_d">كأنها جاية للدنيا بش تنورها</div>
+<!-- ===== PART 2 — OUR STORY ===== -->
+<section id="part2" class="story-section fade-section">
+  <div class="glass-card">
+    <div class="section-label">حكايتنا</div>
+    <div class="story-text">
+      <p>وفي لحظة…<br>ما كانتش محسوبة</p>
+      <p>بدت حكايتي اني وملاذي الآمن جوجو نور عيوني…</p>
+      <p>مش صدفة عادية<br>ولا مجرد تعارف</p>
+      <p>تعرفت على سجى…</p>
+      <p>عن طريق رسالة<br>في تلجرام</p>
+      <p>كانت تسأل على مشروع<br>في مادة برمجة مرئيه 1…</p>
+      <p>قررت نساعدها لجمال اسلوبها</p>
+      <p>كان الموضوع بسيط في البداية…</p>
+      <p>لكن أسلوبها<br>كان مختلف</p>
+      <p>كانت تحكي باحترام<br>تشكر…<br>وتعتذر…</p>
+      <p>بطريقة خلتني نوقف<br>ونحس…</p>
+      <p>إنها مش زي أي حد 🤍</p>
+      <p>بدي الكلام خفيف…</p>
+      <p>مجرد دراسة<br>ومساعدة</p>
+      <p>لكن مع الأيام…</p>
+      <p>بدي يومي</p>
+      <p>بدي في انتظار</p>
+      <p>بدي في تعلّق…</p>
+      <p>بدون حتى ما نحس حبيتهاا</p>
+      <p>لين جت فتره…</p>
+      <p>كنت تحت ضغط<br>في مشروع التخرج</p>
+      <p>تعب<br>توتر<br>تفكييرر</p>
+      <p>وقفت معايا…</p>
+      <p>سهرت معايا</p>
+      <p>تسند فيا<br>وتخفف عليا</p>
+      <p>وكأنها<br>حاسّة بكل شي</p>
+      <p>في اللحظة هذي…</p>
+      <p>فهمت</p>
+      <p>إنها مش شخص عادي</p>
+      <p>ولا مجرد حد في حياتي</p>
+      <p>هي حاجة أكبر</p>
+      <p>ومن وقتها…</p>
+      <p>وكل موقف حلو منها</p>
+      <p>كان يقربني أكثر</p>
+      <p>لين لقيت روحي…</p>
+      <p>تعلقت بيها<br>بدون ما نحس</p>
+      <p>نحب فيها…</p>
+      <p>اهتمامها</p>
+      <p>طيبتها</p>
+      <p>جمالها<br>وعيونهاا ل مذوبيني</p>
+      <p>وطريقتها الهادية<br>اللي تخلي فيا<br>نرتاح</p>
+      <p>وفي موقف…<br>مستحيل ننساه</p>
+      <p>يوم عطتني شال<br>كهدية للتخرج</p>
+      <p>في وقت…<br>كنت حتى أنا<br>مش عارف<br>كيف بندير لنفسي حاجة</p>
+      <p>اللحظة هذي…</p>
+      <p>كانت كبيرة عندي</p>
+      <p>وقيمتها…<br>أكبر من أي حاجة مادية</p>
+      <p>ومن بعدها…</p>
+      <p>أي حاجة بسيطة منها</p>
+      <p>تفرحني</p>
+      <p>حتى سؤال عادي<br>حتى كلمة صغيرة<br>حتى ريبوست علي تيك توك يخليني فرحان</p>
+      <p>ومن وقتها…</p>
+      <p>نشوف فيها</p>
+      <p class="name-glow">ملاذي الآمن 🤍</p>
+      <p>ودنيتي كلها</p>
+      <p>ومن غيرها…</p>
+      <p>نحس روحي<br>بروحي…</p>
+      <p>ومش مرتاح</p>
+      <p>اني معاذ تعرفت علي سجى وحبيتها قبل ل نعرف روحي حبيتها<br>فجأة كأنها يد كبيره حضنتني بقوه<br>حنيتها تخلي فيا نحس في روحي انسان مؤذي ونخاف نقسى عليها فيوم<br>تسند فيا وتدعم فيا بشكل منقدرش نوصفه وكان ليها الفضل في انجازي لمشروع التخرج<br>خوفها عليا ونصائحها ليا كانهم نسمه بارده تصححلي في مساري<br>ومرات لما نغلط تزعل مني واني منرضاش تقعد زعلانه مني دقيقه<br>نحبها حب منقدرش لا نوصفه ولا نعبر عليه ان شاء الله ربي يكتب في قلبها نفس مقدار حبي ليها بحبها ليا<br>الوحيده ل متخليش فيا لما نتضايق<br>ولما نتعب تسأل عليا وتقعد تطمن عليا هادي اني متأكد انها ملاك نازل ع الدنيا بكميه الحنيه والطيبه هادي كلها</p>
     </div>
-    <div class="cin-bars bottom"></div>
   </div>
+</section>
 
-  <div class="cscene" id="cs2">
-    <div class="cin-bars"></div>
-    <canvas class="char-canvas" id="childCanvas" width="240" height="340"></canvas>
-    <div class="cin-center">
-      <div class="cin-line reveal-line" id="cs2_a">كبرت شوي شوي…</div>
-      <div class="cin-line reveal-line" id="cs2_b">وكانت الطيبة تمشي معاها في كل خطوة</div>
-      <div class="cin-sub reveal-line" id="cs2_c">أي حد يقرب منها يحس براحة بدون سبب</div>
-    </div>
-    <div class="cin-bars bottom"></div>
-  </div>
-
-  <div class="cscene" id="cs3">
-    <div class="cin-bars"></div>
-    <div class="cin-center">
-      <div class="cin-hero reveal-line" id="cs3_a">سجى 🤍</div>
-      <div class="cin-line reveal-line" id="cs3_b">مش بس اسم…</div>
-      <div class="cin-line reveal-line" id="cs3_c">لكن إحساس</div>
-      <div class="cin-sub reveal-line" id="cs3_d">وكانت ابتسامتها… تغير الجو كله</div>
-    </div>
-    <div class="cin-bars bottom"></div>
-  </div>
-
-  <div class="cscene" id="cs4">
-    <div class="cin-bars"></div>
-    <canvas class="char-canvas" id="engineerCanvas" width="260" height="360"></canvas>
-    <div class="cin-center">
-      <div class="cin-line reveal-line" id="cs4_a">اختارت الهندسة 📐</div>
-      <div class="cin-line reveal-line" id="cs4_b">واختارت البرمجة 💻</div>
-      <div class="cin-sub reveal-line" id="cs4_c">مش طريق سهل… لكن هي إنسانة متعرفش الاستسلام</div>
-    </div>
-    <div class="cin-bars bottom"></div>
-  </div>
-
-  <div class="cscene" id="cs5">
-    <div class="cin-bars"></div>
-    <canvas class="char-canvas" id="studyCanvas" width="280" height="320"></canvas>
-    <div class="cin-center">
-      <div class="cin-line reveal-line" id="cs5_a">مكافحة</div>
-      <div class="cin-line reveal-line" id="cs5_b">مجتهدة</div>
-      <div class="cin-line reveal-line" id="cs5_c">مواظبة</div>
-      <div class="cin-hero-sm reveal-line" id="cs5_d">وشطورة</div>
-    </div>
-    <div class="cin-bars bottom"></div>
-  </div>
-
-  <div class="cscene" id="cs6">
-    <div class="cin-bars"></div>
-    <canvas class="char-canvas" id="girl21Canvas" width="260" height="380"></canvas>
-    <div class="cin-center">
-      <div class="cin-line reveal-line" id="cs6_a">21 سنة من الجمال</div>
-      <div class="cin-line reveal-line" id="cs6_b">21 سنة من الطيبة</div>
-      <div class="cin-line reveal-line" id="cs6_c">21 سنة من القوة</div>
-      <div class="cin-line reveal-line" id="cs6_d">21 سنة من الحنيه</div>
-    </div>
-    <div class="cin-bars bottom"></div>
-  </div>
-
-  <div class="cscene" id="cs7">
-    <div class="cin-bars"></div>
-    <canvas class="char-canvas" id="mirrorCanvas" width="320" height="380"></canvas>
-    <div class="cin-center">
-      <div class="cin-line reveal-line" id="cs7_a">احلا خريجه واحلا بش مهندسه 🎀 🤍</div>
-      <div class="cin-line reveal-line" id="cs7_b">رافعه راسها</div>
-      <div class="cin-hero-sm reveal-line" id="cs7_c">وفخورة بنفسها</div>
-    </div>
-    <div class="cin-bars bottom"></div>
-  </div>
-
-  <div class="cscene" id="cs8">
-    <div class="cin-bars"></div>
-    <canvas class="char-canvas" id="muathCanvas" width="260" height="380"></canvas>
-    <div class="cin-center">
-      <div class="cin-sub reveal-line" id="cs8_a">اني معاذ تعرفت علي سجى وحبيتها قبل ل نعرف روحي حبيتها</div>
-      <div class="cin-line reveal-line" id="cs8_b">فجأة كأنها يد كبيره حضنتني بقوه</div>
-    </div>
-    <div class="cin-bars bottom"></div>
-  </div>
-
-  <div class="cscene" id="cs9">
-    <div class="cin-bars"></div>
-    <canvas class="char-canvas" id="togetherCanvas" width="340" height="360"></canvas>
-    <div class="cin-center">
-      <div class="cin-sub reveal-line" id="cs9_a">تسند فيا وتدعم فيا بشكل منقدرش نوصفه</div>
-      <div class="cin-sub reveal-line" id="cs9_b">وكان ليها الفضل في انجازي لمشروع التخرج</div>
-      <div class="cin-line reveal-line" id="cs9_c">الوحيده ل متخليش فيا لما نتضايق</div>
-    </div>
-    <div class="cin-bars bottom"></div>
-  </div>
-
-  <div class="cscene" id="cs10">
-    <div class="cin-bars"></div>
-    <div class="cin-center">
-      <div class="cin-sub reveal-line" id="cs10_a">متأكد انها ملاك نازل ع الدنيا</div>
-      <div class="cin-sub reveal-line" id="cs10_b">بكميه الحنيه والطيبه هادي كلها</div>
-      <div class="cin-hero reveal-line" id="cs10_c">سجى 🤍</div>
-      <div class="cin-sub reveal-line" id="cs10_d">خلينا نحكيلك قصتها…</div>
-    </div>
-    <div class="cin-bars bottom"></div>
-  </div>
-
-  <div id="introSkip" onclick="skipIntro()">تخطي ⟩</div>
-  <div id="introContinue" onclick="nextSlide()">اضغط للمتابعة ◀</div>
-</div>
-
-<!-- ═══════════ MAIN SITE ═══════════ -->
-<div id="mainSite" style="display:none">
-
-  <div id="audioBtn" onclick="toggleAudio()">🎵</div>
-  <div id="progressDots">
-    <div class="dot active" id="dot0"></div>
-    <div class="dot" id="dot1"></div>
-    <div class="dot" id="dot2"></div>
-    <div class="dot" id="dot3"></div>
-    <div class="dot" id="dot4"></div>
-    <div class="dot" id="dot5"></div>
-  </div>
-
-  <!-- SCENE 1: GIFT -->
-  <div class="scene active" id="scene1">
-    <div class="gift-wrap">
-      <div class="gift-box" onclick="openGift()">
-        <svg class="gift-svg" viewBox="0 0 160 160" fill="none">
-          <rect x="20" y="75" width="120" height="75" rx="10" fill="url(#boxGrad)"/>
-          <rect x="14" y="58" width="132" height="24" rx="8" fill="url(#lidGrad)"/>
-          <rect x="72" y="58" width="16" height="92" rx="4" fill="#fff" opacity="0.7"/>
-          <rect x="14" y="64" width="132" height="12" rx="4" fill="#fff" opacity="0.7"/>
-          <ellipse cx="65" cy="52" rx="22" ry="14" fill="#ffb3cc" transform="rotate(-20 65 52)"/>
-          <ellipse cx="95" cy="52" rx="22" ry="14" fill="#ffb3cc" transform="rotate(20 95 52)"/>
-          <circle cx="80" cy="52" r="10" fill="#ff6fa8"/>
-          <circle cx="80" cy="52" r="6" fill="#fff" opacity="0.5"/>
-          <defs>
-            <linearGradient id="boxGrad" x1="20" y1="75" x2="140" y2="150" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stop-color="#ff6fa8"/><stop offset="1" stop-color="#c2185b"/>
-            </linearGradient>
-            <linearGradient id="lidGrad" x1="14" y1="58" x2="146" y2="82" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stop-color="#ff80b5"/><stop offset="1" stop-color="#e91e8c"/>
-            </linearGradient>
-          </defs>
-        </svg>
+<!-- ===== PRAYER SCENE ===== -->
+<section id="prayer" class="story-section fade-section">
+  <div class="prayer-bg"></div>
+  <div class="prayer-container">
+    <div class="dua-figure">
+      <div class="figure-body">
+        <div class="figure-head"></div>
+        <div class="figure-torso"></div>
+        <div class="arm arm-left"></div>
+        <div class="arm arm-right"></div>
       </div>
-      <div class="gift-hint">لمسة وحدة 🤍</div>
-      <div class="tap-hint">اضغطي على الهدية ✨</div>
+      <div class="dua-glow"></div>
+    </div>
+    <div class="prayer-text glass-card">
+      <p class="prayer-line">يارب تكون من نصيبي</p>
+      <p class="prayer-line">وما ياخذها حد مني</p>
+      <p class="prayer-line">واجمعني بيها بالحلال</p>
+      <p class="prayer-line">وارزقني القدرة اني نسعدها ونخطبها 🤍</p>
     </div>
   </div>
+</section>
 
-  <!-- SCENE 2: CINEMATIC VIDEO -->
-  <div class="scene" id="scene2">
-    <div class="video-overlay"></div>
-    <div class="video-title">سجى 🤍</div>
+<!-- ===== TRANSITION ===== -->
+<section id="transition" class="story-section fade-section">
+  <div class="transition-text glass-card">
+    <p>تعالي نحاول نوصلك مدى حبي ليك رغم ان مفيش شي في الدنيا يوصف حبي ولا مكانتك عنديي لكن شي بسيط بس 🤍</p>
   </div>
+</section>
 
-  <!-- SCENE 3: STORY -->
-  <div class="scene" id="scene3">
-    <div class="story-glass">
-      <div class="story-text">في يوم 10 / 05 / 2005
+<!-- ===== SURPRISES ===== -->
+<section id="surprises" class="story-section fade-section">
+  <div class="section-title glow-text">🎁 مفاجآتك الـ 21</div>
+  <div class="cards-grid" id="cardsGrid"></div>
+</section>
 
-بدأت حكاية بنيتي ونور عيوني جوجو…
-
-سجو❤️‍🔥،
-من أول لحظة…
-كان فيها شي مختلف
-
-كأنها جاية للدنيا
-بش تنورها وتكون القطعة ل ناقصه من قمر ليله ميلادها نزلت ع الارض
-
-كبرت شوي شوي…
-وكانت الطيبة تمشي معاها في كل خطوة وتزيد
-
-أي حد يقرب منها
-يحس براحة بدون سبب
-
-وكانت ابتسامتها…
-تغير الجو كله
-
-سجى 🤍
-
-مش بس اسم…
-لكن إحساس
-
-ومع الوقت…
-كبرت أحلامها
-
-ووصلت لمرحلة
-بدأت تختار طريقها بنفسها
-
-واختارت تكون قوية…
-وتبني مستقبلها
-
-اختارت الهندسة 📐
-واختارت البرمجة 💻
-
-مش طريق سهل…
-لكن هي إنسانة متعرفش الاستسلام
-
-كانت دايم:
-مكافحة
-مجتهدة
-مواظبة
-وشطورة
-
-مهندستي 🎀 تتعب…
-لكن تكمل
-
-مهندستي تتعب…
-لكن ما توقفش
-
-لين وصلت لليوم…
-
-21 سنة من الجمال
-21 سنة من الطيبة
-21 سنة من القوة
-21 سنة من الحنيه
-
-واليوم…
-هي قريبة تحقق حلمها
-
-كأنها واقفة قدام المراية…
-
-تشوف نفسها
-بعد سنة…
-
-احلا خريجه واحلا بش مهندسه 🎀 🤍
-
-رافعه راسها
-وفخورة بنفسها
-
-وهذا هو…
-أجمل شي فيها
-
-سجى 🤍
-
----
-
-اني معاذ تعرفت علي سجى وحبيتها قبل ل نعرف روحي حبيتها
-فجأة كأنها يد كبيره حضنتني بقوه
-حنيتها تخلي فيا نحس في روحي انسان مؤذي ونخاف نقسى عليها فيوم
-تسند فيا وتدعم فيا بشكل منقدرش نوصفه وكان ليها الفضل في انجازي لمشروع التخرج
-خوفها عليا ونصائحها ليا كانهم نسمه بارده تصححلي في مساري
-ومرات لما نغلط تزعل مني واني منرضاش تقعد زعلانه مني دقيقه
-نحبها حب منقدرش لا نوصفه ولا نعبر عليه ان شاء الله ربي يكتب في قلبها نفس مقدار حبي ليها بحبها ليا
-الوحيده ل متخليش فيا لما نتضايق
-ولما نتعب تسأل عليا وتقعد تطمن عليا هادي اني متأكد انها ملاك نازل ع الدنيا بكميه الحنيه والطيبه هادي كلها</div>
-      <button class="story-next-btn" onclick="goToScene(4)">التالي 🤍</button>
-    </div>
+<!-- ===== DRAW SECTION ===== -->
+<section id="drawSection" class="story-section fade-section">
+  <div class="glass-card draw-card">
+    <p class="draw-intro">لما خشيتي حياتي عبيتيها ورد وقلوب واطمئنان وراحة… زي ما صاير في الشاشة توا 🤓<br>ارسمي وشوفي بنفسك 🤍</p>
+    <canvas id="drawCanvas"></canvas>
+    <button class="clear-btn" onclick="clearCanvas()">مسح 🗑️</button>
   </div>
+</section>
 
-  <!-- SCENE 4: CARD -->
-  <div class="scene" id="scene4">
-    <div class="card-container">
-      <div class="card-image-placeholder">
-        <canvas id="cardCharCanvas" width="380" height="240"></canvas>
+<!-- ===== GIFT ===== -->
+<section id="giftSection" class="story-section fade-section">
+  <div class="gift-container">
+    <div class="gift-box" id="giftBox" onclick="openGift()">
+      <div class="gift-lid"></div>
+      <div class="gift-body">
+        <div class="gift-ribbon"></div>
       </div>
-      <div class="card-body">
-        <div class="card-text">وجودك غير كل شي 🤍</div>
-        <button class="card-next-btn" onclick="goToScene(5)">للأمام 💫</button>
-      </div>
+      <div class="gift-label">اضغطي 🎁</div>
+    </div>
+    <div class="gift-message" id="giftMessage">كل لمسة منك تصنع شي جميل 🤍</div>
+    <div class="gift-hearts" id="giftHearts"></div>
+  </div>
+</section>
+
+<!-- ===== FINAL ===== -->
+<section id="finalSection" class="story-section fade-section">
+  <div class="final-container">
+    <p class="final-text glow-text">كل لمسة منك تصنع شي جميل 🤍</p>
+    <div class="touch-area" id="touchArea" onclick="spawnHearts(event)">
+      <span>اضغطي هنا ❤️</span>
     </div>
   </div>
+</section>
 
-  <!-- SCENE 5: HEART -->
-  <div class="scene" id="scene5">
-    <svg class="heart-btn" id="finalHeart" onclick="finalExplosion()" viewBox="0 0 200 200" fill="none">
-      <path d="M100 170 C100 170 20 120 20 65 C20 38 42 20 65 20 C80 20 93 28 100 40 C107 28 120 20 135 20 C158 20 180 38 180 65 C180 120 100 170 100 170Z" fill="url(#heartGrad)"/>
-      <path d="M100 170 C100 170 20 120 20 65 C20 38 42 20 65 20 C80 20 93 28 100 40 C107 28 120 20 135 20 C158 20 180 38 180 65 C180 120 100 170 100 170Z" fill="url(#heartGlow)" opacity="0.5"/>
-      <ellipse cx="72" cy="70" rx="18" ry="12" fill="#fff" opacity="0.25" transform="rotate(-30 72 70)"/>
-      <defs>
-        <linearGradient id="heartGrad" x1="20" y1="20" x2="180" y2="170" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#ff80b5"/><stop offset="1" stop-color="#e91e8c"/>
-        </linearGradient>
-        <radialGradient id="heartGlow" cx="50%" cy="30%" r="60%">
-          <stop offset="0" stop-color="#fff" stop-opacity="0.6"/>
-          <stop offset="1" stop-color="#ff4d94" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-    </svg>
-    <div class="final-text" id="finalText">كل عام وانتي ليا يا عمرييي 🤍</div>
-    <a class="yt-btn" id="ytBtn" href="https://youtube.com/shorts/1t9sfYqZ2iY" target="_blank" rel="noopener">
-      <span>▶️</span><span>شاهدي الأغنية 🎵</span>
+<!-- ===== VIDEO ===== -->
+<section id="videoSection" class="story-section fade-section">
+  <div class="video-container glass-card">
+    <p class="video-label">وهذا آخر شي 🤍</p>
+    <a href="https://www.youtube.com/watch?v=1t9sfYqZ2iY" target="_blank" class="video-btn">
+      <span class="btn-glow"></span>
+      افتحي الفيديو 🤍
     </a>
   </div>
-
-  <!-- SCENE 6: SURPRISES + DRAW -->
-  <div class="scene" id="scene6">
-    <canvas id="drawCanvas"></canvas>
-  </div>
-
-  <!-- SCENE 7: FINAL -->
-  <div class="scene" id="scene7">
-    <div class="final-msg-wrap">
-      <div class="final-msg" id="finalMsg">كل عام وانتي ليا يا عمري 🤍</div>
-      <a class="yt-btn-final" id="finalYtBtn" href="https://youtube.com/shorts/1t9sfYqZ2iY" target="_blank" rel="noopener">
-        🎧 اسمعي النهاية
-      </a>
-    </div>
-  </div>
-
-</div>
+</section>
 
 <script src="script.js"></script>
 </body>
