@@ -4,72 +4,70 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <title>سجى 🤍</title>
 <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<canvas id="bgCanvas"></canvas>
+<canvas id="pc"></canvas>
 <div id="rain"></div>
-<div id="floatHearts"></div>
-<div class="moon-scene"><div class="moon-halo"></div><div class="moon">🌙</div></div>
-<button class="music-btn" id="musicBtn">🎵</button>
-<audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-<div class="progress-track"><div class="progress-fill" id="pFill"></div></div>
+<div id="fh"></div>
+<div class="moon-wrap"><div class="moon-halo"></div><span class="moon">🌙</span></div>
+<button class="mbtn" id="mbtn">🎵</button>
+<audio id="aud" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+<div class="prog"><div class="pf" id="pf"></div></div>
 
 <div id="app">
 
 <!-- S0 INTRO -->
 <div class="screen active" id="s0">
-  <div class="stars-layer" id="stars"></div>
-  <div class="nebula n1"></div><div class="nebula n2"></div>
-  <div class="screen-body center">
-    <div class="intro-badge"><span class="dot"></span>10 / 05 / 2005<span class="dot"></span></div>
-    <div class="big-moon-emoji">🌙</div>
-    <h1 class="intro-h1">ولدت فتاة…<br><span class="shine-text">تشبه القمر</span></h1>
-    <div class="intro-char">
-      <svg viewBox="0 0 80 160" width="90" xmlns="http://www.w3.org/2000/svg" class="char-float">
-        <ellipse cx="40" cy="26" rx="22" ry="24" fill="#3d1a00"/>
-        <ellipse cx="40" cy="30" rx="18" ry="20" fill="#f5cba7"/>
-        <ellipse cx="33" cy="28" rx="2.5" ry="3" fill="#1a0d00"/>
-        <ellipse cx="47" cy="28" rx="2.5" ry="3" fill="#1a0d00"/>
-        <ellipse cx="29" cy="34" rx="4" ry="2" fill="#ffb3cc" opacity=".7"/>
-        <ellipse cx="51" cy="34" rx="4" ry="2" fill="#ffb3cc" opacity=".7"/>
-        <path d="M34 38 Q40 45 46 38" stroke="#c0392b" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <path d="M22 50 Q40 46 58 50 L63 130 Q40 138 17 130Z" fill="url(#dg1)" opacity=".95"/>
-        <defs><linearGradient id="dg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b9d"/><stop offset="100%" stop-color="#e91e8c"/></linearGradient></defs>
-        <rect x="36" y="48" width="8" height="10" fill="#f5cba7"/>
-        <path d="M22 58 Q8 80 13 100" stroke="#f5cba7" stroke-width="7" fill="none" stroke-linecap="round"/>
-        <path d="M58 58 Q72 80 67 100" stroke="#f5cba7" stroke-width="7" fill="none" stroke-linecap="round"/>
-        <rect x="28" y="128" width="10" height="28" rx="5" fill="#f5cba7"/>
-        <rect x="42" y="128" width="10" height="28" rx="5" fill="#f5cba7"/>
-        <text x="60" y="18" font-size="11">✨</text>
-        <text x="4" y="32" font-size="9">✨</text>
-        <text x="56" y="52" font-size="8">✨</text>
-      </svg>
-    </div>
-    <p class="hint-txt">انزلي وشوفي الحكاية 🤍</p>
-    <button class="btn-glow" onclick="goTo(1)">ابدأي ♥</button>
+  <div class="stars" id="stars"></div>
+  <div class="sb center">
+    <div class="badge"><span class="dot"></span>10 / 05 / 2005<span class="dot"></span></div>
+    <div class="bmoon">🌙</div>
+    <h1 class="ih">ولدت فتاة…<br><span class="gt">تشبه القمر</span></h1>
+    <svg class="fc cf" viewBox="0 0 80 160" width="90" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="40" cy="26" rx="22" ry="24" fill="#3d1a00"/>
+      <ellipse cx="40" cy="30" rx="18" ry="20" fill="#f5cba7"/>
+      <ellipse cx="33" cy="28" rx="2.5" ry="3" fill="#1a0d00"/>
+      <ellipse cx="47" cy="28" rx="2.5" ry="3" fill="#1a0d00"/>
+      <ellipse cx="29" cy="34" rx="4" ry="2" fill="#ffb3cc" opacity=".7"/>
+      <ellipse cx="51" cy="34" rx="4" ry="2" fill="#ffb3cc" opacity=".7"/>
+      <path d="M34 38 Q40 45 46 38" stroke="#c0392b" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M22 50 Q40 46 58 50 L63 130 Q40 138 17 130Z" fill="#e91e8c" opacity=".95"/>
+      <rect x="36" y="48" width="8" height="10" fill="#f5cba7"/>
+      <path d="M22 58 Q8 80 13 100" stroke="#f5cba7" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M58 58 Q72 80 67 100" stroke="#f5cba7" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <rect x="28" y="128" width="10" height="28" rx="5" fill="#f5cba7"/>
+      <rect x="42" y="128" width="10" height="28" rx="5" fill="#f5cba7"/>
+      <text x="60" y="18" font-size="11">✨</text>
+      <text x="4" y="32" font-size="9">✨</text>
+    </svg>
+    <p class="hint">انزلي وشوفي الحكاية 🤍</p>
+    <button class="btn" onclick="goTo(1)">ابدأي ♥</button>
   </div>
 </div>
 
 <!-- S1 HER STORY -->
 <div class="screen" id="s1">
-  <div class="screen-body">
-    <div class="ch-hdr"><div class="ch-line"></div><span class="chip">حكايتها ✨</span><div class="ch-line"></div></div>
-    <div class="story-box" id="sb1"></div>
-    <button class="btn-glow hidden" id="b1" onclick="goTo(2)">كملي 🤍</button>
+  <div class="sb" id="sb1">
+    <div class="hdr"><div class="hl"></div><span class="chip">حكايتها ✨</span><div class="hl"></div></div>
+    <div class="box" id="bx1"></div>
+    <div class="scroll-gate hidden" id="sg1">
+      <div class="sg-arrow">↓</div>
+      <span>اكملي القراءة للمتابعة</span>
+    </div>
+    <button class="btn hidden" id="bt1" onclick="goTo(2)">كملي 🤍</button>
   </div>
 </div>
 
 <!-- S2 OUR STORY -->
 <div class="screen" id="s2">
-  <div class="screen-body">
-    <div class="ch-hdr"><div class="ch-line"></div><span class="chip">حكايتنا 💌</span><div class="ch-line"></div></div>
-    <div class="duo-chars">
-      <div class="char-card female-card">
-        <svg viewBox="0 0 80 160" width="60" xmlns="http://www.w3.org/2000/svg">
+  <div class="sb" id="sb2">
+    <div class="hdr"><div class="hl"></div><span class="chip">حكايتنا 💌</span><div class="hl"></div></div>
+    <div class="duo">
+      <div class="cc fc-c">
+        <svg viewBox="0 0 80 160" width="58" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="40" cy="26" rx="22" ry="24" fill="#3d1a00"/>
           <ellipse cx="40" cy="30" rx="18" ry="20" fill="#f5cba7"/>
           <ellipse cx="33" cy="28" rx="2.5" ry="3" fill="#1a0d00"/>
@@ -84,11 +82,11 @@
           <rect x="28" y="128" width="10" height="28" rx="5" fill="#f5cba7"/>
           <rect x="42" y="128" width="10" height="28" rx="5" fill="#f5cba7"/>
         </svg>
-        <div class="cname">سجى</div>
+        <div class="cn">سجى</div>
       </div>
-      <div class="heart-bridge"><div class="hb-line"></div><div class="hb-h">♥</div><div class="hb-line"></div></div>
-      <div class="char-card male-card">
-        <svg viewBox="0 0 90 170" width="65" xmlns="http://www.w3.org/2000/svg">
+      <div class="hbr"><div class="hbl"></div><div class="hbh">♥</div><div class="hbl"></div></div>
+      <div class="cc mc-c">
+        <svg viewBox="0 0 90 170" width="62" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="45" cy="24" rx="24" ry="22" fill="#2c1a00"/>
           <ellipse cx="45" cy="34" rx="22" ry="24" fill="#d4a574"/>
           <ellipse cx="45" cy="52" rx="18" ry="10" fill="#3d2200" opacity=".85"/>
@@ -104,22 +102,26 @@
           <rect x="28" y="130" width="13" height="32" rx="6" fill="#1a2550"/>
           <rect x="49" y="130" width="13" height="32" rx="6" fill="#1a2550"/>
         </svg>
-        <div class="cname">معاذ</div>
+        <div class="cn">معاذ</div>
       </div>
     </div>
-    <div class="story-box" id="sb2"></div>
-    <button class="btn-glow hidden" id="b2" onclick="goTo(3)">كملي 🤍</button>
+    <div class="box" id="bx2"></div>
+    <div class="scroll-gate hidden" id="sg2">
+      <div class="sg-arrow">↓</div>
+      <span>اكملي القراءة للمتابعة</span>
+    </div>
+    <button class="btn hidden" id="bt2" onclick="goTo(3)">كملي 🤍</button>
   </div>
 </div>
 
 <!-- S3 PRAYER -->
 <div class="screen" id="s3">
-  <div class="prayer-aurora"></div>
-  <div class="screen-body center">
-    <div class="ch-hdr"><div class="ch-line"></div><span class="chip">دعاء 🤍</span><div class="ch-line"></div></div>
+  <div class="pray-glow"></div>
+  <div class="sb center">
+    <div class="hdr"><div class="hl"></div><span class="chip">دعاء 🤍</span><div class="hl"></div></div>
     <div class="dua-wrap">
-      <div class="dua-rings"><div class="dr dr1"></div><div class="dr dr2"></div><div class="dr dr3"></div></div>
-      <svg viewBox="0 0 90 170" width="115" xmlns="http://www.w3.org/2000/svg" class="dua-char">
+      <div class="dua-rings"><div class="dr d1"></div><div class="dr d2"></div><div class="dr d3"></div></div>
+      <svg viewBox="0 0 90 170" width="112" xmlns="http://www.w3.org/2000/svg" class="dua-c">
         <ellipse cx="45" cy="24" rx="24" ry="22" fill="#2c1a00"/>
         <ellipse cx="45" cy="34" rx="22" ry="24" fill="#d4a574"/>
         <ellipse cx="45" cy="52" rx="18" ry="10" fill="#3d2200" opacity=".85"/>
@@ -137,86 +139,86 @@
         <rect x="49" y="130" width="13" height="32" rx="6" fill="#1a2550"/>
       </svg>
     </div>
-    <div class="prayer-card">
+    <div class="pcard">
       <p class="pl">يارب تكون من نصيبي</p>
       <p class="pl">وما ياخذها حد مني</p>
       <p class="pl">واجمعني بيها بالحلال</p>
       <p class="pl">وارزقني القدرة اني نسعدها ونخطبها 🤍</p>
     </div>
-    <button class="btn-glow" onclick="goTo(4)">كملي 🤍</button>
+    <button class="btn" onclick="goTo(4)">كملي 🤍</button>
   </div>
 </div>
 
 <!-- S4 SURPRISES -->
 <div class="screen" id="s4">
-  <div class="screen-body center">
-    <div class="ch-hdr"><div class="ch-line"></div><span class="chip">🎁 مفاجآتك</span><div class="ch-line"></div></div>
-    <div class="surp-prog-wrap">
-      <div class="surp-bar"><div class="surp-fill" id="sFill"></div></div>
-      <div class="surp-txt" id="sTxt">1 / 21</div>
+  <div class="sb center">
+    <div class="hdr"><div class="hl"></div><span class="chip">🎁 مفاجآتك</span><div class="hl"></div></div>
+    <div class="spw">
+      <div class="sbar"><div class="sfill" id="sf"></div></div>
+      <div class="stxt" id="st">1 / 21</div>
     </div>
-    <div class="surp-card" id="sCard">
-      <div class="surp-emoji" id="sEmoji"></div>
-      <div class="surp-msg" id="sMsg"></div>
+    <div class="scard" id="sc">
+      <div class="semoji" id="se"></div>
+      <div class="smsg" id="sm"></div>
     </div>
-    <button class="btn-glow" id="sNext">التالية 🤍</button>
+    <button class="btn" id="sn">التالية 🤍</button>
   </div>
 </div>
 
 <!-- S5 DRAW -->
 <div class="screen" id="s5">
-  <div class="screen-body center">
-    <div class="ch-hdr"><div class="ch-line"></div><span class="chip">ارسمي 🎨</span><div class="ch-line"></div></div>
-    <p class="draw-lbl">لما خشيتي حياتي عبيتيها ورد وقلوب واطمئنان…<br>ارسمي وشوفي بنفسك 🤓</p>
-    <div class="canvas-shell">
+  <div class="sb center">
+    <div class="hdr"><div class="hl"></div><span class="chip">ارسمي 🎨</span><div class="hl"></div></div>
+    <p class="dlbl">لما خشيتي حياتي عبيتيها ورد وقلوب واطمئنان…<br>ارسمي وشوفي بنفسك 🤓</p>
+    <div class="cshell">
       <canvas id="dc"></canvas>
-      <div class="canvas-overlay" id="cHint">✍️ ابدأي الرسم</div>
+      <div class="covr" id="ch">✍️ ابدأي الرسم</div>
     </div>
-    <div class="draw-tools">
-      <button class="tool-btn" id="tClear">🗑️</button>
-      <button class="tool-btn" id="tColor">🎨</button>
-      <button class="tool-btn" id="tSize">✏️</button>
-      <button class="tool-btn" id="tEraser">⬜</button>
+    <div class="dtools">
+      <button class="tb" id="tCl">🗑️</button>
+      <button class="tb" id="tCo">🎨</button>
+      <button class="tb" id="tSz">✏️</button>
+      <button class="tb" id="tEr">⬜</button>
     </div>
-    <div class="color-palette" id="palette"></div>
-    <button class="btn-glow" onclick="goTo(6)">كملي 🤍</button>
+    <div class="pal" id="pal"></div>
+    <button class="btn" onclick="goTo(6)">كملي 🤍</button>
   </div>
 </div>
 
 <!-- S6 GIFT -->
 <div class="screen" id="s6">
-  <div class="screen-body center">
-    <div class="ch-hdr"><div class="ch-line"></div><span class="chip">هديتك 🎁</span><div class="ch-line"></div></div>
-    <div class="gift-stage" id="gStage">
-      <div class="gift-3d" id="g3d">
-        <div class="g-lid"><div class="g-bow"><div class="bl"></div><div class="br"></div></div></div>
-        <div class="g-box"><div class="g-rv"></div><div class="g-rh"></div><div class="g-sh"></div><div class="g-sh2"></div></div>
-        <div class="g-shad"></div>
+  <div class="sb center">
+    <div class="hdr"><div class="hl"></div><span class="chip">هديتك 🎁</span><div class="hl"></div></div>
+    <div class="gstage" id="gs">
+      <div class="g3d" id="g3">
+        <div class="glid"><div class="gbow"><div class="gb1"></div><div class="gb2"></div></div></div>
+        <div class="gbox"><div class="grv"></div><div class="grh"></div><div class="gsh"></div></div>
+        <div class="gshad"></div>
       </div>
-      <p class="g-hint" id="gHint">اضغطي لتفتحي 🎁</p>
+      <p class="ghint" id="gh">اضغطي لتفتحي 🎁</p>
     </div>
-    <div class="bday-card hidden" id="bCard">
-      <div class="yt-wrap">
-        <iframe id="ytF" src="https://www.youtube.com/embed/1t9sfYqZ2iY?autoplay=1&mute=1&loop=1&playlist=1t9sfYqZ2iY" frameborder="0" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>
-        <button class="snd-btn" id="sndBtn">🔊 تشغيل الصوت</button>
+    <div class="bcard hidden" id="bc">
+      <div class="yw">
+        <iframe id="ytf" src="https://www.youtube.com/embed/1t9sfYqZ2iY?autoplay=1&mute=1&loop=1&playlist=1t9sfYqZ2iY" frameborder="0" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>
+        <button class="sbtn" id="sb">🔊 تشغيل الصوت</button>
       </div>
-      <div class="card-txt">
+      <div class="ctxt">
         <p>لمحبوبتي ومهندستي 🤍</p>
         <p>حبيبتي وسندي في دنيتي</p>
         <p>وملاذي الامن</p>
-        <p class="card-glow">كل عام وانتي اجمل شي في حياتي 🤍</p>
+        <p class="cg">كل عام وانتي اجمل شي في حياتي 🤍</p>
       </div>
-      <button class="btn-glow" onclick="goTo(7)">كملي 🤍</button>
+      <button class="btn" onclick="goTo(7)">كملي 🤍</button>
     </div>
   </div>
 </div>
 
 <!-- S7 FINAL -->
 <div class="screen" id="s7">
-  <div class="final-aurora"></div>
-  <div class="screen-body center">
-    <div class="final-stars" id="fStars"></div>
-    <svg viewBox="0 0 80 160" width="110" xmlns="http://www.w3.org/2000/svg" class="final-char">
+  <div class="faur"></div>
+  <div class="sb center">
+    <div class="fstars" id="fs"></div>
+    <svg viewBox="0 0 80 160" width="108" xmlns="http://www.w3.org/2000/svg" class="fc ff">
       <ellipse cx="40" cy="26" rx="22" ry="24" fill="#3d1a00"/>
       <ellipse cx="40" cy="30" rx="18" ry="20" fill="#f5cba7"/>
       <ellipse cx="33" cy="28" rx="2.5" ry="3" fill="#1a0d00"/>
@@ -231,13 +233,13 @@
       <rect x="28" y="128" width="10" height="28" rx="5" fill="#f5cba7"/>
       <rect x="42" y="128" width="10" height="28" rx="5" fill="#f5cba7"/>
     </svg>
-    <p class="final-txt">كل لمسة منك تصنع شي جميل 🤍</p>
-    <div class="pulse-ring" id="pRing">
-      <div class="pr pr1"></div><div class="pr pr2"></div><div class="pr pr3"></div>
+    <p class="ftxt">كل لمسة منك تصنع شي جميل 🤍</p>
+    <div class="pring" id="pr">
+      <div class="pr1"></div><div class="pr2"></div><div class="pr3"></div>
       <span>اضغطي ♥</span>
     </div>
-    <p class="final-sub">عيد ميلادك الـ 21 مبارك 🎂🤍</p>
-    <div class="love-quote">"أنتِ القمر اللي يضوي دنيتي"</div>
+    <p class="fsub">عيد ميلادك الـ 21 مبارك 🎂🤍</p>
+    <div class="fq">"أنتِ القمر اللي يضوي دنيتي"</div>
   </div>
 </div>
 
