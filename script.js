@@ -373,15 +373,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ── SWIPE ── */
-  var swY = 0, swX = 0;
-  document.addEventListener('touchstart', function (e) { swY = e.touches[0].clientY; swX = e.touches[0].clientX; }, { passive: true });
-  document.addEventListener('touchend', function (e) {
-    var dy = swY - e.changedTouches[0].clientY, dx = Math.abs(swX - e.changedTouches[0].clientX);
-    if (Math.abs(dy) > 70 && dx < 50) {
-      var btn = screens[cur].querySelector('.btn-glow:not(.hidden)');
-      if (btn && dy > 0) btn.click();
+
     }
-  }, { passive: true });
+  
 
 });
